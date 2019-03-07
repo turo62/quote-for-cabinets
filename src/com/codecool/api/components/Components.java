@@ -1,18 +1,18 @@
-package com.codecool.components;
+package com.codecool.api.components;
 
-import com.codecool.enums.Application;
+import com.codecool.api.enums.AreaToUse;
 
 public abstract class Components implements java.io.Serializable {
     private String name;
     private String producer;
     private int value;
-    private Application qualified;
+    private AreaToUse qualified;
     
-    public Components(String name, String producer, int value, Application qualified) {
+    public Components(String name, String producer, int value, AreaToUse qualified) {
         this.name = name;
         this.producer = producer;
         this.value = value;
-        this.qualified =qualified;
+        this.qualified = qualified;
     }
     
     public String getName() {
@@ -27,12 +27,12 @@ public abstract class Components implements java.io.Serializable {
         return value;
     }
     
-    public Application getQualified() {
+    public AreaToUse getQualified() {
         return qualified;
     }
     
     @Override
-    public String toString(){
+    public String toString() {
         return this.getName() + " " + this.getProducer() + " " + this.getQualified() + " " + "($ " + this.getValue() + ")";
     }
 }

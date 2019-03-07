@@ -1,4 +1,4 @@
-package com.codecool.enums;
+package com.codecool.api.enums;
 
 public enum Stuff {
     W("wood"),

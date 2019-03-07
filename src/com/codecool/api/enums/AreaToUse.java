@@ -1,6 +1,6 @@
-package com.codecool.enums;
+package com.codecool.api.enums;
 
-public enum Application {
+public enum AreaToUse {
     TRAFICH(6),
     TRAFICM(5),
     HOMEH(4),
@@ -8,7 +8,7 @@ public enum Application {
     
     private final int qualified;
     
-    Application(int qualified) {
+    AreaToUse(int qualified) {
         this.qualified = qualified;
     }
     
