@@ -9,10 +9,6 @@ public class PocketHoleScrew extends Screw {
     
     PocketHoleScrew(String name, String producer, int value, AreaToUse qualified, Stuff madeBy, int length, int diameter) {
         super(name, producer, value, qualified, madeBy, length, diameter);
-        this.head = head;
-    }
-    
-    public Head getHead() {
-        return head;
+        this.head = Head.WASHERHEAD;
     }
 }
