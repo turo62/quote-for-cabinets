@@ -1,6 +1,16 @@
 package com.codecool.api.enums;
 
 public enum Style {
-    MODERN,
-    CLASSICAL;
+    MODERN("MO"),
+    CLASSICAL("CL");
+    
+    private final String style;
+    
+    Style(String style) {
+        this.style = style;
+    }
+    
+    public String getStyle() {
+        return style;
+    }
 }

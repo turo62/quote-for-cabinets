@@ -20,4 +20,14 @@ public class Dowel extends Hardware {
     public int getDiameter() {
         return diameter;
     }
+    
+    @Override
+    public String details() {
+        return "Name: " + this.getName() + "\n" +
+                "Producer: " + this.getProducer() + "\n" +
+                "Price ($): " + this.getValue() + "\n" +
+                "Level of utilization: " + this.getQualified() + "\n" +
+                "Species of wood made by: " + this.getMadeBy() + "\n" +
+                "Sizes: " + this.getLength() + "mm (length) " + this.getDiameter() + "mm (diameter)" + "\n";
+    }
 }

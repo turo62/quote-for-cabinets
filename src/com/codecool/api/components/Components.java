@@ -31,6 +31,8 @@ public abstract class Components implements java.io.Serializable {
         return qualified;
     }
     
+    public abstract String details();
+    
     @Override
     public String toString() {
         return this.getName() + " " + this.getProducer() + " " + this.getQualified() + " " + "($ " + this.getValue() + ")";
