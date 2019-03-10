@@ -7,7 +7,7 @@ public class Dowel extends Hardware {
     private int length;
     private int diameter;
     
-    Dowel(String name, String producer, int value, AreaToUse qualified, Stuff madeBy) {
+    Dowel(String name, String producer, double value, AreaToUse qualified, Stuff madeBy, int length, int diameter) {
         super(name, producer, value, qualified, madeBy);
         this.length = length;
         this.diameter = diameter;
@@ -25,7 +25,7 @@ public class Dowel extends Hardware {
     public String details() {
         return "Name: " + this.getName() + "\n" +
                 "Producer: " + this.getProducer() + "\n" +
-                "Price ($): " + this.getValue() + "\n" +
+                "Price ($ per 100 pcs): " + this.getValue() + "\n" +
                 "Level of utilization: " + this.getQualified() + "\n" +
                 "Species of wood made by: " + this.getMadeBy() + "\n" +
                 "Sizes: " + this.getLength() + "mm (length) " + this.getDiameter() + "mm (diameter)" + "\n";

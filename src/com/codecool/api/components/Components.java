@@ -5,10 +5,10 @@ import com.codecool.api.enums.AreaToUse;
 public abstract class Components implements java.io.Serializable {
     private String name;
     private String producer;
-    private int value;
+    private double value;
     private AreaToUse qualified;
     
-    public Components(String name, String producer, int value, AreaToUse qualified) {
+    public Components(String name, String producer, double value, AreaToUse qualified) {
         this.name = name;
         this.producer = producer;
         this.value = value;
@@ -23,7 +23,7 @@ public abstract class Components implements java.io.Serializable {
         return producer;
     }
     
-    public int getValue() {
+    public double getValue() {
         return value;
     }
     

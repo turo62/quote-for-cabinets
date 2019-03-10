@@ -7,7 +7,7 @@ import com.codecool.api.enums.Stuff;
 public class WoodScrew extends Screw {
     private Head head;
     
-    WoodScrew(String name, String producer, int value, AreaToUse qualified, Stuff madeBy, int length, int diameter) {
+    WoodScrew(String name, String producer, double value, AreaToUse qualified, Stuff madeBy, int length, int diameter) {
         super(name, producer, value, qualified, madeBy, length, diameter);
         this.head = Head.COUNTERSUNK;
     }

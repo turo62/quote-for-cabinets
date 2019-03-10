@@ -12,7 +12,7 @@ public class Hinge extends Hardware {
     private int width;
     private int thickness;
     
-    Hinge(String name, String producer, int value, AreaToUse qualified, Stuff madeBy, Style style, Finish color, AngleToOpen angle, IsRecess mount, int length, int width, int thickness) {
+    Hinge(String name, String producer, double value, AreaToUse qualified, Stuff madeBy, Style style, Finish color, AngleToOpen angle, IsRecess mount, int length, int width, int thickness) {
         super(name, producer, value, qualified, madeBy);
         this.style = style;
         this.color = color;

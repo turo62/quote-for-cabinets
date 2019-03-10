@@ -7,7 +7,7 @@ import com.codecool.api.enums.Stuff;
 public class PocketHoleScrew extends Screw {
     private Head head;
     
-    PocketHoleScrew(String name, String producer, int value, AreaToUse qualified, Stuff madeBy, int length, int diameter) {
+    PocketHoleScrew(String name, String producer, double value, AreaToUse qualified, Stuff madeBy, int length, int diameter) {
         super(name, producer, value, qualified, madeBy, length, diameter);
         this.head = Head.WASHERHEAD;
     }
@@ -20,7 +20,7 @@ public class PocketHoleScrew extends Screw {
     public String details() {
         return "Name: " + this.getName() + "\n" +
                 "Producer: " + this.getProducer() + "\n" +
-                "Price ($): " + this.getValue() + "\n" +
+                "Price ($ per 100pcs): " + this.getValue() + "\n" +
                 "Level of utilization: " + this.getQualified() + "\n" +
                 "Made by: " + this.getMadeBy() + "\n" + " / Head type: " + this.getHead() + "\n" +
                 "Sizes: " + this.getLength() + "mm (length) " + this.getDiameter() + "mm (diameter)" + "\n";

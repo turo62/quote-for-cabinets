@@ -3,7 +3,7 @@ package com.codecool.api.enums;
 public enum AngleToOpen {
     HIGH(270),
     MEDIUM(180),
-    LOW(95);
+    LOW(120);
     
     private final int angle;
     

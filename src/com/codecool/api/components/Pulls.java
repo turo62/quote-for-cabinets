@@ -9,7 +9,7 @@ public class Pulls extends KnobsAndPulls {
     private int length;
     private int height;
     
-    Pulls(String name, String producer, int value, AreaToUse qualified, Stuff madeBy, Style style, Finish color, int length, int height) {
+    Pulls(String name, String producer, double value, AreaToUse qualified, Stuff madeBy, Style style, Finish color, int length, int height) {
         super(name, producer, value, qualified, madeBy, style, color);
         this.length = length;
         this.height = height;

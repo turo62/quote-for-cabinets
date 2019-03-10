@@ -7,7 +7,7 @@ public abstract class Screw extends Hardware {
     private int length;
     private int diameter;
     
-    public Screw(String name, String producer, int value, AreaToUse qualified, Stuff madeBy, int length, int diameter) {
+    public Screw(String name, String producer, double value, AreaToUse qualified, Stuff madeBy, int length, int diameter) {
         super(name, producer, value, qualified, madeBy);
         this.length = length;
         this.diameter = diameter;

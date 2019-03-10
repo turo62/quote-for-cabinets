@@ -14,7 +14,7 @@ public class Glue extends Components {
     private int appliedVolume;
     private boolean waterResistance;
     
-    public Glue(String name, String producer, int value, AreaToUse qualified, int settingTime, int appliedVolume, boolean waterResistance) {
+    public Glue(String name, String producer, double value, AreaToUse qualified, int settingTime, int appliedVolume, boolean waterResistance) {
         super(name, producer, value, qualified);
         this.settingTime = settingTime;
         this.appliedVolume = appliedVolume;

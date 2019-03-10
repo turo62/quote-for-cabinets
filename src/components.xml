@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Components>
+    <Lumbers>
+        <Lumber name="pineLong" producer="Nati" load="M" value="17.3" qualified="4" length="3200" width="350"
+                thickness="22" species="pine"/>
+        <Lumber name="pineShort" producer="Nati" load="M" value="8.5" qualified="4" length="2200" width="250"
+                thickness="22" species="pine"/>
+        <Lumber name="pinePlank" producer="Nati" load="M" value="39.3" qualified="4" length="3200" width="350"
+                thickness="50" species="pine"/>
+        <Lumber name="oakLong" producer="Nati" load="H" value="34.4" qualified="6" length="3200" width="350"
+                thickness="25" species="oak"/>
+        <Lumber name="oakShort" producer="Nati" load="H" value="14.9" qualified="6" length="2200" width="250"
+                thickness="25" species="oak"/>
+        <Lumber name="oakPlank" producer="Nati" load="H" value="68.8" qualified="6" length="3200" width="350"
+                thickness="50" species="oak"/>
+    </Lumbers>
+    <ChipBoards>
+        <Chipboard name="cpCherry" producer="Nati" load="L" value="56.4" qualified="4" length="2800" width="2050"
+                   thickness="18"/>
+        <Chipboard name="cpOak" producer="Nati" load="L" value="56.4" qualified="4" length="2800" width="2050"
+                   thickness="18"/>
+        <Chipboard name="cpPine" producer="Nati" load="L" value="56.4" qualified="4" length="2800" width="2050"
+                   thickness="18"/>
+    </Chipboards>
+    <MDFs>
+        <MDF name="mdfPine" producer="Nati" load="L" value="28.5" qualified="4" length="2800" width="2070"
+             thickness="6"/>
+        <MDF name="mdfOak" producer="Nati" load="L" value="28.5" qualified="4" length="2800" width="2070"
+             thickness="6"/>
+        <MDF name="mdfCherry" producer="Nati" load="L" value="28.5" qualified="4" length="2800" width="2070"
+             thickness="6"/>
+        <MDF name="mdfMDF" producer="Nati" load="L" value="53" qualified="4" length="2800" width="2070" thickness="18"/>
+    </MDFs>
+    <PlyWoods>
+        <PlyWood name="birchBB" producer="Nati" load="M" value="75.8" qualified="4" length="2500" width="1250"
+                 thickness="18"/>
+        <PlyWood name="birchCC" producer="Nati" load="M" value="39" qualified="4" length="2500" width="1250"
+                 thickness="18"/>
+        <PlyWood name="birchBB" producer="Nati" load="M" value="55.3" qualified="4" length="2500" width="1250"
+                 thickness="12"/>
+        <PlyWood name="birchBB" producer="Nati" load="M" value="39.5" qualified="4" length="2500" width="1250"
+                 thickness="6"/>
+    </PlyWoods>
+    <Glues>
+        <Glue name="PVA" producer="Henkel" value="8.8" qualified="6" settingTime="120" appliedVolume="220"
+              waterResistance="true"/>
+        <Glue name="PVA" producer="Henkel" value="8" qualified="4" settingTime="1440" appliedVolume="250"
+              waterResistance="false"/>
+    </Glues>
+    <Dowels>
+        <Dowel name="DowelB" producer="Nati" value="6" qualified="5" madeBy="beech" length="37" diameter="6"/>
+    </Dowels>
+    <PocketHoleScrews>
+        <PocketHoleScrew name="ScrewF" producer="Kreg" value="4" qualified="5" madeBy="steel" length="31" diameter="3"/>
+        <PocketHoleScrew name="ScrewC" producer="Kreg" value="4" qualified="5" madeBy="steel" length="31" diameter="3"/>
+    </PocketHoleScrews>
+    <WoodScrews>
+        <WoodScrew name="WoodS" producer="Kreg" value="4" qualified="5" madeBy="steel" length="30" diameter="3"/>
+        <WoodScrew name="WoodD" producer="Kreg" value="6" qualified="5" madeBy="steel" length="15" diameter="4"/>
+    </WoodScrews>
+    <Slides>
+        <Slide name="slide10FO" producer="Blum" load="H" value="10.5" qualified="6" madeBy="S" length="254" width="45"
+               thickness="12"/>
+        <Slide name="slide12FO" producer="Blum" load="H" value="10.5" qualified="6" madeBy="S" length="300" width="45"
+               thickness="12"/>
+        <Slide name="slide16FO" producer="Blum" load="H" value="11.9" qualified="6" madeBy="S" length="406" width="45"
+               thickness="12"/>
+        <Slide name="slide22FO" producer="Blum" load="H" value="13.3" qualified="6" madeBy="S" length="550" width="45"
+               thickness="12"/>
+        <Slide name="slide12SC" producer="Blum" load="H" value="30.6" qualified="6" madeBy="S" length="300" width="45"
+               thickness="12"/>
+        <Slide name="slide15SC" producer="Blum" load="H" value="30.6" qualified="6" madeBy="S" length="375" width="45"
+               thickness="12"/>
+        <Slide name="slide21SC" producer="Blum" load="H" value="34" qualified="6" madeBy="S" length="526" width="45"
+               thickness="12"/>
+    </Slides>
+    <Hinges>
+        <Hinge name="EuroISFL" producer="Blum" value="17" qualified="5" madeBy="S" style="MO" color="CHROM" angle="120"
+               mount="MM" length="70" width="35" thickness="13"/>
+        <Hinge name="EuroHOFL" producer="Blum" value="20" qualified="5" madeBy="S" style="MO" color="CHROM" angle="180"
+               mount="MM" length="70" width="35" thickness="13"/>
+        <Hinge name="EuroISFF" producer="Blum" value="16" qualified="5" madeBy="S" style="MO" color="CHROM" angle="120"
+               mount="MM" length="70" width="35" thickness="13"/>
+        <Hinge name="EuroHOFL" producer="Blum" value="22" qualified="5" madeBy="S" style="MO" color="CHROM" angle="180"
+               mount="MM" length="70" width="35" thickness="13"/>
+        <Hinge name="ForgedCabHISFF" producer="Blum" value="15" qualified="4" madeBy="S" style="CL" color="BRASS"
+               angle="120" mount="SM" length="70" width="36" thickness="4"/>
+        <Hinge name="StatuaryBRIS" producer="Blum" value="20" qualified="5" madeBy="S" style="CL" color="BRASS"
+               angle="180" mount="SM" length="63" width="22" thickness="4"/>
+    </Hinges>
+    <Pulls>
+        <Pull name="PBHandle" producer="Veritas" value="5.3" qualified="5" madeBy="B" style="CL" color="BRASS"
+              length="100" height="19"/>
+        <Pull name="DNHandle" producer="Veritas" value="3" qualified="5" madeBy="B" style="MO" color="CHROM"
+              length="146" height="25"/>
+    </Pulls>
+    <Knobs>
+        <Knob name="ORBRoped" producer="Veritas" value="7.3" qualified="5" madeBy="B" style="CL" color="BRASS"
+              diameter="36" height="35"/>
+        <Knob name="PNKnob" producer="Veritas" value="8.3" qualified="5" madeBy="s" style="MO" color="CHROM"
+              diameter="35" height="30"/>
+        <Knob name="OBPlainKnob" producer="Veritas" value="2.3" qualified="5" madeBy="B" style="CL" color="BRASS"
+              diameter="30" height="22"/>
+        <Knob name="HollyKnob" producer="Veritas" value="7.4" qualified="5" madeBy="W" style="CL" color="WOOD"
+              diameter="37" height="25"/>
+    </Knobs>
+</Components>
+

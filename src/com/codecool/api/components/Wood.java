@@ -9,7 +9,7 @@ public abstract class Wood extends Components {
     private int thickness;
     private Load load;
     
-    public Wood(String name, String producer, Load load, int value, AreaToUse qualified, int length, int width, int thickness) {
+    public Wood(String name, String producer, Load load, double value, AreaToUse qualified, int length, int width, int thickness) {
         super(name, producer, value, qualified);
         this.load = load;
         this.length = length;

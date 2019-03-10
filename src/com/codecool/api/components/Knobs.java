@@ -10,7 +10,7 @@ public class Knobs extends KnobsAndPulls {
     private int diameter;
     private int height;
     
-    Knobs(String name, String producer, int value, AreaToUse qualified, Stuff madeBy, Style style, Finish color, int diameter, int height) {
+    Knobs(String name, String producer, double value, AreaToUse qualified, Stuff madeBy, Style style, Finish color, int diameter, int height) {
         super(name, producer, value, qualified, madeBy, style, color);
         this.diameter = diameter;
         this.height = height;

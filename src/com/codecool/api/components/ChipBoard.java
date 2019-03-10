@@ -4,7 +4,7 @@ import com.codecool.api.enums.AreaToUse;
 import com.codecool.api.enums.Load;
 
 public class ChipBoard extends MenMadeSheet {
-    ChipBoard(String name, String producer, Load LOW, int value, AreaToUse HOMEH, int length, int width, int thickness) {
+    ChipBoard(String name, String producer, Load LOW, double value, AreaToUse HOMEH, int length, int width, int thickness) {
         super(name, producer, LOW, value, HOMEH, length, width, thickness);
     }
     
