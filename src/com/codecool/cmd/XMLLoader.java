@@ -1,4 +1,4 @@
-package com.codecool.operations;
+package com.codecool.cmd;
 
 import com.codecool.components.*;
 import com.codecool.enums.*;
@@ -10,18 +10,24 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XMLLoader {
+class XMLLoader {
     private Element components;
+    private Document d;
     
-    public XMLLoader() {
+    XMLLoader() {
         try {
-            DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            Document document = docBuilder.parse(getClass().getResource("/components.xml").toExternalForm());
-            components = (Element) document.getElementsByTagName("Components").item(0);
+            InputStream is = new FileInputStream("components.xml");
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            this.d = db.parse(is);
+            this.d.getDocumentElement().normalize();
+            components = (Element) d.getElementsByTagName("Components").item(0);
         } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
             System.exit(1);

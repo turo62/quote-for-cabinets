@@ -2,37 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="15fed9b8-ced0-4b71-9941-252d9c0c7704" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/codecool/cmd/Cabinet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/codecool/cmd/CmdMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/codecool/operations/Inventory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/codecool/operations/XMLLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/api/components/ChipBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/components/ChipBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/api/components/Components.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/components/Components.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/api/components/Dowel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/components/Dowel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/api/components/Glue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/components/Glue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/api/components/Hardware.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/components/Hardware.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/api/components/Hinge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/components/Hinge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/api/components/Knobs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/components/Knobs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/api/components/KnobsAndPulls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/components/KnobsAndPulls.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/api/components/Lumber.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/components/Lumber.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/api/components/MDF.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/components/MDF.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/api/components/MenMadeSheet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/components/MenMadeSheet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/api/components/PlyWood.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/components/PlyWood.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/api/components/PocketHoleScrew.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/components/PocketHoleScrew.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/api/components/Pulls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/components/Pulls.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/api/components/Screw.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/components/Screw.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/api/components/Slides.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/components/Slides.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/api/components/Wood.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/components/Wood.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/api/components/WoodScrew.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/components/WoodScrew.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/api/enums/AngleToOpen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/enums/AngleToOpen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/api/enums/AreaToUse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/enums/AreaToUse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/api/enums/Finish.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/enums/Finish.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/api/enums/Head.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/enums/Head.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/api/enums/IsRecess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/enums/IsRecess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/api/enums/Load.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/enums/Load.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/api/enums/Stuff.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/enums/Stuff.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/api/enums/Style.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/enums/Style.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/cmd/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/cmd/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/quote-for-cabinets/com/codecool/cmd/Store.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/codecool/cmd/Store.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/quote-for-cabinets/com/codecool/cmd/CmdMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/quote-for-cabinets/com/codecool/cmd/CmdMenu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/quote-for-cabinets/com/codecool/cmd/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/quote-for-cabinets/com/codecool/cmd/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/quote-for-cabinets/com/codecool/operations/Inventory.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/quote-for-cabinets/com/codecool/operations/Inventory.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/quote-for-cabinets/com/codecool/operations/XMLLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/quote-for-cabinets/com/codecool/cmd/XMLLoader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quote-for-cabinets.iws" beforeDir="false" afterPath="$PROJECT_DIR$/quote-for-cabinets.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/codecool/operations/XMLLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/cmd/XMLLoader.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -46,23 +23,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/codecool/operations/XMLLoader.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="372">
-              <caret line="22" column="74" lean-forward="true" selection-start-line="22" selection-start-column="74" selection-end-line="22" selection-end-column="74" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/codecool/operations/Inventory.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1646">
-              <caret line="195" column="4" selection-start-line="195" selection-start-column="4" selection-end-line="195" selection-end-column="4" />
+              <caret line="194" column="4" selection-start-line="194" selection-start-column="4" selection-end-line="194" selection-end-column="4" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#getComponentByName#0;class#Inventory#0" />
@@ -71,11 +36,23 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/codecool/cmd/XMLLoader.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="217">
+              <caret line="16" column="22" lean-forward="true" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/codecool/cmd/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="7" column="29" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="29" />
+            <state relative-caret-position="155">
+              <caret line="5" column="30" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
               <folding>
                 <element signature="e#135#136#0" expanded="true" />
                 <element signature="e#171#172#0" expanded="true" />
@@ -87,8 +64,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/codecool/components/Components.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="124">
+            <state relative-caret-position="-197">
               <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/codecool/cmd/Store.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="651">
+              <caret line="21" column="37" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -130,7 +116,7 @@
         <entry file="file://$PROJECT_DIR$/src/com/codecool/cmd/CmdMenu.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="3289">
-              <caret line="127" column="27" selection-start-line="127" selection-start-column="27" selection-end-line="127" selection-end-column="27" />
+              <caret line="125" column="27" selection-start-line="125" selection-start-column="27" selection-end-line="125" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -169,8 +155,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/com/codecool/components/components.java" />
-        <option value="$PROJECT_DIR$/src/com/codecool/enums/Application.java" />
         <option value="$PROJECT_DIR$/src/com/codecool/enums/Stuff.java" />
         <option value="$PROJECT_DIR$/src/com/codecool/enums/AngleToOpen.java" />
         <option value="$PROJECT_DIR$/src/com/codecool/components/Hardware.java" />
@@ -220,6 +204,8 @@
         <option value="$PROJECT_DIR$/src/com/codecool/cmd/Cabinet.java" />
         <option value="$PROJECT_DIR$/src/com/codecool/cmd/CmdMenu.java" />
         <option value="$PROJECT_DIR$/src/com/codecool/operations/XMLLoader.java" />
+        <option value="$PROJECT_DIR$/src/com/codecool/cmd/Store.java" />
+        <option value="$PROJECT_DIR$/src/com/codecool/cmd/XMLLoader.java" />
       </list>
     </option>
   </component>
@@ -290,6 +276,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.codecool.cmd" />
       <recent name="com.codecool" />
     </key>
   </component>
@@ -348,14 +335,29 @@
       <option name="project" value="LOCAL" />
       <updated>1552245457605</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Implementations to be completed.">
+      <created>1554887758167</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1554887758167</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.23796348" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23796348" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -369,11 +371,11 @@
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32972974" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.4997233" weight="0.32972974" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32972974" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5002767" side_tool="true" weight="0.32972974" />
-      <window_info anchor="bottom" id="TMC Test Results" order="10" />
+      <window_info anchor="bottom" id="TMC Test Results" order="10" weight="0.32972974" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.32972974" />
       <window_info anchor="bottom" id="Dependency Viewer" order="12" weight="0.32972974" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -418,13 +420,40 @@
       <window_info anchor="right" id="Palette&#9;" order="8" />
     </layout-to-restore>
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit for building repository." />
     <MESSAGE value="Structure amended according to expectations." />
     <MESSAGE value="Components are completed." />
     <MESSAGE value="Components are completed by now probably. :)" />
     <MESSAGE value="Some components amendments and XML file text." />
-    <option name="LAST_COMMIT_MESSAGE" value="Some components amendments and XML file text." />
+    <MESSAGE value="Implementations to be completed." />
+    <option name="LAST_COMMIT_MESSAGE" value="Implementations to be completed." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -682,19 +711,12 @@
     <entry file="file://$PROJECT_DIR$/src/com/codecool/parts/Shelf.java" />
     <entry file="file://$PROJECT_DIR$/src/com/codecool/cmd/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="7" column="29" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="29" />
+        <state relative-caret-position="155">
+          <caret line="5" column="30" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
           <folding>
             <element signature="e#135#136#0" expanded="true" />
             <element signature="e#171#172#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/codecool/components/Components.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -731,7 +753,7 @@
     <entry file="file://$PROJECT_DIR$/src/com/codecool/cmd/CmdMenu.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3289">
-          <caret line="127" column="27" selection-start-line="127" selection-start-column="27" selection-end-line="127" selection-end-column="27" />
+          <caret line="125" column="27" selection-start-line="125" selection-start-column="27" selection-end-line="125" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -745,10 +767,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/codecool/components/Components.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-197">
+          <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/codecool/operations/Inventory.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1646">
-          <caret line="195" column="4" selection-start-line="195" selection-start-column="4" selection-end-line="195" selection-end-column="4" />
+          <caret line="194" column="4" selection-start-line="194" selection-start-column="4" selection-end-line="194" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#getComponentByName#0;class#Inventory#0" />
@@ -756,10 +785,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/codecool/operations/XMLLoader.java">
+    <entry file="file://$PROJECT_DIR$/src/com/codecool/cmd/Store.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="372">
-          <caret line="22" column="74" lean-forward="true" selection-start-line="22" selection-start-column="74" selection-end-line="22" selection-end-column="74" />
+        <state relative-caret-position="651">
+          <caret line="21" column="37" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/codecool/cmd/XMLLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="16" column="22" lean-forward="true" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
