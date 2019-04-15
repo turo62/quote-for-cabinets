@@ -22,7 +22,7 @@
                    thickness="18"/>
         <Chipboard name="cpPine" producer="Nati" load="L" value="56.4" qualified="4" length="2800" width="2050"
                    thickness="18"/>
-    </Chipboards>
+    </ChipBoards>
     <MDFs>
         <MDF name="mdfPine" producer="Nati" load="L" value="28.5" qualified="4" length="2800" width="2070"
              thickness="6"/>
@@ -43,37 +43,37 @@
                  thickness="6"/>
     </PlyWoods>
     <Glues>
-        <Glue name="PVA" producer="Henkel" value="8.8" qualified="6" settingTime="120" appliedVolume="220"
+        <Glue name="PVA high" producer="Henkel" value="8.8" qualified="6" settingTime="120" appliedVolume="220"
               waterResistance="true"/>
-        <Glue name="PVA" producer="Henkel" value="8" qualified="4" settingTime="1440" appliedVolume="250"
+        <Glue name="PVA low" producer="Henkel" value="8" qualified="4" settingTime="1440" appliedVolume="250"
               waterResistance="false"/>
     </Glues>
     <Dowels>
-        <Dowel name="DowelB" producer="Nati" value="6" qualified="5" madeBy="beech" length="37" diameter="6"/>
+        <Dowel name="DowelB" producer="Nati" value="6" qualified="5" madeBy="O" length="37" diameter="6"/>
     </Dowels>
     <PocketHoleScrews>
-        <PocketHoleScrew name="ScrewF" producer="Kreg" value="4" qualified="5" madeBy="steel" length="31" diameter="3"/>
-        <PocketHoleScrew name="ScrewC" producer="Kreg" value="4" qualified="5" madeBy="steel" length="31" diameter="3"/>
+        <PocketHoleScrew name="ScrewF" producer="Kreg" value="4" qualified="5" madeBy="S" length="31" diameter="3"/>
+        <PocketHoleScrew name="ScrewC" producer="Kreg" value="4" qualified="5" madeBy="S" length="31" diameter="3"/>
     </PocketHoleScrews>
     <WoodScrews>
-        <WoodScrew name="WoodS" producer="Kreg" value="4" qualified="5" madeBy="steel" length="30" diameter="3"/>
-        <WoodScrew name="WoodD" producer="Kreg" value="6" qualified="5" madeBy="steel" length="15" diameter="4"/>
+        <WoodScrew name="WoodS" producer="Kreg" value="4" qualified="5" madeBy="S" length="30" diameter="3"/>
+        <WoodScrew name="WoodD" producer="Kreg" value="6" qualified="5" madeBy="S" length="15" diameter="4"/>
     </WoodScrews>
     <Slides>
         <Slide name="slide10FO" producer="Blum" load="H" value="10.5" qualified="6" madeBy="S" length="254" width="45"
-               thickness="12"/>
+               depth="12"/>
         <Slide name="slide12FO" producer="Blum" load="H" value="10.5" qualified="6" madeBy="S" length="300" width="45"
-               thickness="12"/>
+               depth="12"/>
         <Slide name="slide16FO" producer="Blum" load="H" value="11.9" qualified="6" madeBy="S" length="406" width="45"
-               thickness="12"/>
+               depth="12"/>
         <Slide name="slide22FO" producer="Blum" load="H" value="13.3" qualified="6" madeBy="S" length="550" width="45"
-               thickness="12"/>
+               depth="12"/>
         <Slide name="slide12SC" producer="Blum" load="H" value="30.6" qualified="6" madeBy="S" length="300" width="45"
-               thickness="12"/>
+               depth="12"/>
         <Slide name="slide15SC" producer="Blum" load="H" value="30.6" qualified="6" madeBy="S" length="375" width="45"
-               thickness="12"/>
+               depth="12"/>
         <Slide name="slide21SC" producer="Blum" load="H" value="34" qualified="6" madeBy="S" length="526" width="45"
-               thickness="12"/>
+               depth="12"/>
     </Slides>
     <Hinges>
         <Hinge name="EuroISFL" producer="Blum" value="17" qualified="5" madeBy="S" style="MO" color="CHROM" angle="120"
@@ -98,7 +98,7 @@
     <Knobs>
         <Knob name="ORBRoped" producer="Veritas" value="7.3" qualified="5" madeBy="B" style="CL" color="BRASS"
               diameter="36" height="35"/>
-        <Knob name="PNKnob" producer="Veritas" value="8.3" qualified="5" madeBy="s" style="MO" color="CHROM"
+        <Knob name="PNKnob" producer="Veritas" value="8.3" qualified="5" madeBy="S" style="MO" color="CHROM"
               diameter="35" height="30"/>
         <Knob name="OBPlainKnob" producer="Veritas" value="2.3" qualified="5" madeBy="B" style="CL" color="BRASS"
               diameter="30" height="22"/>

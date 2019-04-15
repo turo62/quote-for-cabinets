@@ -1,7 +1,5 @@
 package com.codecool.cmd;
 
-import com.codecool.operations.Inventory;
-
 public class Store extends Inventory {
     
     private static XMLLoader xmlLoader = new XMLLoader();

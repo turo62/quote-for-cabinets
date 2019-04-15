@@ -1,8 +1,8 @@
 package com.codecool.enums;
 
 public enum IsRecess {
-    SURFACEMOUNT("SM"),
-    MORTICEMOUNT("MM");
+    SM("surface mounted"),
+    MM("mortice mounted");
     
     private String mount;
     

@@ -2,6 +2,8 @@ package com.codecool.components;
 
 import com.codecool.enums.*;
 
+//HO half overlay; IS in-set; FF face-framed, FL frameless
+
 public class Hinge extends Hardware {
     
     private AngleToOpen angle;

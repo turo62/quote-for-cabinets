@@ -1,5 +1,7 @@
 package com.codecool.enums;
 
+import java.util.Arrays;
+
 public enum AreaToUse {
     TRAFICH(6),
     TRAFICM(5),
@@ -14,5 +16,12 @@ public enum AreaToUse {
     
     public int getQualified() {
         return qualified;
+    }
+    
+    public static AreaToUse valueOfInt(int i) {
+        return Arrays.stream(AreaToUse.values())
+                .filter(e -> e.getQualified() == i)
+                .findFirst()
+                .orElse(null);
     }
 }

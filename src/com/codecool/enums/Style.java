@@ -1,8 +1,8 @@
 package com.codecool.enums;
 
 public enum Style {
-    MODERN("MO"),
-    CLASSICAL("CL");
+    MO("modern"),
+    CL("classical");
     
     private final String style;
     

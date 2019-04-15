@@ -1,4 +1,4 @@
-package com.codecool.operations;
+package com.codecool.cmd;
 
 import com.codecool.components.*;
 
@@ -18,6 +18,7 @@ public abstract class Inventory implements java.io.Serializable {
     private List<Hinge> hinges;
     private List<Pulls> pulls;
     private List<Knobs> knobs;
+    private static XMLLoader xmlLoader = new XMLLoader();
     
     public Inventory(List<Lumber> boards,
                      List<ChipBoard> chipBoards,
@@ -47,18 +48,18 @@ public abstract class Inventory implements java.io.Serializable {
     }
     
     public Inventory() {
-        this.boards = new ArrayList<>();
-        this.chipBoards = new ArrayList<>();
-        this.MDFs = new ArrayList<>();
-        this.plies = new ArrayList<>();
-        this.glues = new ArrayList<>();
-        this.dowels = new ArrayList<>();
-        this.pocketHoleScrews = new ArrayList<>();
-        this.screws = new ArrayList<>();
-        this.slides = new ArrayList<>();
-        this.hinges = new ArrayList<>();
-        this.pulls = new ArrayList<>();
-        this.knobs = new ArrayList<>();
+        this.boards = xmlLoader.getLumbers();
+        this.chipBoards = xmlLoader.getChipBoards();
+        this.MDFs = xmlLoader.getMDFs();
+        this.plies = xmlLoader.getPlyWoods();
+        this.glues = xmlLoader.getGlues();
+        this.dowels = xmlLoader.getDowels();
+        this.pocketHoleScrews = xmlLoader.getPocketHoleScrews();
+        this.screws = xmlLoader.getWoodscrews();
+        this.slides = xmlLoader.getSlides();
+        this.hinges = xmlLoader.getHinges();
+        this.pulls = xmlLoader.getPulls();
+        this.knobs = xmlLoader.getKnobs();
     }
     
     public List<Components> getAllComponents() {
@@ -168,29 +169,29 @@ public abstract class Inventory implements java.io.Serializable {
     
     public void removeItem(Components component) {
         if (component instanceof Lumber) {
-            boards.remove((Lumber) component);
+            boards.remove(component);
         } else if (component instanceof ChipBoard) {
-            chipBoards.remove((ChipBoard) component);
+            chipBoards.remove(component);
         } else if (component instanceof MDF) {
-            MDFs.remove((MDF) component);
+            MDFs.remove(component);
         } else if (component instanceof PlyWood) {
-            plies.remove((PlyWood) component);
+            plies.remove(component);
         } else if (component instanceof Glue) {
-            glues.remove((Glue) component);
+            glues.remove(component);
         } else if (component instanceof Dowel) {
-            dowels.remove((Dowel) component);
+            dowels.remove(component);
         } else if (component instanceof PocketHoleScrew) {
-            pocketHoleScrews.remove((PocketHoleScrew) component);
+            pocketHoleScrews.remove(component);
         } else if (component instanceof WoodScrew) {
-            screws.remove((WoodScrew) component);
+            screws.remove(component);
         } else if (component instanceof Slides) {
-            slides.remove((Slides) component);
+            slides.remove(component);
         } else if (component instanceof Hinge) {
-            hinges.remove((Hinge) component);
+            hinges.remove(component);
         } else if (component instanceof Pulls) {
-            pulls.remove((Pulls) component);
+            pulls.remove(component);
         } else if (component instanceof Knobs) {
-            knobs.remove((Knobs) component);
+            knobs.remove(component);
         }
     }
 }

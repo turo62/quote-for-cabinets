@@ -1,7 +1,5 @@
 package com.codecool.cmd;
 
-import com.codecool.operations.Inventory;
-
 public class Cabinet extends Inventory {
     private String name;
     private String function;
@@ -14,7 +12,7 @@ public class Cabinet extends Inventory {
         this.price = price;
         this.cost = cost;
     }
-    //getBody
+    //getcarcass
     //isFramed
     //getDrawers (carving?)
     //getDoors (carving?)
