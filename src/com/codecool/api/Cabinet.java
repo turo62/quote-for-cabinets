@@ -1,6 +1,6 @@
-package com.codecool.cmd;
+package com.codecool.api;
 
-public class Cabinet extends Inventory {
+public class Cabinet {
     private String name;
     private String function;
     private int price;

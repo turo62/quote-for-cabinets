@@ -1,4 +1,4 @@
-package com.codecool.cmd;
+package com.codecool.api;
 
 import com.codecool.components.*;
 import com.codecool.enums.*;

@@ -33,40 +33,24 @@ public class Hinge extends Hardware {
         return color;
     }
     
-    public AngleToOpen getAngle() {
-        return angle;
+    public Integer getAngle() {
+        return angle.getAngle();
     }
     
-    public IsRecess getMount() {
-        return mount;
-    }
-    
-    public void setMount(IsRecess mount) {
-        this.mount = mount;
+    public String getMount() {
+        return mount.getMount();
     }
     
     public int getLength() {
         return length;
     }
     
-    public void setLength(int length) {
-        this.length = length;
-    }
-    
     public int getWidth() {
         return width;
     }
     
-    public void setWidth(int width) {
-        this.width = width;
-    }
-    
     public int getThickness() {
         return thickness;
-    }
-    
-    public void setThickness(int thickness) {
-        this.thickness = thickness;
     }
     
     @Override
@@ -77,6 +61,6 @@ public class Hinge extends Hardware {
                 "Level of utilization: " + this.getQualified() + "\n" +
                 "Made by: " + this.getMadeBy() + "\n" +
                 "Style: " + this.getStyle() + "/finish: " + this.getColor() + " / max. open angle " + this.getAngle() + " / way of mounting " + this.getMount() + "\n" +
-                "Sizes: " + this.getLength() + "mm (length / ) " + this.getWidth() + "mm (width)" + this.getThickness() + "mm (thickness)" + "\n";
+                "Sizes: " + this.getLength() + "mm (length)   " + this.getWidth() + "mm (width)   " + this.getThickness() + "mm (thickness)" + "\n";
     }
 }

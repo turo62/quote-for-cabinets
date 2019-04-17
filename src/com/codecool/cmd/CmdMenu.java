@@ -1,18 +1,34 @@
 package com.codecool.cmd;
 
+import com.codecool.api.HardWareStore;
+import com.codecool.api.Inventory;
+import com.codecool.api.UserInventory;
+import com.codecool.api.WoodStore;
 import com.codecool.components.Components;
-import com.codecool.operations.UserInventory;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.List;
 import java.util.Scanner;
 
 public class CmdMenu {
     
+    private String savePath = "cabinet-shop.ser";
+    private HardWareStore hardwareShop = new HardWareStore(5000000);
     private Scanner userInput = new Scanner(System.in);
-    private Store store = new Store();
-    private List<Components> component;
-    private Inventory inventory = new UserInventory(250000);
+    private WoodStore woodShop = new WoodStore(10000000);
+    private UserInventory inventory = new UserInventory(250000);
     private String currentType;
+    
+    CmdMenu() {
+        if (new File(savePath).exists()) {
+            load();
+        } else {
+            System.out.println("New shop started!");
+        }
+    }
     
     void start() {
         String[] commands = new String[]{
@@ -41,6 +57,7 @@ public class CmdMenu {
                     helpMenu();
                     break;
                 case "exit":
+                    saveBusinessStatus();
                     System.exit(0);
                 default:
                     System.out.println("Unknown command " + command + "!");
@@ -170,13 +187,13 @@ public class CmdMenu {
     }
     
     private void listAll() {
-        List<Components> components = inventory.getAllComponents();
-        for (int i = 0; i < components.size(); i++) {
-            if (i > 0 && !components.get(i - 1).getClass().equals(components.get(i).getClass())) {
+        List<? extends Components> componentList = inventory.getAllComponents();
+        for (int i = 0; i < componentList.size(); i++) {
+            if (i == 0 || i > 0 && !componentList.get(i - 1).getClass().equals(componentList.get(i).getClass())) {
                 System.out.println("\n");
-                System.out.println(components.get(i).getClass().getSimpleName() + ":");
+                System.out.println(componentList.get(i).getClass().getSimpleName() + ":");
             }
-            System.out.println(components.get(i).toString());
+            System.out.println(componentList.get(i).toString());
         }
         
     }
@@ -265,7 +282,7 @@ public class CmdMenu {
         }
         
         int count = 0;
-        System.out.println();
+        System.out.println("\n" + components.get(0).getClass().getSimpleName() + ":\n");
         for (Components component : components) {
             System.out.println(count + ") " + component.details());
             count++;
@@ -278,12 +295,57 @@ public class CmdMenu {
         
     }
     
+    
+    public void shopping() {
+        System.out.print("Do you want to buy hardware (y) or lumbers/men made sheets? (n) ");
+        String input = getInput();
+        if (input.equals("y")) {
+            loadShop();
+        } else {
+            System.out.println("New cabinetmaking shop started!");
+        }
+    }
+    
     public void buildCabinet(Inventory inventory) {
         //getcarcass
         //isFramed
         //getDrawers (carving?)
         //getDoors (carving?)
         //getFeet
+    }
+    
+    private void load() {
+        System.out.print("Load my shop? (y/n) ");
+        String input = getInput();
+        if (input.equals("y")) {
+            loadShop();
+        } else {
+            System.out.println("New cabinetmaking shop started!");
+        }
+    }
+    
+    private void loadShop() {
+        try {
+            FileInputStream fileIn = new FileInputStream(savePath);
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            inventory = (UserInventory) in.readObject();
+            in.close();
+            fileIn.close();
+            System.out.println("My shop loaded!");
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Load failed, starting new shop!");
+        }
+    }
+    
+    private void saveBusinessStatus() {
+        try {
+            inventory.saveShopStatus();
+            hardwareShop.saveStoreStatus();
+            woodShop.saveStoreStatus();
+            System.out.println();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 
