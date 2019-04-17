@@ -1,6 +1,7 @@
 package com.codecool.api;
 
 import com.codecool.components.BoughtComponent;
+import com.codecool.components.Components;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -8,6 +9,7 @@ import java.util.List;
 
 public abstract class Store implements java.io.Serializable {
     protected List<BoughtComponent> stock = new ArrayList<>();
+    protected BoughtComponent boughtComponent;
     private Iterator<BoughtComponent> stockIterator;
     
     public Store() {
@@ -17,6 +19,8 @@ public abstract class Store implements java.io.Serializable {
     public List<BoughtComponent> getStock() {
         return stock;
     }
+    
+    public abstract void addComponent(Components component, int number);
     
     public Iterator<BoughtComponent> getIterator() {
         return this.stockIterator;

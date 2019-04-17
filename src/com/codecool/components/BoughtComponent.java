@@ -22,8 +22,4 @@ public class BoughtComponent {
     public String getName() {
         return name;
     }
-    
-    public Components getComponent() {
-        return component;
-    }
 }

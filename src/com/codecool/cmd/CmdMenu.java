@@ -4,12 +4,16 @@ import com.codecool.api.HardWareStore;
 import com.codecool.api.Inventory;
 import com.codecool.api.UserInventory;
 import com.codecool.api.WoodStore;
+import com.codecool.components.BoughtComponent;
 import com.codecool.components.Components;
+import com.codecool.components.Hardware;
+import com.codecool.components.Wood;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -187,15 +191,8 @@ public class CmdMenu {
     }
     
     private void listAll() {
-        List<? extends Components> componentList = inventory.getAllComponents();
-        for (int i = 0; i < componentList.size(); i++) {
-            if (i == 0 || i > 0 && !componentList.get(i - 1).getClass().equals(componentList.get(i).getClass())) {
-                System.out.println("\n");
-                System.out.println(componentList.get(i).getClass().getSimpleName() + ":");
-            }
-            System.out.println(componentList.get(i).toString());
-        }
-        
+        List<? extends Components> components = inventory.getAllComponents();
+        displayCategory(components);
     }
     
     private List<? extends Components> chooseComponent(Inventory inventory) {
@@ -275,35 +272,58 @@ public class CmdMenu {
                 "11) Knobs (" + inventory.getKnobs().size() + ")" + "\n");
     }
     
-    public void displayCategory(List<? extends Components> components) {
+    private void displayCategory(List<? extends Components> components) {
         if (components.size() == 0) {
             System.out.println("\nNo items'");
             return;
         }
         
         int count = 0;
-        System.out.println("\n" + components.get(0).getClass().getSimpleName() + ":\n");
-        for (Components component : components) {
-            System.out.println(count + ") " + component.details());
+        for (int i = 0; i < components.size(); i++) {
+            if (i == 0 || i > 0 && !components.get(i - 1).getClass().equals(components.get(i).getClass())) {
+                System.out.println("\n");
+                System.out.println(components.get(i).getClass().getSimpleName() + ":");
+            }
+            System.out.println(count + ") " + components.get(i).toString());
             count++;
         }
     }
     
-    public void listCategory(Inventory inventory) {
+    private void listCategory(Inventory inventory) {
         List<? extends Components> componentList = chooseComponent(inventory);
         displayCategory(componentList);
         
     }
     
     
-    public void shopping() {
+    private void shopping() {
         System.out.print("Do you want to buy hardware (y) or lumbers/men made sheets? (n) ");
         String input = getInput();
         if (input.equals("y")) {
-            loadShop();
+            loadHardwareStock();
         } else {
             System.out.println("New cabinetmaking shop started!");
         }
+    }
+    
+    private List<BoughtComponent> loadHardwareStock() {
+        List<Components> components = inventory.getAllComponents();
+        int number = 10000;
+        int number1 = 50;
+        List<BoughtComponent> stockH = new ArrayList<>();
+        List<BoughtComponent> stockW = new ArrayList<>();
+        
+        for (Components component : components) {
+            if (!(component instanceof Wood)) {
+                hardwareShop.addComponent(component, number);
+            } else if (!(component instanceof Hardware)) {
+                woodShop.addComponent(component, number1);
+            }
+        }
+        
+        stockH = hardwareShop.getStock();
+        stockW = woodShop.getStock();
+        return stockH;
     }
     
     public void buildCabinet(Inventory inventory) {
