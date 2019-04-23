@@ -25,6 +25,7 @@ public class CmdMenu {
     private WoodStore woodShop = new WoodStore(10000000);
     private UserInventory inventory = new UserInventory(250000);
     private String currentType;
+    private BoughtComponent boughtComponent;
     
     CmdMenu() {
         if (new File(savePath).exists()) {
@@ -91,6 +92,7 @@ public class CmdMenu {
                     listCategory(inventory);
                     break;
                 case "buy":
+                    shopping();
                     break;
                 case "sell":
                     break;
@@ -297,21 +299,18 @@ public class CmdMenu {
     
     
     private void shopping() {
-        System.out.print("Do you want to buy hardware (y) or lumbers/men made sheets? (n) ");
+        List<BoughtComponent> stock = new ArrayList<>();
+        System.out.println("Do you want to buy hardware (y) or lumbers/men made sheets? (n) \n");
         String input = getInput();
-        if (input.equals("y")) {
-            loadHardwareStock();
-        } else {
-            System.out.println("New cabinetmaking shop started!");
-        }
+        stock = loadStock(input);
+        printStockInfo(stock);
     }
     
-    private List<BoughtComponent> loadHardwareStock() {
+    private List<BoughtComponent> loadStock(String input) {
         List<Components> components = inventory.getAllComponents();
         int number = 10000;
         int number1 = 50;
-        List<BoughtComponent> stockH = new ArrayList<>();
-        List<BoughtComponent> stockW = new ArrayList<>();
+        List<BoughtComponent> stock = new ArrayList<>();
         
         for (Components component : components) {
             if (!(component instanceof Wood)) {
@@ -321,9 +320,19 @@ public class CmdMenu {
             }
         }
         
-        stockH = hardwareShop.getStock();
-        stockW = woodShop.getStock();
-        return stockH;
+        if (input.equals("y")) {
+            stock = hardwareShop.getStock();
+            
+        } else {
+            stock = woodShop.getStock();
+        }
+        return stock;
+    }
+    
+    private void printStockInfo(List<BoughtComponent> stock) {
+        for (BoughtComponent boughtComponent : stock) {
+            System.out.println(boughtComponent.getComponent().details());
+        }
     }
     
     public void buildCabinet(Inventory inventory) {
