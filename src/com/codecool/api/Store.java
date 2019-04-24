@@ -6,6 +6,7 @@ import java.util.List;
 
 public abstract class Store implements java.io.Serializable {
     private List<BoughtComponent> stock;
+    private static final long serialVersionUID = -4637212935239168953L;
     
     Store() {
         this.stock = stock;

@@ -10,17 +10,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HardWareStore extends Store {
+    
     private List<BoughtComponent> stock = new ArrayList<>();
-    private int money;
+    private double money;
+    private int number;
     
     public HardWareStore(int money) {
         this.stock = stock;
         this.money = money;
+        this.number = number;
     }
     
-    public int getMoney() {
+    public double getMoney() {
         return money;
     }
+    
+    public void setMoney(double value) {
+        money += value;
+    }
+    
+    public int getNumber() {
+        return number;
+    }
+    
+    public void setNumber(int number) {
+        this.number += number;
+    }
+    
     
     @Override
     public List<BoughtComponent> getStock() {
@@ -35,8 +51,9 @@ public class HardWareStore extends Store {
     public void saveStoreStatus() throws IOException {
         FileOutputStream foS = new FileOutputStream("hardware-store.ser");
         ObjectOutputStream ooS = new ObjectOutputStream(foS);
-        ooS.writeObject(this);
+        ooS.writeObject(stock);
         ooS.flush();
+        foS.close();
         ooS.close();
     }
 }
