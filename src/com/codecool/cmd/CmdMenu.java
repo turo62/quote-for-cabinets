@@ -4,13 +4,10 @@ import com.codecool.api.HardWareStore;
 import com.codecool.api.Inventory;
 import com.codecool.api.UserInventory;
 import com.codecool.api.WoodStore;
-import com.codecool.components.BoughtComponent;
-import com.codecool.components.Components;
-import com.codecool.components.Hardware;
-import com.codecool.components.Wood;
-import com.codecool.exceptions.noMatchException;
-import com.codecool.exceptions.noMoneyException;
-import com.codecool.exceptions.outOfStockException;
+import com.codecool.components.*;
+import com.codecool.exceptions.NoMatchException;
+import com.codecool.exceptions.NoMoneyException;
+import com.codecool.exceptions.OutOfStockException;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -20,9 +17,9 @@ import java.util.Scanner;
 public class CmdMenu {
     
     private String savePath = "cabinet-shop.ser";
-    private HardWareStore hardwareShop = new HardWareStore(5000000);
+    private HardWareStore hardwareShop = new HardWareStore(500000);
     private Scanner userInput = new Scanner(System.in);
-    private WoodStore woodShop = new WoodStore(10000000);
+    private WoodStore woodShop = new WoodStore(100000);
     private UserInventory inventory = new UserInventory(250000);
     private String currentType;
     private BoughtComponent boughtComponent;
@@ -35,7 +32,7 @@ public class CmdMenu {
         }
     }
     
-    void start() throws outOfStockException, noMoneyException, noMatchException {
+    void start() throws NoMatchException, OutOfStockException, NoMoneyException {
         String[] commands = new String[]{
                 "store",
                 "cabinets",
@@ -71,7 +68,7 @@ public class CmdMenu {
         }
     }
     
-    private void storeMenu() throws outOfStockException, noMoneyException, noMatchException {
+    private void storeMenu() throws NoMatchException, OutOfStockException, NoMoneyException {
         String[] commands = new String[]{
                 "list all",
                 "list component",
@@ -298,13 +295,14 @@ public class CmdMenu {
     }
     
     
-    private void shopping() throws outOfStockException, noMoneyException, noMatchException {
+    private void shopping() throws NoMatchException, OutOfStockException, NoMoneyException {
         List<BoughtComponent> stock = new ArrayList<>();
         System.out.println("Do you want to buy hardware (y) or lumbers/men made sheets? (n) \n");
         String input = getInput();
         stock = loadStock(input);
         printStockInfo(stock);
         buyingComponents(stock);
+        checkShopping();
     }
     
     private List<BoughtComponent> loadStock(String input) {
@@ -335,60 +333,84 @@ public class CmdMenu {
     }
     
     private void printStockInfo(List<BoughtComponent> stock) {
-        int count = 0;
+        int count = 1;
         for (BoughtComponent boughtComponent : stock) {
             System.out.println(count + ")  " + boughtComponent.getComponent().details());
             count++;
         }
     }
     
-    private void buyingComponents(List<BoughtComponent> stock) throws noMatchException, outOfStockException, noMoneyException {
+    private void buyingComponents(List<BoughtComponent> stock) throws NoMatchException, OutOfStockException, NoMoneyException {
+        int number = 0;
+        double money = inventory.getMoney();
+        double amountOfGood = 0;
+        double paidValue = 0;
         while (true) {
-            System.out.println("Please, select number of good you want to buy or enter to stop shopping.");
-            String numberOfGood = getInput();
-            if (numberOfGood.equals("")) {
-                return;
+            System.out.println("Please, select number of good you want to buy or enter '0' to stop shopping.");
+            number = Integer.parseInt(getInput());
+            if (number > stock.size()) {
+                throw new NoMatchException("There is no such goods available.");
             }
-            addGood(stock, numberOfGood);
+    
+            if (number == 0) {
+                break;
+            }
+    
+            System.out.println("Enter amount you need.");
+            amountOfGood = Double.parseDouble(getInput());
+    
+            if (stock.get(number - 1).getComponent() instanceof Dowel || stock.get(number - 1).getComponent() instanceof Screw) {
+                paidValue = amountOfGood / 100 * stock.get(number - 1).getComponent().getValue();
+            } else {
+                paidValue = amountOfGood * stock.get(number - 1).getComponent().getValue();
+            }
+    
+            double goodStock = stock.get(number - 1).getNumber();
+            if (amountOfGood > goodStock) {
+                System.out.println("Deal");
+                throw new OutOfStockException("Sorry but there is no such high stock available. Please, enter value below " + stock.get(number).getNumber());
+            }
+    
+            if (inventory.getMoney() < paidValue) {
+                System.out.println("Deal is failed.");
+                throw new NoMoneyException("You have no money enough to buy so many goods.");
+            }
+    
+            BoughtComponent newTreasure = new BoughtComponent(stock.get(number - 1).getName(), amountOfGood, stock.get(number - 1).getComponent());
+            inventory.setMoney((-1) * paidValue);
+            inventory.addComponent(newTreasure);
+            stock.get(number - 1).manageStock(amountOfGood);
+    
+            if (!(stock.get(number - 1).getComponent() instanceof Wood)) {
+                hardwareShop.setMoney(paidValue);
+            } else {
+                woodShop.setMoney(paidValue);
+            }
         }
     }
     
-    private void addGood(List<BoughtComponent> stock, String numberOfGood) throws noMatchException, outOfStockException, noMoneyException {
-        double money = inventory.getMoney();
-        int number = Integer.parseInt(numberOfGood);
-        BoughtComponent newTreasure;
-        try {
-            System.out.println("Enter amount you need.");
-            Double amountOfGood = Double.parseDouble(getInput());
-            if (amountOfGood > stock.get(number).getNumber()) {
-                throw new outOfStockException("Sorry but there is no such high stock available. Please, enter value below " + stock.get(number).getNumber());
-            }
-            if (money < (amountOfGood * stock.get(number).getComponent().getValue())) {
-                throw new noMoneyException("You have no money enough to buy so many goods.");
-            }
-            newTreasure = stock.get(number);
-            newTreasure.setNumber(amountOfGood);
-            inventory.setMoney((-1) * amountOfGood * stock.get(number).getComponent().getValue());
-            inventory.addComponent(newTreasure);
-            stock.get(number).manageStock((-1) * amountOfGood);
-            if (!(stock.get(number).getComponent() instanceof Wood)) {
-                hardwareShop.setMoney(amountOfGood * stock.get(number).getComponent().getValue());
-            } else {
-                woodShop.setMoney(amountOfGood * stock.get(number).getComponent().getValue());
-            }
-        } catch (IndexOutOfBoundsException e) {
-            if (number > stock.size() - 1 || number < 0) {
-                throw new noMatchException("There is no such item in the list. Please, chose valid number.");
-            }
+    private void checkShopping() {
+        double newMoney = hardwareShop.getMoney();
+        List<BoughtComponent> stock = hardwareShop.getStock();
+        double restOfMoney = inventory.getMoney();
+        List<BoughtComponent> treasure = inventory.getBoughtComponents();
+        System.out.println(restOfMoney);
+        System.out.println(newMoney);
+        for (BoughtComponent component : stock) {
+            System.out.println(component.getName() + component.getNumber());
         }
-        
+        for (BoughtComponent component : treasure) {
+            System.out.println(component.getName() + component.getNumber());
+        }
+    }
+    
+    
         //public void buildCabinet(Inventory inventory) {
         //getcarcass
         //isFramed
         //getDrawers (carving?)
         //getDoors (carving?)
         //getFeet
-    }
     
     /*private void load() {
         System.out.print("Load my shop? (y/n) ");

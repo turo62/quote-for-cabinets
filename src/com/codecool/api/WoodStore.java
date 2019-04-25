@@ -12,7 +12,7 @@ import java.util.List;
 public class WoodStore extends Store {
     private List<BoughtComponent> stock = new ArrayList<>();
     private double money;
-    private int number;
+    private double number;
     
     public WoodStore(int money) {
         this.stock = stock;
@@ -28,11 +28,11 @@ public class WoodStore extends Store {
         money += value;
     }
     
-    public int getNumber() {
+    public double getNumber() {
         return number;
     }
     
-    public void setNumber(int number) {
+    public void setNumber(double number) {
         this.number += number;
     }
     
@@ -41,7 +41,7 @@ public class WoodStore extends Store {
         return stock;
     }
     
-    public void addComponent(Components component, int number) {
+    public void addComponent(Components component, double number) {
         BoughtComponent toStockComponent = new BoughtComponent(component.getName(), number, component);
         stock.add(toStockComponent);
     }

@@ -2,10 +2,10 @@ package com.codecool.components;
 
 public class BoughtComponent {
     private String name;
-    private double number;
+    private double number = 15.0;
     private Components component;
     
-    public BoughtComponent(String name, int number, Components component) {
+    public BoughtComponent(String name, double number, Components component) {
         this.name = name;
         this.number = number;
         this.component = component;
@@ -20,7 +20,7 @@ public class BoughtComponent {
     }
     
     public void manageStock(double value) {
-        this.number += value;
+        this.number -= value;
     }
     
     public String getName() {
