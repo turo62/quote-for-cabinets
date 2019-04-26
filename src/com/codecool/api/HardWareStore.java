@@ -6,10 +6,11 @@ import com.codecool.components.Components;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HardWareStore extends Store {
+public class HardWareStore extends Store implements Serializable {
     
     private List<BoughtComponent> stock = new ArrayList<>();
     private double money;

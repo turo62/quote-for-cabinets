@@ -5,11 +5,13 @@ import com.codecool.api.Inventory;
 import com.codecool.api.UserInventory;
 import com.codecool.api.WoodStore;
 import com.codecool.components.*;
-import com.codecool.exceptions.NoMatchException;
 import com.codecool.exceptions.NoMoneyException;
 import com.codecool.exceptions.OutOfStockException;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -17,16 +19,16 @@ import java.util.Scanner;
 public class CmdMenu {
     
     private String savePath = "cabinet-shop.ser";
-    private HardWareStore hardwareShop = new HardWareStore(500000);
+    private HardWareStore hardwareShop = new HardWareStore(1000000);
     private Scanner userInput = new Scanner(System.in);
-    private WoodStore woodShop = new WoodStore(100000);
+    private WoodStore woodShop = new WoodStore(1000000);
     private UserInventory inventory = new UserInventory(250000);
     private String currentType;
     private BoughtComponent boughtComponent;
     
     CmdMenu() {
         if (new File(savePath).exists()) {
-            //load();
+            load();
         } else {
             System.out.println("New shop started!");
         }
@@ -297,7 +299,7 @@ public class CmdMenu {
     
     private void shopping() {
         List<BoughtComponent> stock = new ArrayList<>();
-        System.out.println("Do you want to buy hardware (y) or lumbers/men made sheets? (n) \n");
+        System.out.println("Do you want to buy hardware (y) or lumbers/men made sheets (any other key)? \n");
         String input = getInput();
         stock = loadStock(input);
         printStockInfo(stock);
@@ -341,23 +343,29 @@ public class CmdMenu {
     }
     
     private void buyingComponents(List<BoughtComponent> stock) {
-        int number = 0;
         double money = inventory.getMoney();
         double amountOfGood = 0;
         double paidValue = 0;
         while (true) {
             try {
-                System.out.println("Please, select number of good you want to buy or enter '0' to stop shopping.");
-                number = Integer.parseInt(getInput()) - 1;
-        
-                if (number == -1) {
+                Scanner sc = new Scanner(System.in);
+                int number;
+                do {
+                    System.out.println("Please, select number of good you want to buy or enter '0' to stop shopping.");
+                    while (!sc.hasNextInt()) {
+                        System.out.println("That's not a number!");
+                        sc.next();
+                    }
+                    number = sc.nextInt();
+                } while (number < 0 || number > stock.size());
+                System.out.println("Thank you! Got " + number);
+    
+                if (number == 0) {
                     break;
                 }
-        
-                if (number > stock.size() || number == stock.size()) {
-                    throw new NoMatchException("There is no such goods available.");
-                }
-        
+    
+                number -= 1;
+                
                 System.out.println("Enter amount you need.");
                 amountOfGood = Double.parseDouble(getInput());
         
@@ -382,16 +390,12 @@ public class CmdMenu {
                 inventory.setMoney((-1) * paidValue);
                 inventory.addComponent(newTreasure);
                 stock.get(number).manageStock(amountOfGood);
-                stock.get(number).getNumber();
-                System.out.println(stock.get(number).getNumber());
         
                 if (!(stock.get(number).getComponent() instanceof Wood)) {
                     hardwareShop.setMoney(paidValue);
                 } else {
                     woodShop.setMoney(paidValue);
                 }
-            } catch (NoMatchException e) {
-                e.printStackTrace();
             } catch (OutOfStockException e) {
                 e.printStackTrace();
             } catch (NoMoneyException e) {
@@ -416,14 +420,16 @@ public class CmdMenu {
     }
     
     
-        //public void buildCabinet(Inventory inventory) {
+    private void buildCabinet() {
+        //function of cabinet
         //getcarcass
         //isFramed
         //getDrawers (carving?)
         //getDoors (carving?)
         //getFeet
+    }
     
-    /*private void load() {
+    private void load() {
         System.out.print("Load my shop? (y/n) ");
         String input = getInput();
         if (input.equals("y")) {
@@ -455,6 +461,6 @@ public class CmdMenu {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }*/
+    }
 }
 

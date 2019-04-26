@@ -2,10 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="15fed9b8-ced0-4b71-9941-252d9c0c7704" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/codecool/enums/IsInset.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/codecool/parts/Door.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/codecool/parts/Drawer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/quote-for-cabinets.iws" beforeDir="false" afterPath="$PROJECT_DIR$/quote-for-cabinets.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/codecool/api/Cabinet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/api/Cabinet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/codecool/api/HardWareStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/api/HardWareStore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/codecool/api/Store.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/api/Store.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/codecool/api/WoodStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/api/WoodStore.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/codecool/cmd/CmdMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/cmd/CmdMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/cmd/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/cmd/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/codecool/components/BoughtComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/components/BoughtComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/codecool/exceptions/InvalidTypeException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/codecool/exceptions/NoMatchException.java" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,13 +30,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/codecool/cmd/CmdMenu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1672">
-              <caret line="385" column="64" selection-start-line="385" selection-start-column="64" selection-end-line="385" selection-end-column="64" />
+            <state relative-caret-position="3630">
+              <caret line="441" column="48" selection-start-line="441" selection-start-column="48" selection-end-line="441" selection-end-column="48" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="method#storeMenu#0;class#CmdMenu#0" />
                 <element signature="method#cabinetMenu#0;class#CmdMenu#0" />
                 <element signature="method#inventoryMenu#0;class#CmdMenu#0" />
                 <element signature="method#helpMenu#0;class#CmdMenu#0" />
@@ -39,31 +48,23 @@
                 <element signature="method#listCategories#0;class#CmdMenu#0" />
                 <element signature="method#displayCategory#0;class#CmdMenu#0" />
                 <element signature="method#listCategory#0;class#CmdMenu#0" />
+                <element signature="method#shopping#0;class#CmdMenu#0" />
                 <element signature="method#loadStock#0;class#CmdMenu#0" />
+                <element signature="method#printStockInfo#0;class#CmdMenu#0" />
+                <element signature="method#buyingComponents#0;class#CmdMenu#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/quote-for-cabinets.iws">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="328">
-              <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/codecool/components/BoughtComponent.java">
+        <entry file="file://$PROJECT_DIR$/src/com/codecool/parts/Drawer.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="527">
-              <caret line="22" column="21" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
+              <caret line="17" column="31" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -82,10 +83,28 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/codecool/api/Cabinet.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="620">
+              <caret line="20" column="25" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/codecool/api/WoodStore.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="837">
-              <caret line="44" column="52" selection-start-line="44" selection-start-column="52" selection-end-line="44" selection-end-column="52" />
+            <state relative-caret-position="217">
+              <caret line="7" column="34" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/codecool/api/HardWareStore.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="12" column="53" lean-forward="true" selection-start-line="12" selection-start-column="53" selection-end-line="12" selection-end-column="53" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -94,10 +113,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/codecool/api/UserInventory.java">
+        <entry file="file://$PROJECT_DIR$/src/com/codecool/api/Store.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="434">
-              <caret line="26" column="4" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="4" />
+            <state relative-caret-position="248">
+              <caret line="8" column="40" selection-start-line="8" selection-start-column="40" selection-end-line="8" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -106,14 +125,12 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/codecool/cmd/Main.java">
+        <entry file="file://$PROJECT_DIR$/src/com/codecool/parts/Door.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
+            <state relative-caret-position="623">
+              <caret line="22" column="31" selection-start-line="22" selection-start-column="31" selection-end-line="22" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#246#247#0" expanded="true" />
-                <element signature="e#283#284#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -124,11 +141,11 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="XSLT Stylesheet" />
         <option value="HTML File" />
         <option value="FxmlFile" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -149,9 +166,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/com/codecool/api/components/Lumber.java" />
-        <option value="$PROJECT_DIR$/src/com/codecool/api/components/ChipBoard.java" />
-        <option value="$PROJECT_DIR$/src/com/codecool/api/components/MenMadeSheet.java" />
         <option value="$PROJECT_DIR$/src/com/codecool/api/components/MDF.java" />
         <option value="$PROJECT_DIR$/src/com/codecool/api/components/PlyWood.java" />
         <option value="$PROJECT_DIR$/src/com/codecool/api/components/Dowel.java" />
@@ -182,7 +196,6 @@
         <option value="$PROJECT_DIR$/src/com/codecool/cmd/Inventory.java" />
         <option value="$PROJECT_DIR$/src/com/codecool/operations/UserInventory.java" />
         <option value="$PROJECT_DIR$/src/com/codecool/cmd/Cabinet.java" />
-        <option value="$PROJECT_DIR$/src/com/codecool/api/Cabinet.java" />
         <option value="$PROJECT_DIR$/src/com/codecool/enums/AngleToOpen.java" />
         <option value="$PROJECT_DIR$/src/com/codecool/components/Hinge.java" />
         <option value="$PROJECT_DIR$/src/com/codecool/exceptions/InvalidCategoryException.java" />
@@ -191,15 +204,19 @@
         <option value="$PROJECT_DIR$/src/com/codecool/exceptions/noMatchException.java" />
         <option value="$PROJECT_DIR$/src/com/codecool/exceptions/outOfStockException.java" />
         <option value="$PROJECT_DIR$/src/com/codecool/components/WoodScrew.java" />
-        <option value="$PROJECT_DIR$/src/com/codecool/api/Store.java" />
         <option value="$PROJECT_DIR$/src/com/codecool/api/Inventory.java" />
         <option value="$PROJECT_DIR$/src/com/codecool/api/UserInventory.java" />
-        <option value="$PROJECT_DIR$/src/com/codecool/api/HardWareStore.java" />
-        <option value="$PROJECT_DIR$/src/com/codecool/api/WoodStore.java" />
-        <option value="$PROJECT_DIR$/src/com/codecool/components/BoughtComponent.java" />
         <option value="$PROJECT_DIR$/src/com/codecool/cmd/Main.java" />
-        <option value="$PROJECT_DIR$/src/com/codecool/cmd/CmdMenu.java" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/src/com/codecool/components/BoughtComponent.java" />
+        <option value="$PROJECT_DIR$/src/com/codecool/enums/IsInset.java" />
+        <option value="$PROJECT_DIR$/src/com/codecool/parts/Door.java" />
+        <option value="$PROJECT_DIR$/src/com/codecool/parts/Drawer.java" />
+        <option value="$PROJECT_DIR$/src/com/codecool/api/Cabinet.java" />
+        <option value="$PROJECT_DIR$/src/com/codecool/api/WoodStore.java" />
+        <option value="$PROJECT_DIR$/src/com/codecool/api/Store.java" />
+        <option value="$PROJECT_DIR$/src/com/codecool/api/HardWareStore.java" />
+        <option value="$PROJECT_DIR$/src/com/codecool/cmd/CmdMenu.java" />
       </list>
     </option>
   </component>
@@ -250,6 +267,12 @@
               <item name="quote-for-cabinets" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="exceptions" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="quote-for-cabinets" type="b2602c69:ProjectViewProjectNode" />
+              <item name="quote-for-cabinets" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="parts" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="quote-for-cabinets" type="b2602c69:ProjectViewProjectNode" />
@@ -401,7 +424,14 @@
       <option name="project" value="LOCAL" />
       <updated>1556204169197</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Buying goods done.">
+      <created>1556262648050</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1556262648050</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TodoView">
@@ -542,26 +572,6 @@
     <SUITE FILE_PATH="coverage/quote_for_cabinets$quote_for_cabinets.ic" NAME="quote-for-cabinets Coverage Results" MODIFIED="1555054502394" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar:///usr/lib/jvm/java-11-oracle/lib/src.zip!/java.base/java/lang/Integer.java" />
-    <entry file="jar:///usr/lib/jvm/java-11-oracle/lib/src.zip!/java.base/java/lang/NumberFormatException.java" />
-    <entry file="jar:///usr/lib/jvm/java-11-oracle/lib/src.zip!/java.base/java/lang/Enum.java" />
-    <entry file="file://$PROJECT_DIR$/components.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2449">
-          <caret line="88" column="55" selection-start-line="88" selection-start-column="55" selection-end-line="88" selection-end-column="55" />
-          <folding>
-            <element signature="n#PlyWoods#0;n#Components#0;n#!!top" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/codecool/api/Cabinet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="4" column="24" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/codecool/components/Glue.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="186">
@@ -576,13 +586,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/codecool/components/KnobsAndPulls.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="12" column="54" selection-start-line="12" selection-start-column="54" selection-end-line="12" selection-end-column="54" />
         </state>
       </provider>
     </entry>
@@ -636,16 +639,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/codecool/components/Wood.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="496">
-          <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/codecool/enums/AngleToOpen.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
@@ -655,48 +648,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/quote-for-cabinets.iml">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/codecool/enums/Style.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/codecool/enums/Stuff.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="62">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/codecool/enums/Load.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="5" column="5" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/codecool/enums/IsRecess.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/codecool/enums/Head.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/codecool/enums/Finish.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="62">
-          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/codecool/enums/AreaToUse.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -753,23 +704,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/codecool/exceptions/NoMatchException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/codecool/api/Store.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/lib/jvm/java-11-oracle/lib/src.zip!/java.base/java/util/Objects.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="10106">
@@ -785,16 +719,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="12741">
           <caret line="457" column="16" selection-start-line="457" selection-start-column="16" selection-end-line="457" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/codecool/api/HardWareStore.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="899">
-          <caret line="46" column="90" selection-start-line="46" selection-start-column="90" selection-end-line="46" selection-end-column="90" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -822,16 +746,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-279">
           <caret line="10" column="10" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="10" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/codecool/components/Knobs.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-186">
-          <caret line="12" column="10" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -883,31 +797,162 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/codecool/cmd/CmdMenu.java">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1672">
-          <caret line="385" column="64" selection-start-line="385" selection-start-column="64" selection-end-line="385" selection-end-column="64" />
+        <state relative-caret-position="328">
+          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quote-for-cabinets.iws">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="9" column="52" lean-forward="true" selection-start-line="9" selection-start-column="52" selection-end-line="9" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/codecool/exceptions/NoMatchException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/codecool/cmd/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="5" column="8" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
+          <folding>
+            <element signature="e#246#247#0" expanded="true" />
+            <element signature="e#283#284#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/codecool/api/UserInventory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="620">
+          <caret line="26" column="4" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#cabinetMenu#0;class#CmdMenu#0" />
-            <element signature="method#inventoryMenu#0;class#CmdMenu#0" />
-            <element signature="method#helpMenu#0;class#CmdMenu#0" />
-            <element signature="method#showMenu#0;class#CmdMenu#0" />
-            <element signature="method#getInput#0;class#CmdMenu#0" />
-            <element signature="method#listAll#0;class#CmdMenu#0" />
-            <element signature="method#chooseComponent#0;class#CmdMenu#0" />
-            <element signature="method#listCategories#0;class#CmdMenu#0" />
-            <element signature="method#displayCategory#0;class#CmdMenu#0" />
-            <element signature="method#listCategory#0;class#CmdMenu#0" />
-            <element signature="method#loadStock#0;class#CmdMenu#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/codecool/components/BoughtComponent.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="4" column="25" lean-forward="true" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/codecool/parts/Carcass.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="62">
+          <caret line="2" column="20" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/codecool/components/KnobsAndPulls.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="12" column="54" selection-start-line="12" selection-start-column="54" selection-end-line="12" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/codecool/components/Knobs.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="372">
+          <caret line="12" column="10" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/codecool/components/Wood.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="403">
+          <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/codecool/enums/Finish.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="62">
+          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/codecool/enums/Style.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/codecool/enums/Stuff.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="62">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/codecool/enums/Load.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="5" column="5" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/codecool/enums/IsRecess.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/codecool/enums/Head.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/codecool/enums/IsInset.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="4" column="12" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/codecool/parts/Door.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="623">
+          <caret line="22" column="31" selection-start-line="22" selection-start-column="31" selection-end-line="22" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/codecool/parts/Drawer.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
-          <caret line="22" column="21" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
+          <caret line="17" column="31" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/codecool/api/Cabinet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="620">
+          <caret line="20" column="25" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
         </state>
       </provider>
     </entry>
@@ -924,43 +969,53 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/codecool/api/WoodStore.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="837">
-          <caret line="44" column="52" selection-start-line="44" selection-start-column="52" selection-end-line="44" selection-end-column="52" />
+        <state relative-caret-position="217">
+          <caret line="7" column="34" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/codecool/api/Store.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="8" column="40" selection-start-line="8" selection-start-column="40" selection-end-line="8" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/codecool/api/UserInventory.java">
+    <entry file="file://$PROJECT_DIR$/src/com/codecool/api/HardWareStore.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="434">
-          <caret line="26" column="4" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="4" />
+        <state relative-caret-position="330">
+          <caret line="12" column="53" lean-forward="true" selection-start-line="12" selection-start-column="53" selection-end-line="12" selection-end-column="53" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/codecool/cmd/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/com/codecool/cmd/CmdMenu.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
+        <state relative-caret-position="3630">
+          <caret line="441" column="48" selection-start-line="441" selection-start-column="48" selection-end-line="441" selection-end-column="48" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#246#247#0" expanded="true" />
-            <element signature="e#283#284#0" expanded="true" />
+            <element signature="method#storeMenu#0;class#CmdMenu#0" />
+            <element signature="method#cabinetMenu#0;class#CmdMenu#0" />
+            <element signature="method#inventoryMenu#0;class#CmdMenu#0" />
+            <element signature="method#helpMenu#0;class#CmdMenu#0" />
+            <element signature="method#showMenu#0;class#CmdMenu#0" />
+            <element signature="method#getInput#0;class#CmdMenu#0" />
+            <element signature="method#listAll#0;class#CmdMenu#0" />
+            <element signature="method#chooseComponent#0;class#CmdMenu#0" />
+            <element signature="method#listCategories#0;class#CmdMenu#0" />
+            <element signature="method#displayCategory#0;class#CmdMenu#0" />
+            <element signature="method#listCategory#0;class#CmdMenu#0" />
+            <element signature="method#shopping#0;class#CmdMenu#0" />
+            <element signature="method#loadStock#0;class#CmdMenu#0" />
+            <element signature="method#printStockInfo#0;class#CmdMenu#0" />
+            <element signature="method#buyingComponents#0;class#CmdMenu#0" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/quote-for-cabinets.iws">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="328">
-          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
         </state>
       </provider>
     </entry>

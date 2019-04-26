@@ -2,7 +2,7 @@ package com.codecool.components;
 
 public class BoughtComponent {
     private String name;
-    private double number = 15.0;
+    private double number;
     private Components component;
     
     public BoughtComponent(String name, double number, Components component) {

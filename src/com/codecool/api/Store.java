@@ -2,11 +2,11 @@ package com.codecool.api;
 
 import com.codecool.components.BoughtComponent;
 
+import java.io.Serializable;
 import java.util.List;
 
-public abstract class Store implements java.io.Serializable {
+public abstract class Store implements Serializable {
     private List<BoughtComponent> stock;
-    private static final long serialVersionUID = -4637212935239168953L;
     
     Store() {
         this.stock = stock;

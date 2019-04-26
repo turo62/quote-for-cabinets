@@ -17,5 +17,7 @@ public class Cabinet {
     //getDrawers (carving?)
     //getDoors (carving?)
     //getFeet
+    //vertical section(s)
+    //horizontal sections
     
 }
