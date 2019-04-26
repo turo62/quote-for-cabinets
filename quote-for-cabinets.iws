@@ -2,18 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="15fed9b8-ced0-4b71-9941-252d9c0c7704" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/codecool/exceptions/NoMatchException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/codecool/exceptions/NoMoneyException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/codecool/exceptions/OutOfStockException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/quote-for-cabinets.iws" beforeDir="false" afterPath="$PROJECT_DIR$/quote-for-cabinets.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/api/HardWareStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/api/HardWareStore.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/api/WoodStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/api/WoodStore.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/codecool/cmd/CmdMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/cmd/CmdMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/codecool/cmd/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/cmd/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/components/BoughtComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/codecool/components/BoughtComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/exceptions/noMatchException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/exceptions/noMoneyException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/codecool/exceptions/outOfStockException.java" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -33,8 +25,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/codecool/cmd/CmdMenu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="341">
-              <caret line="29" column="24" lean-forward="true" selection-start-line="29" selection-start-column="24" selection-end-line="29" selection-end-column="79" />
+            <state relative-caret-position="1672">
+              <caret line="385" column="64" selection-start-line="385" selection-start-column="64" selection-end-line="385" selection-end-column="64" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#cabinetMenu#0;class#CmdMenu#0" />
@@ -47,7 +39,22 @@
                 <element signature="method#listCategories#0;class#CmdMenu#0" />
                 <element signature="method#displayCategory#0;class#CmdMenu#0" />
                 <element signature="method#listCategory#0;class#CmdMenu#0" />
+                <element signature="method#loadStock#0;class#CmdMenu#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/quote-for-cabinets.iws">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="328">
+              <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
             </state>
           </provider>
         </entry>
@@ -98,13 +105,15 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/codecool/cmd/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="434">
-              <caret line="14" column="36" lean-forward="true" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="36" />
+            <state relative-caret-position="186">
+              <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#246#247#0" expanded="true" />
+                <element signature="e#283#284#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -182,15 +191,15 @@
         <option value="$PROJECT_DIR$/src/com/codecool/exceptions/noMatchException.java" />
         <option value="$PROJECT_DIR$/src/com/codecool/exceptions/outOfStockException.java" />
         <option value="$PROJECT_DIR$/src/com/codecool/components/WoodScrew.java" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/com/codecool/api/Store.java" />
         <option value="$PROJECT_DIR$/src/com/codecool/api/Inventory.java" />
         <option value="$PROJECT_DIR$/src/com/codecool/api/UserInventory.java" />
         <option value="$PROJECT_DIR$/src/com/codecool/api/HardWareStore.java" />
         <option value="$PROJECT_DIR$/src/com/codecool/api/WoodStore.java" />
         <option value="$PROJECT_DIR$/src/com/codecool/components/BoughtComponent.java" />
-        <option value="$PROJECT_DIR$/src/com/codecool/cmd/CmdMenu.java" />
         <option value="$PROJECT_DIR$/src/com/codecool/cmd/Main.java" />
+        <option value="$PROJECT_DIR$/src/com/codecool/cmd/CmdMenu.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -255,8 +264,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -385,7 +394,14 @@
       <option name="project" value="LOCAL" />
       <updated>1556104040008</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Buying goods done.">
+      <created>1556204169197</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1556204169197</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TodoView">
@@ -399,6 +415,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="1" />
@@ -410,7 +427,7 @@
       <window_info id="Favorites" order="7" sideWeight="0.50474685" side_tool="true" weight="0.24903154" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32972974" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4991699" visible="true" weight="0.34270272" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4991699" weight="0.34270272" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4986165" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -521,29 +538,10 @@
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/codecool/cmd/CmdMenu.java</url>
-          <line>365</line>
-          <properties />
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/codecool/cmd/CmdMenu.java</url>
-          <line>370</line>
-          <properties />
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/quote_for_cabinets$quote_for_cabinets.ic" NAME="quote-for-cabinets Coverage Results" MODIFIED="1555054502394" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar:///usr/lib/jvm/java-11-oracle/lib/src.zip!/java.base/java/lang/Object.java" />
     <entry file="jar:///usr/lib/jvm/java-11-oracle/lib/src.zip!/java.base/java/lang/Integer.java" />
     <entry file="jar:///usr/lib/jvm/java-11-oracle/lib/src.zip!/java.base/java/lang/NumberFormatException.java" />
     <entry file="jar:///usr/lib/jvm/java-11-oracle/lib/src.zip!/java.base/java/lang/Enum.java" />
@@ -657,13 +655,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/quote-for-cabinets.iml">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="93">
-          <caret line="15" column="5" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="5" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/codecool/enums/Style.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -894,8 +885,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/codecool/cmd/CmdMenu.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="29" column="24" lean-forward="true" selection-start-line="29" selection-start-column="24" selection-end-line="29" selection-end-column="79" />
+        <state relative-caret-position="1672">
+          <caret line="385" column="64" selection-start-line="385" selection-start-column="64" selection-end-line="385" selection-end-column="64" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#cabinetMenu#0;class#CmdMenu#0" />
@@ -908,6 +899,7 @@
             <element signature="method#listCategories#0;class#CmdMenu#0" />
             <element signature="method#displayCategory#0;class#CmdMenu#0" />
             <element signature="method#listCategory#0;class#CmdMenu#0" />
+            <element signature="method#loadStock#0;class#CmdMenu#0" />
           </folding>
         </state>
       </provider>
@@ -952,11 +944,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/codecool/cmd/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="434">
-          <caret line="14" column="36" lean-forward="true" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="36" />
+        <state relative-caret-position="186">
+          <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#246#247#0" expanded="true" />
+            <element signature="e#283#284#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quote-for-cabinets.iws">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="328">
+          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
         </state>
       </provider>
     </entry>
