@@ -12,6 +12,7 @@ import java.util.List;
 
 public class HardWareStore extends Store implements Serializable {
     
+    private static final long serialVersionUID = 1711672461982861180L;
     private List<BoughtComponent> stock = new ArrayList<>();
     private double money;
     private double number;

@@ -6,10 +6,13 @@ import com.codecool.components.Components;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WoodStore extends Store {
+public class WoodStore extends Store implements Serializable {
+    
+    private static final long serialVersionUID = 6544560723913313411L;
     private List<BoughtComponent> stock = new ArrayList<>();
     private double money;
     private double number;
