@@ -1,16 +1,21 @@
 package com.codecool.api;
 
+import com.codecool.parts.Part;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Cabinet {
     private String name;
-    private String function;
     private int price;
     private int cost;
+    private List<Part> parts = new ArrayList<>();
     
-    public Cabinet(String name, String function, int price, int cost) {
+    public Cabinet(String name) {
         this.name = name;
-        this.function = function;
         this.price = price;
         this.cost = cost;
+        this.parts = parts;
     }
     //getcarcass
     //isFramed

@@ -3,18 +3,17 @@ package com.codecool.parts;
 import com.codecool.components.KnobsAndPulls;
 import com.codecool.enums.IsInset;
 
-public class Drawer {
+public class Drawer extends Part {
     private int depth;
-    private int length;
+    private int handleNumber;
     private KnobsAndPulls handle;
-    private String madeOf;
     private IsInset seating;
     
-    public Drawer(int depth, int length, KnobsAndPulls handle) {
+    public Drawer(int height, int length, int depth, KnobsAndPulls handle) {
+        super(height, length);
         this.depth = depth;
-        this.length = length;
+        this.handleNumber = handleNumber;
         this.handle = handle;
-        this.madeOf = madeOf;
         this.seating = seating;
     }
 }
