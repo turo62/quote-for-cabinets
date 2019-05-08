@@ -9,14 +9,14 @@ public class DesignPattern {
     private String material;
     private IsFramed framed;
     private int verticalSections;
-    private String shelves;
+    private int shelves;
     private String handle;
     private String hinge;
     private IsInset seating;
     private int numberOfDrawers;
     private boolean slide;
     
-    public DesignPattern(CabinetType myType, String material, IsFramed framed, int verticalSections, String shelves, String handle, String hinge, IsInset seating, int numberOfDrawers, boolean slide) {
+    public DesignPattern(CabinetType myType, String material, IsFramed framed, int verticalSections, int shelves, String handle, String hinge, IsInset seating, int numberOfDrawers, boolean slide) {
         this.myType = myType;
         this.material = material;
         this.framed = framed;
@@ -61,11 +61,11 @@ public class DesignPattern {
         this.verticalSections = verticalSections;
     }
     
-    public String getShelves() {
+    public int getShelves() {
         return shelves;
     }
     
-    public void setShelves(String shelves) {
+    public void setShelves(int shelves) {
         this.shelves = shelves;
     }
     

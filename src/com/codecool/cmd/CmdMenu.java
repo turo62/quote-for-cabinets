@@ -8,6 +8,7 @@ import com.codecool.components.*;
 import com.codecool.enums.CabinetType;
 import com.codecool.enums.IsFramed;
 import com.codecool.enums.IsInset;
+import com.codecool.enums.Style;
 import com.codecool.exceptions.NoMoneyException;
 import com.codecool.exceptions.OutOfStockException;
 import com.codecool.parts.DesignPattern;
@@ -40,7 +41,7 @@ class CmdMenu {
         }
     }
     
-    void start() {
+    void start() throws NoMoneyException, OutOfStockException {
         String[] commands = new String[]{
                 "store",
                 "cabinets",
@@ -76,7 +77,7 @@ class CmdMenu {
         }
     }
     
-    private void storeMenu() {
+    private void storeMenu() throws NoMoneyException, OutOfStockException {
         String[] commands = new String[]{
                 "list all",
                 "list component",
@@ -104,7 +105,7 @@ class CmdMenu {
                 case "back":
                     return;
                 default:
-                    System.out.println("Unknown command " + command + "!");
+                    System.out.println("Unknown command: " + command + "!");
                     break;
             }
         }
@@ -308,21 +309,13 @@ class CmdMenu {
     }
     
     
-    private void shopping() {
-        List<BoughtComponent> stock = new ArrayList<>();
+    private void shopping() throws NoMoneyException, OutOfStockException {
+        List<BoughtComponent> stock;
         System.out.println("Do you want to buy hardware (y) or lumbers/men made sheets (n)? \n");
         String input = getInput();
         stock = loadStock(input);
         printStockInfo(stock);
-    
-        try {
-            buyingComponents(stock);
-        } catch (NoMoneyException e) {
-            e.printStackTrace();
-        } catch (OutOfStockException e) {
-            e.printStackTrace();
-        }
-    
+        buyingComponents(stock);
         printBoughtStock();
     }
     
@@ -434,13 +427,15 @@ class CmdMenu {
         CabinetType myType = chooseType();
         String material = chooseMaterial();
         IsFramed framed = setFrame();
-        int verticalSections = setSections(myType);
-        String shelves = "shelves";
-        String handle = "handle";
-        String hinge = "hinge";
         IsInset seating = setSeating();
+        int verticalSections = setSections(myType);
+        int shelves = 5;
+        String handle = setHandle();
+        String hinge = setHinge(handle, framed, seating);
+        System.out.println(getClass(handle));
         int numberOfDrawers = 5;
         boolean slide = false;
+        System.out.println(myType + "  " + material + "  " + framed + "  " + seating + "  " + verticalSections + "\n" + shelves + "  " + handle + "  " + hinge + "  " + numberOfDrawers + "  " + slide);
         DesignPattern designDetails = new DesignPattern(myType, material, framed, verticalSections, shelves, handle, hinge, seating, numberOfDrawers, slide);
         return designDetails;
     }
@@ -470,7 +465,6 @@ class CmdMenu {
     }
     
     private String chooseMaterial() {
-        List<? extends Components> components = inventory.getAllComponents();
         List<Wood> woodMaterial = new ArrayList<>();
         String material = "";
         String command;
@@ -496,23 +490,11 @@ class CmdMenu {
         }
         
         if (material.equals("lumber")) {
-            for (Components component : components) {
-                if (component instanceof Lumber) {
-                    woodMaterial.add((Lumber) component);
-                }
-            }
+            woodMaterial.addAll(inventory.getBoards());
         } else if (material.equals("plywood")) {
-            for (Components component : components) {
-                if (component instanceof PlyWood) {
-                    woodMaterial.add((PlyWood) component);
-                }
-            }
+            woodMaterial.addAll(inventory.getPlies());
         } else if (material.equals("chipboard")) {
-            for (Components component : components) {
-                if (component instanceof ChipBoard) {
-                    woodMaterial.add((ChipBoard) component);
-                }
-            }
+            woodMaterial.addAll(inventory.getChipBoards());
         }
         
         for (Wood wood : woodMaterial) {
@@ -564,11 +546,11 @@ class CmdMenu {
             System.out.println("Select type of clothes you want to store in your wardrobe.");
             System.out.println("Storing pullovers, panties.");
             if (simpleDecision("yes", "not") == 'y') {
-                sections++;
+                sections += 100;
             }
             System.out.println("Storing coats.");
             if (simpleDecision("yes", "not") == 'y') {
-                sections++;
+                sections += 10;
             }
             System.out.println("Storing shirts, trousers.");
             if (simpleDecision("yes", "not") == 'y') {
@@ -580,6 +562,11 @@ class CmdMenu {
                 sections = 3;
             } else {
                 sections = 2;
+            }
+    
+            System.out.println("Do you need selves?");
+            if (simpleDecision("yes", "not") == 'y') {
+                sections += 10;
             }
         }
         
@@ -596,6 +583,98 @@ class CmdMenu {
             seating = IsInset.OVERLAY;
         }
         return seating;
+    }
+    
+    private String setHandle() {
+        String handle;
+        List<? extends Components> components;
+        char choice = simpleDecision("knobs", "pulls");
+        
+        if (choice == 'y') {
+            handle = setComponent(inventory.getKnobs(), "knobs");
+        } else {
+            handle = setComponent(inventory.getPulls(), "pulls");
+        }
+        
+        return handle;
+    }
+    
+    private String setComponent(List<? extends Components> components, String componentName) {
+        int number;
+        Scanner sc = new Scanner(System.in);
+        
+        while (true) {
+            displayCategory(components);
+            
+            do {
+                System.out.println("Please, select number of your favourite " + componentName + " to cabinet. \n");
+                while (!sc.hasNextInt()) {
+                    System.out.println("That's not a number! \n");
+                    sc.next();
+                }
+                number = sc.nextInt();
+            }
+            
+            while (number < 0 || number > components.size());
+            
+            return components.get(number).getName();
+        }
+    }
+    
+    private String getClass(String handle) {
+        List<Knobs> knobList = inventory.getKnobs();
+        for (Knobs knob : knobList) {
+            getClass().getSimpleName();
+            if (knob.getName().equals(handle)) {
+                return knob.getClass().getSimpleName();
+            }
+        }
+        
+        Pulls pull = inventory.getPulls().get(inventory.getPulls().size() - 1);
+        return pull.getClass().getSimpleName();
+    }
+    
+    private String setHinge(String handle, IsFramed framed, IsInset seating) {
+        String hinge = "hinge";
+        Style myHandle;
+        String falseSeating;
+        String falseFrame;
+        List<? extends Components> components = inventory.getHinges();
+        
+        List<Knobs> newKnob;
+        List<KnobsAndPulls> newHandle;
+        
+        //if (seating.equals("INSET")) {
+        if (seating.name().equals("INSET")) {
+            falseSeating = "IS";
+        } else {
+            falseSeating = "HO";
+        }
+        
+        if (framed.getFrame().equals("FL")) {
+            falseFrame = "FF";
+        } else {
+            falseFrame = "FL";
+        }
+        
+        if (getClass(handle).equals("Knobs")) {
+            myHandle = (inventory.getKnobs().get(getIndexByName(handle, inventory.getKnobs()))).getStyle();
+        } else {
+            myHandle = (inventory.getPulls().get(getIndexByName(handle, inventory.getPulls()))).getStyle();
+        }
+        
+        while (hinge.equals("hinge")) {
+            do {
+                hinge = setComponent(components, "hinge");
+                while (!((Hinge) components.get(getIndexByName(hinge, components))).getStyle().equals(myHandle)) {
+                    System.out.println("Does not fit to handle. Please, select another.");
+                    hinge = setComponent(components, "hinge");
+                }
+            }
+            while (!hinge.contains(falseFrame) || !hinge.contains(falseSeating));
+        }
+        
+        return hinge;
     }
     
     private char simpleDecision(String message1, String message2) {
@@ -621,6 +700,17 @@ class CmdMenu {
             System.out.println("Wrong input");
         }
         return command;
+    }
+    
+    private int getIndexByName(String name, List<? extends Components> components) {
+        int index = 0;
+        for (Components component : components) {
+            if (component.getName().equals(name)) {
+                index = components.indexOf(component);
+            }
+        }
+        
+        return index;
     }
     
     private void buildCabinet() {

@@ -1,6 +1,7 @@
 package com.codecool.api;
 
 import com.codecool.components.BoughtComponent;
+import com.codecool.parts.DesignPattern;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.util.List;
 public class UserInventory extends Inventory {
     private double money;
     private List<Cabinet> cabinets = new ArrayList<>();
+    private List<DesignPattern> orderedCabinets = new ArrayList<>();
     private List<BoughtComponent> boughtComponents = new ArrayList<>();
     
     public UserInventory(int money) {
