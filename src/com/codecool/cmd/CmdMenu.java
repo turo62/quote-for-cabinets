@@ -5,18 +5,23 @@ import com.codecool.api.Inventory;
 import com.codecool.api.UserInventory;
 import com.codecool.api.WoodStore;
 import com.codecool.components.*;
+import com.codecool.enums.CabinetType;
+import com.codecool.enums.IsFramed;
+import com.codecool.enums.IsInset;
 import com.codecool.exceptions.NoMoneyException;
 import com.codecool.exceptions.OutOfStockException;
+import com.codecool.parts.DesignPattern;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Scanner;
 
-public class CmdMenu {
+class CmdMenu {
     
     private String savePath = "cabinet-shop.ser";
     private HardWareStore hardwareShop = new HardWareStore(1000000);
@@ -25,6 +30,7 @@ public class CmdMenu {
     private UserInventory inventory = new UserInventory(250000);
     private String currentType;
     private BoughtComponent boughtComponent;
+    private DesignPattern designDetails;
     
     CmdMenu() {
         if (new File(savePath).exists()) {
@@ -108,6 +114,7 @@ public class CmdMenu {
         String[] commands = new String[]{
                 "display all",
                 "list components",
+                "design",
                 "build",
                 "modify",
                 "back"
@@ -121,6 +128,9 @@ public class CmdMenu {
                 case "display all":
                     break;
                 case "list components":
+                    break;
+                case "design":
+                    designCabinet();
                     break;
                 case "build":
                     buildCabinet();
@@ -300,7 +310,7 @@ public class CmdMenu {
     
     private void shopping() {
         List<BoughtComponent> stock = new ArrayList<>();
-        System.out.println("Do you want to buy hardware (y) or lumbers/men made sheets (any other key)? \n");
+        System.out.println("Do you want to buy hardware (y) or lumbers/men made sheets (n)? \n");
         String input = getInput();
         stock = loadStock(input);
         printStockInfo(stock);
@@ -321,23 +331,25 @@ public class CmdMenu {
         int number = 10000;
         int number1 = 50;
         List<BoughtComponent> stock = new ArrayList<>();
-        
-        for (Components component : components) {
-            if (!(component instanceof Wood)) {
-                if (!hardwareShop.getStock().contains(component)) {
+    
+        if (input.equals("y") && hardwareShop.getStock().size() == 0) {
+            for (Components component : components) {
+                if (!(component instanceof Wood)) {
                     hardwareShop.addComponent(component, number);
                 }
-            } else if (!(component instanceof Hardware)) {
-                if (!woodShop.getStock().contains(component)) {
+            }
+            stock = hardwareShop.getStock();
+        } else if (input.equals("y") && hardwareShop.getStock().size() != 0) {
+            stock = hardwareShop.getStock();
+        } else if (input.equals("n") && woodShop.getStock().size() == 0) {
+            for (Components component : components) {
+                if (!(component instanceof Hardware)) {
                     woodShop.addComponent(component, number1);
                 }
             }
-        }
-        
-        if (input.equals("y")) {
-            stock = hardwareShop.getStock();
-        } else {
             stock = woodShop.getStock();
+        } else if (input.equals("n") && woodShop.getStock().size() != 0) {
+            stock = hardwareShop.getStock();
         }
     
         return stock;
@@ -352,20 +364,23 @@ public class CmdMenu {
     }
     
     private void buyingComponents(List<BoughtComponent> stock) throws OutOfStockException, NoMoneyException {
-        double amountOfGood = 0;
-        double paidValue = 0;
+        double amountOfGood;
+        double paidValue;
         while (true) {
             Scanner sc = new Scanner(System.in);
             int number;
+    
             do {
-                System.out.println("Please, select number of good you want to buy or enter '0' to stop shopping.");
+                System.out.println("Please, select number of good you want to buy or enter '0' to stop shopping. \n");
                 while (!sc.hasNextInt()) {
-                    System.out.println("That's not a number!");
+                    System.out.println("That's not a number! \n");
                     sc.next();
                 }
                 number = sc.nextInt();
-            } while (number < 0 || number > stock.size());
-            System.out.println("Thank you! Got " + number);
+            }
+    
+            while (number < 0 || number > stock.size());
+            System.out.println("Thank you! Got " + number + "\n");
     
             if (number == 0) {
                 break;
@@ -373,7 +388,7 @@ public class CmdMenu {
     
             number -= 1;
     
-            System.out.println("Enter amount you need.");
+            System.out.println("Enter amount you need. \n");
             amountOfGood = Double.parseDouble(getInput());
     
             if (stock.get(number).getComponent() instanceof Dowel || stock.get(number).getComponent() instanceof Screw) {
@@ -408,25 +423,214 @@ public class CmdMenu {
     private void printBoughtStock() {
         double restOfMoney = inventory.getMoney();
         List<BoughtComponent> treasure = inventory.getBoughtComponents();
-        System.out.println("You have $" + restOfMoney + " available for shopping.");
+        System.out.println("You have $" + restOfMoney + " available for shopping. \n");
         
         for (BoughtComponent component : treasure) {
             System.out.println(component.getNumber() + "pcs of " + component.getName());
         }
     }
     
+    private DesignPattern designCabinet() {
+        CabinetType myType = chooseType();
+        String material = chooseMaterial();
+        IsFramed framed = setFrame();
+        int verticalSections = setSections(myType);
+        String shelves = "shelves";
+        String handle = "handle";
+        String hinge = "hinge";
+        IsInset seating = setSeating();
+        int numberOfDrawers = 5;
+        boolean slide = false;
+        DesignPattern designDetails = new DesignPattern(myType, material, framed, verticalSections, shelves, handle, hinge, seating, numberOfDrawers, slide);
+        return designDetails;
+    }
+    
+    private CabinetType chooseType() {
+        CabinetType myType = null;
+        String command;
+        
+        while (myType == null) {
+            System.out.println("Enter type of cabinet you want.");
+            String[] commands = new String[]{
+                    "wardrobe",
+                    "commode"
+            };
+            do {
+                showMenu("Cabinet design", commands);
+                command = getInput();
+                for (CabinetType type : EnumSet.allOf(CabinetType.class)) {
+                    if (type.getUse().equals(command)) {
+                        myType = type;
+                    }
+                }
+            } while (commands.equals(command));
+        }
+        
+        return myType;
+    }
+    
+    private String chooseMaterial() {
+        List<? extends Components> components = inventory.getAllComponents();
+        List<Wood> woodMaterial = new ArrayList<>();
+        String material = "";
+        String command;
+        List<String> recommendations = new ArrayList<>();
+        String chosen = "";
+        
+        while (material.equals("")) {
+            System.out.println("Enter material you want your cabinet made by.");
+            String[] commands = new String[]{
+                    "lumber",
+                    "plywood",
+                    "chipboard"
+            };
+            do {
+                showMenu("Enter the kind of material", commands);
+                command = getInput();
+                for (String com : commands) {
+                    if (com.equals(command)) {
+                        material = com;
+                    }
+                }
+            } while (commands.equals(command));
+        }
+        
+        if (material.equals("lumber")) {
+            for (Components component : components) {
+                if (component instanceof Lumber) {
+                    woodMaterial.add((Lumber) component);
+                }
+            }
+        } else if (material.equals("plywood")) {
+            for (Components component : components) {
+                if (component instanceof PlyWood) {
+                    woodMaterial.add((PlyWood) component);
+                }
+            }
+        } else if (material.equals("chipboard")) {
+            for (Components component : components) {
+                if (component instanceof ChipBoard) {
+                    woodMaterial.add((ChipBoard) component);
+                }
+            }
+        }
+        
+        for (Wood wood : woodMaterial) {
+            if (wood.getThickness() > 15 && wood.getThickness() < 30) {
+                recommendations.add(wood.getName());
+            }
+        }
+        
+        while (chosen.equals("")) {
+            Scanner sc = new Scanner(System.in);
+            int number;
+            int count = 1;
+            for (String recommendation : recommendations) {
+                System.out.println(count + ") " + recommendation);
+                count++;
+            }
+            
+            do {
+                System.out.println("Please, select number of you want your cabinet made by. \n");
+                while (!sc.hasNextInt()) {
+                    System.out.println("That's not a number! \n");
+                    sc.next();
+                }
+                number = sc.nextInt();
+            }
+            
+            while (number < 0 || number > recommendations.size());
+            chosen = recommendations.get(number - 1);
+        }
+        
+        return chosen;
+    }
+    
+    private IsFramed setFrame() {
+        IsFramed frame;
+        System.out.println("DO you want frameless or face framed design?");
+        char choice = simpleDecision("framed", "frameless");
+        if (choice == 'y') {
+            frame = IsFramed.FF;
+        } else {
+            frame = IsFramed.FL;
+        }
+        return frame;
+    }
+    
+    private int setSections(CabinetType myType) {
+        int sections = 0;
+        if (myType == CabinetType.W) {
+            System.out.println("Select type of clothes you want to store in your wardrobe.");
+            System.out.println("Storing pullovers, panties.");
+            if (simpleDecision("yes", "not") == 'y') {
+                sections++;
+            }
+            System.out.println("Storing coats.");
+            if (simpleDecision("yes", "not") == 'y') {
+                sections++;
+            }
+            System.out.println("Storing shirts, trousers.");
+            if (simpleDecision("yes", "not") == 'y') {
+                sections++;
+            }
+        } else {
+            System.out.println("Do you need a large commode?");
+            if (simpleDecision("yes", "not") == 'y') {
+                sections = 3;
+            } else {
+                sections = 2;
+            }
+        }
+        
+        return sections;
+    }
+    
+    private IsInset setSeating() {
+        IsInset seating;
+        System.out.println("Do you want inset doors/drawers or overlaying ones?");
+        char choice = simpleDecision("inset", "overlay");
+        if (choice == 'y') {
+            seating = IsInset.INSET;
+        } else {
+            seating = IsInset.OVERLAY;
+        }
+        return seating;
+    }
+    
+    private char simpleDecision(String message1, String message2) {
+        char[] commands = new char[]{'y', 'n'};
+        char command = 0;
+        boolean stop = false;
+        
+        try {
+            
+            while (command == 0) {
+                System.out.println("Enter " + commands[0] + " for " + message1 + " or " + commands[1] + " for " + message2);
+                
+                do {
+                    command = (char) System.in.read();
+                    for (char com : commands) {
+                        if (com == command) {
+                            stop = true;
+                        }
+                    }
+                } while (!stop);
+            }
+        } catch (IOException e) {
+            System.out.println("Wrong input");
+        }
+        return command;
+    }
     
     private void buildCabinet() {
-        setCabinetDetails();
+        //setCabinetDetails();
         //function of cabinet
-        //getcarcass
+        //getCarcass
         //isFramed
         //getDrawers (carving?)
         //getDoors (carving?)
         //getFeet
-    }
-    
-    private void setCabinetDetails() {
     }
     
     private void load() {

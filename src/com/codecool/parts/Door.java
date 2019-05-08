@@ -8,12 +8,14 @@ public class Door extends Part {
     private KnobsAndPulls handle;
     private Hinge hinge;
     private IsInset seating;
+    private boolean morticed;
     
     public Door(int height, int width, String madeOf) {
         super(height, width);
         this.handle = handle;
         this.hinge = hinge;
         this.seating = seating;
+        this.morticed = morticed;
     }
     
     public void setHandle(KnobsAndPulls handle) {

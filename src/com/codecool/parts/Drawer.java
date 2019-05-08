@@ -8,6 +8,7 @@ public class Drawer extends Part {
     private int handleNumber;
     private KnobsAndPulls handle;
     private IsInset seating;
+    private boolean slide;
     
     public Drawer(int height, int length, int depth, KnobsAndPulls handle) {
         super(height, length);
@@ -15,5 +16,6 @@ public class Drawer extends Part {
         this.handleNumber = handleNumber;
         this.handle = handle;
         this.seating = seating;
+        this.slide = slide;
     }
 }

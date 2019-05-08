@@ -1,6 +1,8 @@
 package com.codecool.components;
 
-public class BoughtComponent {
+import java.io.Serializable;
+
+public class BoughtComponent implements Serializable {
     private String name;
     private double number;
     private Components component;
