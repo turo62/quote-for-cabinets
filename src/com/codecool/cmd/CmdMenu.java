@@ -424,17 +424,31 @@ class CmdMenu {
     }
     
     private DesignPattern designCabinet() {
+        int numberOfDrawers;
+        boolean slide = false;
+        
         CabinetType myType = chooseType();
         String material = chooseMaterial();
         IsFramed framed = setFrame();
         IsInset seating = setSeating();
         int verticalSections = setSections(myType);
-        int shelves = 5;
+        int shelves = setShelves(myType, verticalSections);
         String handle = setHandle();
         String hinge = setHinge(handle, framed, seating);
         System.out.println(getClass(handle));
-        int numberOfDrawers = 5;
-        boolean slide = false;
+    
+        if (myType.name().equals('W')) {
+            numberOfDrawers = 0;
+        } else {
+            numberOfDrawers = ((verticalSections % 10 - shelves % 3) * 5);
+        }
+    
+        if (myType.name().equals('W')) {
+            slide = false;
+        } else {
+            slide = setSlide();
+        }
+        
         System.out.println(myType + "  " + material + "  " + framed + "  " + seating + "  " + verticalSections + "\n" + shelves + "  " + handle + "  " + hinge + "  " + numberOfDrawers + "  " + slide);
         DesignPattern designDetails = new DesignPattern(myType, material, framed, verticalSections, shelves, handle, hinge, seating, numberOfDrawers, slide);
         return designDetails;
@@ -530,7 +544,7 @@ class CmdMenu {
     
     private IsFramed setFrame() {
         IsFramed frame;
-        System.out.println("DO you want frameless or face framed design?");
+        System.out.println("Do you want frameless or face framed design?");
         char choice = simpleDecision("framed", "frameless");
         if (choice == 'y') {
             frame = IsFramed.FF;
@@ -639,23 +653,25 @@ class CmdMenu {
         Style myHandle;
         String falseSeating;
         String falseFrame;
+        int aux = 0;
         List<? extends Components> components = inventory.getHinges();
         
         List<Knobs> newKnob;
         List<KnobsAndPulls> newHandle;
         
-        //if (seating.equals("INSET")) {
         if (seating.name().equals("INSET")) {
-            falseSeating = "IS";
-        } else {
             falseSeating = "HO";
+        } else {
+            falseSeating = "IS";
         }
-        
-        if (framed.getFrame().equals("FL")) {
+    
+        if (framed.name().equals("FL")) {
             falseFrame = "FF";
         } else {
             falseFrame = "FL";
         }
+    
+        System.out.println(falseSeating + falseFrame);
         
         if (getClass(handle).equals("Knobs")) {
             myHandle = (inventory.getKnobs().get(getIndexByName(handle, inventory.getKnobs()))).getStyle();
@@ -670,11 +686,54 @@ class CmdMenu {
                     System.out.println("Does not fit to handle. Please, select another.");
                     hinge = setComponent(components, "hinge");
                 }
-            }
-            while (!hinge.contains(falseFrame) || !hinge.contains(falseSeating));
+    
+                hinge = setComponent(components, "hinge");
+                if (hinge.contains(falseFrame)) {
+                    aux++;
+                }
+                if (hinge.contains(falseSeating)) {
+                    aux++;
+                }
+            } while (aux != 0);
         }
         
         return hinge;
+    }
+    
+    private int setShelves(CabinetType myType, int verticalSections) {
+        float myAux;
+        int shelves = 0;
+        
+        if (myType.name().equals("W")) {
+            if (verticalSections == 1 || verticalSections < 12 && verticalSections % 10 == 1) {
+                shelves = 1;
+            } else if (verticalSections < 12 && verticalSections % 10 == 0) {
+                shelves = 0;
+            } else {
+                shelves = 7;
+            }
+        } else {
+            if (verticalSections < 10) {
+                shelves = 0;
+            } else {
+                shelves = 3;
+            }
+        }
+        return shelves;
+    }
+    
+    private boolean setSlide() {
+        boolean slide = false;
+        
+        System.out.println("Are you interested in having the widest possible drawers?");
+        
+        char choice = simpleDecision("widest", "does not matter");
+        
+        if (choice == 'n') {
+            slide = true;
+        }
+        
+        return slide;
     }
     
     private char simpleDecision(String message1, String message2) {
