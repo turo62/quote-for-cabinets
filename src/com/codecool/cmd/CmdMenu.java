@@ -5,12 +5,8 @@ import com.codecool.api.Inventory;
 import com.codecool.api.UserInventory;
 import com.codecool.api.WoodStore;
 import com.codecool.components.*;
-import com.codecool.enums.CabinetType;
-import com.codecool.enums.IsFramed;
-import com.codecool.enums.IsInset;
-import com.codecool.enums.Style;
-import com.codecool.exceptions.NoMoneyException;
-import com.codecool.exceptions.OutOfStockException;
+import com.codecool.enums.*;
+import com.codecool.exceptions.NotEnoughException;
 import com.codecool.parts.DesignPattern;
 
 import java.io.File;
@@ -41,13 +37,13 @@ class CmdMenu {
         }
     }
     
-    void start() throws NoMoneyException, OutOfStockException {
+    void start() throws NotEnoughException {
         String[] commands = new String[]{
-                "store",
-                "cabinets",
-                "inventory",
-                "help",
-                "exit"
+                "store (s)",
+                "cabinets (c)",
+                "inventory (i)",
+                "help (h)",
+                "exit (e)"
         };
         
         while (true) {
@@ -55,20 +51,20 @@ class CmdMenu {
             String command = getInput();
             
             switch (command) {
-                case "store":
+                case "s":
                     storeMenu();
                     break;
-                case "cabinets":
+                case "c":
                     cabinetMenu();
                     break;
-                case "inventory":
+                case "i":
                     inventoryMenu();
                     break;
-                case "help":
+                case "h":
                     helpMenu();
                     break;
-                case "exit":
-                    saveBusinessStatus();
+                case "e":
+                    //saveBusinessStatus();
                     System.exit(0);
                 default:
                     System.out.println("Unknown command " + command + "!");
@@ -77,13 +73,13 @@ class CmdMenu {
         }
     }
     
-    private void storeMenu() throws NoMoneyException, OutOfStockException {
+    private void storeMenu() throws NotEnoughException {
         String[] commands = new String[]{
-                "list all",
-                "list component",
-                "buy",
-                "sell",
-                "back"
+                "list all (a)",
+                "list component (c)",
+                "buy (b)",
+                "sell (s)",
+                "back (b)"
         };
         
         while (true) {
@@ -91,18 +87,18 @@ class CmdMenu {
             String command = getInput();
             
             switch (command) {
-                case "list all":
+                case "a":
                     listAll();
                     break;
-                case "list component":
+                case "c":
                     listCategory(inventory);
                     break;
-                case "buy":
+                case "s":
                     shopping();
                     break;
-                case "sell":
+                case "e":
                     break;
-                case "back":
+                case "b":
                     return;
                 default:
                     System.out.println("Unknown command: " + command + "!");
@@ -111,14 +107,14 @@ class CmdMenu {
         }
     }
     
-    private void cabinetMenu() {
+    private void cabinetMenu() throws NotEnoughException {
         String[] commands = new String[]{
-                "display all",
-                "list components",
-                "design",
-                "build",
-                "modify",
-                "back"
+                "display all (a)",
+                "list components (c)",
+                "design (d)",
+                "build (u)",
+                "modify (m)",
+                "back (b)"
         };
         
         while (true) {
@@ -126,19 +122,19 @@ class CmdMenu {
             String command = getInput();
             
             switch (command) {
-                case "display all":
+                case "a":
                     break;
-                case "list components":
+                case "c":
                     break;
-                case "design":
+                case "d":
                     designCabinet();
                     break;
-                case "build":
+                case "u":
                     buildCabinet();
                     break;
-                case "modify":
+                case "m":
                     break;
-                case "back":
+                case "b":
                     return;
                 default:
                     System.out.println("Unknown command " + command + "!");
@@ -149,10 +145,10 @@ class CmdMenu {
     
     private void inventoryMenu() {
         String[] commands = new String[]{
-                "display all",
-                "list component",
-                "remove",
-                "back"
+                "display all (a)",
+                "list component (c)",
+                "remove (r)",
+                "back (b)"
         };
         
         while (true) {
@@ -160,13 +156,13 @@ class CmdMenu {
             String command = getInput();
             
             switch (command) {
-                case "display all":
+                case "a":
                     break;
-                case "list component":
+                case "c":
                     break;
-                case "remove":
+                case "r":
                     break;
-                case "back":
+                case "b":
                     return;
                 default:
                     System.out.println("Unknown command " + command + "!");
@@ -189,12 +185,13 @@ class CmdMenu {
     }
     
     private void showMenu(String title, String[] commands) {
-        System.out.println("\n" + "\n" + title + "\n");
+        System.out.println("\n" + title + "\n");
         System.out.print("Commands  | ");
         for (String command : commands) {
             System.out.print(command + " | ");
         }
-        System.out.println("\n" + "\n");
+        System.out.println("\n Enter the letter in brackets to choose then <Enter>.");
+        System.out.println("\n");
     }
     
     private String getInput() {
@@ -309,7 +306,7 @@ class CmdMenu {
     }
     
     
-    private void shopping() throws NoMoneyException, OutOfStockException {
+    private void shopping() throws NotEnoughException {
         List<BoughtComponent> stock;
         System.out.println("Do you want to buy hardware (y) or lumbers/men made sheets (n)? \n");
         String input = getInput();
@@ -356,7 +353,7 @@ class CmdMenu {
         }
     }
     
-    private void buyingComponents(List<BoughtComponent> stock) throws OutOfStockException, NoMoneyException {
+    private void buyingComponents(List<BoughtComponent> stock) throws NotEnoughException {
         double amountOfGood;
         double paidValue;
         while (true) {
@@ -393,11 +390,11 @@ class CmdMenu {
             double goodStock = stock.get(number).getNumber();
     
             if (amountOfGood > goodStock) {
-                throw new OutOfStockException("Sorry but there is no such high stock available. Please, enter value below " + stock.get(number).getNumber());
+                throw new NotEnoughException("Sorry but there is no such high stock available. Please, enter value below " + stock.get(number).getNumber());
             }
     
             if (inventory.getMoney() < paidValue) {
-                throw new NoMoneyException("You have no money enough to buy so many goods.");
+                throw new NotEnoughException("You have no money enough to buy so many goods.");
             }
     
             BoughtComponent newTreasure = new BoughtComponent(stock.get(number).getName(), amountOfGood, stock.get(number).getComponent());
@@ -424,8 +421,11 @@ class CmdMenu {
     }
     
     private DesignPattern designCabinet() {
+        System.out.println("Enter name of the cabinet: \n");
+        String name = getInput();
         int numberOfDrawers;
-        boolean slide = false;
+        boolean slide;
+        List<DesignPattern> myList = inventory.getDesigns();
         
         CabinetType myType = chooseType();
         String material = chooseMaterial();
@@ -434,7 +434,7 @@ class CmdMenu {
         int verticalSections = setSections(myType);
         int shelves = setShelves(myType, verticalSections);
         String handle = setHandle();
-        String hinge = setHinge(handle, framed, seating);
+        String hinge = setHinge(myType, shelves, handle, framed, seating);
         System.out.println(getClass(handle));
     
         if (myType.name().equals('W')) {
@@ -443,14 +443,13 @@ class CmdMenu {
             numberOfDrawers = ((verticalSections % 10 - shelves % 3) * 5);
         }
     
-        if (myType.name().equals('W')) {
+        if (myType.equals(CabinetType.W)) {
             slide = false;
         } else {
             slide = setSlide();
         }
-        
-        System.out.println(myType + "  " + material + "  " + framed + "  " + seating + "  " + verticalSections + "\n" + shelves + "  " + handle + "  " + hinge + "  " + numberOfDrawers + "  " + slide);
-        DesignPattern designDetails = new DesignPattern(myType, material, framed, verticalSections, shelves, handle, hinge, seating, numberOfDrawers, slide);
+    
+        inventory.addDesign(new DesignPattern(name, myType, material, framed, verticalSections, shelves, handle, hinge, seating, numberOfDrawers, slide));
         return designDetails;
     }
     
@@ -648,12 +647,16 @@ class CmdMenu {
         return pull.getClass().getSimpleName();
     }
     
-    private String setHinge(String handle, IsFramed framed, IsInset seating) {
+    private String setHinge(CabinetType myType, int shelves, String handle, IsFramed framed, IsInset seating) {
+        if (myType.equals(CabinetType.C) && shelves == 0) {
+            return null;
+        }
+        
         String hinge = "hinge";
         Style myHandle;
         String falseSeating;
         String falseFrame;
-        int aux = 0;
+        int aux;
         List<? extends Components> components = inventory.getHinges();
         
         List<Knobs> newKnob;
@@ -687,13 +690,14 @@ class CmdMenu {
                     hinge = setComponent(components, "hinge");
                 }
     
-                hinge = setComponent(components, "hinge");
+                aux = 0;
                 if (hinge.contains(falseFrame)) {
                     aux++;
                 }
                 if (hinge.contains(falseSeating)) {
                     aux++;
                 }
+                System.out.println(aux);
             } while (aux != 0);
         }
         
@@ -702,13 +706,15 @@ class CmdMenu {
     
     private int setShelves(CabinetType myType, int verticalSections) {
         float myAux;
-        int shelves = 0;
+        int shelves;
         
         if (myType.name().equals("W")) {
-            if (verticalSections == 1 || verticalSections < 12 && verticalSections % 10 == 1) {
+            if (verticalSections == 1 || verticalSections == 11) {
                 shelves = 1;
-            } else if (verticalSections < 12 && verticalSections % 10 == 0) {
+            } else if (verticalSections == 10) {
                 shelves = 0;
+            } else if (verticalSections == 100) {
+                shelves = 6;
             } else {
                 shelves = 7;
             }
@@ -772,14 +778,119 @@ class CmdMenu {
         return index;
     }
     
-    private void buildCabinet() {
-        //setCabinetDetails();
-        //function of cabinet
-        //getCarcass
-        //isFramed
-        //getDrawers (carving?)
-        //getDoors (carving?)
-        //getFeet
+    private void buildCabinet() throws NotEnoughException {
+        String[] commands = new String[]{
+                "select design (s)",
+                "build carcass (c)",
+                "build doors (d)",
+                "build drawers (r)",
+                "assemble (a)",
+                "back (b)"
+        };
+        
+        while (true) {
+            System.out.println("Enter character in brackets to choose operation.");
+            showMenu("Building cabinet Menu", commands);
+            String command = getInput();
+            
+            switch (command) {
+                case "s":
+                    selectDesign();
+                    break;
+                case "c":
+                    //buildCarcass();
+                    break;
+                case "d":
+                    //buildDoors();
+                    break;
+                case "r":
+                    //buildDrawers();
+                    break;
+                case "a":
+                    //assemble();
+                    break;
+                case "b":
+                    return;
+                default:
+                    System.out.println("Unknown command " + command + "!");
+                    break;
+                
+                
+                //setCabinetDetails();
+                //function of cabinet
+                //getCarcass
+                //isFramed
+                //getDrawers
+                //getDoors
+                //getFeet
+            }
+        }
+    }
+    
+    private DesignPattern selectDesign() throws NotEnoughException {
+        List<DesignPattern> orderedDesign = inventory.getDesigns();
+        DesignPattern chosenPattern = null;
+        int choice;
+        
+        if (orderedDesign.size() == 0) {
+            throw new NotEnoughException("There is no design available. Please, set new cabinet order.");
+        }
+        
+        while (chosenPattern == null) {
+            do {
+                System.out.println("Select the number of design.");
+                int counter = 1;
+                for (DesignPattern singleDesign : orderedDesign) {
+                    System.out.println(counter + ") " + singleDesign.getName());
+                    counter++;
+                }
+                choice = Integer.parseInt(getInput());
+            } while (choice < 1 || choice > orderedDesign.size());
+            
+            chosenPattern = orderedDesign.get(choice - 1);
+            System.out.println(chosenPattern.getName() + " " + chosenPattern.getMyType() + " " + chosenPattern.getMaterial() + " " + chosenPattern.getFramed() +
+                    " " + chosenPattern.getFramed() + " " + chosenPattern.getShelves() + " " + chosenPattern.getVerticalSections() + " " + chosenPattern.getHandle() + " " + chosenPattern.getNumberOfDrawers() + " " + chosenPattern.isSlide());
+        }
+        return chosenPattern;
+    }
+    
+    private void buildCarcass(DesignPattern chosenDesign) {
+        int height;
+        int depth;
+        int width;
+        int thickness;
+        List<Wood> stock = new ArrayList<>();
+        
+        List<Components> components = inventory.getAllComponents();
+        
+        for (Components component : components) {
+            if (component instanceof Wood) {
+                stock.add((Wood) component);
+            }
+        }
+        thickness = stock.get(getIndexByName(chosenDesign.getMaterial(), stock)).getThickness();
+        
+        if (chosenDesign.getMyType() == CabinetType.C) {
+            height = Sizes.C.getHeight();
+            depth = Sizes.C.getDepth();
+            
+            if (chosenDesign.getVerticalSections() % 10 == 3) {
+                width = 4 * thickness + 3 * Sizes.C.getSectionWidth();
+            } else {
+                width = 3 * thickness + 2 * Sizes.C.getSectionWidth();
+            }
+        } else {
+            height = Sizes.W.getHeight();
+            depth = Sizes.W.getDepth();
+            
+            if (chosenDesign.getVerticalSections() == 111) {
+                width = 4 * thickness + 3 * Sizes.W.getSectionWidth();
+            } else if (chosenDesign.getVerticalSections() == 101 || chosenDesign.getVerticalSections() == 11) {
+                width = 3 * thickness + 2 * Sizes.W.getSectionWidth();
+            } else {
+                width = 2 * thickness + Sizes.W.getSectionWidth();
+            }
+        }
     }
     
     private void load() {

@@ -7,14 +7,28 @@ public abstract class Wood extends Components {
     private int length;
     private int width;
     private int thickness;
-    private Load load;
+    protected Load load;
     
-    public Wood(String name, String producer, Load load, double value, AreaToUse qualified, int length, int width, int thickness) {
+    Wood(String name, String producer, Load load, double value, AreaToUse qualified, int length, int width, int thickness) {
         super(name, producer, value, qualified);
         this.load = load;
         this.length = length;
         this.width = width;
         this.thickness = thickness;
+    }
+    
+    public void setThickness(int value) {
+        this.thickness -= value;
+    }
+    
+    public int setWidth(int value) {
+        this.width -= value;
+        return width;
+    }
+    
+    public int setLength(int value) {
+        this.length -= value;
+        return length;
     }
     
     public Load getLoad() {

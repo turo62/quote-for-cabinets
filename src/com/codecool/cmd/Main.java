@@ -1,7 +1,6 @@
 package com.codecool.cmd;
 
-import com.codecool.exceptions.NoMoneyException;
-import com.codecool.exceptions.OutOfStockException;
+import com.codecool.exceptions.NotEnoughException;
 
 public class Main {
     
@@ -9,9 +8,7 @@ public class Main {
         CmdMenu myMenu = new CmdMenu();
         try {
             myMenu.start();
-        } catch (NoMoneyException e) {
-            e.printStackTrace();
-        } catch (OutOfStockException e) {
+        } catch (NotEnoughException e) {
             e.printStackTrace();
         }
     }

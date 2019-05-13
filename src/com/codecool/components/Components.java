@@ -15,6 +15,11 @@ public abstract class Components implements java.io.Serializable {
         this.qualified = qualified;
     }
     
+    public double setValue(double amount) {
+        this.value -= amount;
+        return value;
+    }
+    
     public String getName() {
         return name;
     }

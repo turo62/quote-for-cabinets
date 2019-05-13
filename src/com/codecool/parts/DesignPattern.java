@@ -5,6 +5,7 @@ import com.codecool.enums.IsFramed;
 import com.codecool.enums.IsInset;
 
 public class DesignPattern {
+    private String name;
     private CabinetType myType;
     private String material;
     private IsFramed framed;
@@ -16,7 +17,8 @@ public class DesignPattern {
     private int numberOfDrawers;
     private boolean slide;
     
-    public DesignPattern(CabinetType myType, String material, IsFramed framed, int verticalSections, int shelves, String handle, String hinge, IsInset seating, int numberOfDrawers, boolean slide) {
+    public DesignPattern(String name, CabinetType myType, String material, IsFramed framed, int verticalSections, int shelves, String handle, String hinge, IsInset seating, int numberOfDrawers, boolean slide) {
+        this.name = name;
         this.myType = myType;
         this.material = material;
         this.framed = framed;
@@ -33,8 +35,8 @@ public class DesignPattern {
         return myType;
     }
     
-    public void setMyType(CabinetType myType) {
-        this.myType = myType;
+    public String getName() {
+        return name;
     }
     
     public String getMaterial() {
@@ -108,4 +110,6 @@ public class DesignPattern {
     public void setSlide(boolean slide) {
         this.slide = slide;
     }
+    
+    
 }
