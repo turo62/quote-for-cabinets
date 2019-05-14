@@ -7,12 +7,14 @@ import java.util.List;
 
 public abstract class Part {
     private String name;
+    private double cost;
     private int height;
     private int width;
     private List<BoughtComponent> assembly;
     
-    Part(String name, int height, int width) {
+    Part(String name, double cost, int height, int width) {
         this.name = name;
+        this.cost = cost;
         this.height = height;
         this.width = width;
         this.assembly = assembly;
@@ -24,6 +26,11 @@ public abstract class Part {
     
     public int getWidth() {
         return width;
+    }
+    
+    public double setCost(double value) {
+        cost += value;
+        return cost;
     }
     
     public void addComponent(String name, int number, Components component) {

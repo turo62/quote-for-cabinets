@@ -1,11 +1,9 @@
 package com.codecool.cmd;
 
-import com.codecool.api.HardWareStore;
-import com.codecool.api.Inventory;
-import com.codecool.api.UserInventory;
-import com.codecool.api.WoodStore;
+import com.codecool.api.*;
 import com.codecool.components.*;
 import com.codecool.enums.*;
+import com.codecool.exceptions.NoDesignException;
 import com.codecool.exceptions.NotEnoughException;
 import com.codecool.parts.DesignPattern;
 
@@ -24,20 +22,24 @@ class CmdMenu {
     private HardWareStore hardwareShop = new HardWareStore(1000000);
     private Scanner userInput = new Scanner(System.in);
     private WoodStore woodShop = new WoodStore(1000000);
-    private UserInventory inventory = new UserInventory(250000);
     private String currentType;
     private BoughtComponent boughtComponent;
     private DesignPattern designDetails;
+    private DisplayStore allPrinting;
+    private UserInventory inventory = new UserInventory();
     
     CmdMenu() {
         if (new File(savePath).exists()) {
             load();
         } else {
             System.out.println("New shop started!");
+            System.out.println("please, enter value yu can spend on shop.");
+            double input = Double.parseDouble(getInput());
+            inventory.setMoney(input);
         }
     }
     
-    void start() throws NotEnoughException {
+    void start() throws NotEnoughException, NoDesignException {
         String[] commands = new String[]{
                 "store (s)",
                 "cabinets (c)",
@@ -47,7 +49,7 @@ class CmdMenu {
         };
         
         while (true) {
-            showMenu("Main Menu", commands);
+            allPrinting.showMenu("Main Menu", commands);
             String command = getInput();
             
             switch (command) {
@@ -83,7 +85,7 @@ class CmdMenu {
         };
         
         while (true) {
-            showMenu("Store Menu", commands);
+            allPrinting.showMenu("Store Menu", commands);
             String command = getInput();
             
             switch (command) {
@@ -107,7 +109,7 @@ class CmdMenu {
         }
     }
     
-    private void cabinetMenu() throws NotEnoughException {
+    private void cabinetMenu() throws NotEnoughException, NoDesignException {
         String[] commands = new String[]{
                 "display all (a)",
                 "list components (c)",
@@ -118,7 +120,7 @@ class CmdMenu {
         };
         
         while (true) {
-            showMenu("Cabinet Menu", commands);
+            allPrinting.showMenu("Cabinet Menu", commands);
             String command = getInput();
             
             switch (command) {
@@ -152,7 +154,7 @@ class CmdMenu {
         };
         
         while (true) {
-            showMenu("Inventory Menu", commands);
+            allPrinting.showMenu("Inventory Menu", commands);
             String command = getInput();
             
             switch (command) {
@@ -184,16 +186,6 @@ class CmdMenu {
         );
     }
     
-    private void showMenu(String title, String[] commands) {
-        System.out.println("\n" + title + "\n");
-        System.out.print("Commands  | ");
-        for (String command : commands) {
-            System.out.print(command + " | ");
-        }
-        System.out.println("\n Enter the letter in brackets to choose then <Enter>.");
-        System.out.println("\n");
-    }
-    
     private String getInput() {
         String input = userInput.nextLine().toLowerCase();
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>o<<<<<<<<<<<<<<<<<<<<<<<<<");
@@ -202,12 +194,12 @@ class CmdMenu {
     
     private void listAll() {
         List<? extends Components> components = inventory.getAllComponents();
-        displayCategory(components);
+        allPrinting.displayCategory(components);
     }
     
     private List<? extends Components> chooseComponent(Inventory inventory) {
         List<? extends Components> componentList = null;
-        listCategories(inventory);
+        allPrinting.listCategories(inventory);
         switch (getInput()) {
             case "back":
                 return null;
@@ -266,45 +258,10 @@ class CmdMenu {
         return componentList;
     }
     
-    private void listCategories(Inventory inventory) {
-        System.out.println("\nCommands (back or type a number):\n" +
-                " 0) Lumbers (" + inventory.getBoards().size() + ")" + "\n" +
-                " 1) Chipboard sheets (" + inventory.getChipBoards().size() + ")" + "\n" +
-                " 2) MDF sheets (" + inventory.getMDFs().size() + ")" + "\n" +
-                " 3) Plywood sheets (" + inventory.getPlies().size() + ")" + "\n" +
-                " 4) Glues (" + inventory.getGlues().size() + ")" + "\n" +
-                " 5) Dowels (" + inventory.getDowels().size() + ")" + "\n" +
-                " 6) Pockethole screws (" + inventory.getPocketHoleScrews().size() + ")" + "\n" +
-                " 7) Chipboard screws (" + inventory.getScrews().size() + ")" + "\n" +
-                " 8) Slides (" + inventory.getSlides().size() + ")" + "\n" +
-                " 9) Hinges(" + inventory.getHinges().size() + ")" + "\n" +
-                "10) Pulls (" + inventory.getPulls().size() + ")" + "\n" +
-                "11) Knobs (" + inventory.getKnobs().size() + ")" + "\n");
-    }
-    
-    private void displayCategory(List<? extends Components> components) {
-        if (components.size() == 0) {
-            System.out.println("\nNo items'");
-            return;
-        }
-        
-        int count = 0;
-        for (int i = 0; i < components.size(); i++) {
-            if (i == 0 || i > 0 && !components.get(i - 1).getClass().equals(components.get(i).getClass())) {
-                System.out.println("\n");
-                System.out.println(components.get(i).getClass().getSimpleName() + ":");
-            }
-            System.out.println(count + ") " + components.get(i).toString());
-            count++;
-        }
-    }
-    
     private void listCategory(Inventory inventory) {
         List<? extends Components> componentList = chooseComponent(inventory);
-        displayCategory(componentList);
-        
+        allPrinting.displayCategory(componentList);
     }
-    
     
     private void shopping() throws NotEnoughException {
         List<BoughtComponent> stock;
@@ -313,7 +270,7 @@ class CmdMenu {
         stock = loadStock(input);
         printStockInfo(stock);
         buyingComponents(stock);
-        printBoughtStock();
+        allPrinting.printBoughtStock();
     }
     
     private List<BoughtComponent> loadStock(String input) {
@@ -410,16 +367,6 @@ class CmdMenu {
         }
     }
     
-    private void printBoughtStock() {
-        double restOfMoney = inventory.getMoney();
-        List<BoughtComponent> treasure = inventory.getBoughtComponents();
-        System.out.println("You have $" + restOfMoney + " available for shopping. \n");
-        
-        for (BoughtComponent component : treasure) {
-            System.out.println(component.getNumber() + "pcs of " + component.getName());
-        }
-    }
-    
     private DesignPattern designCabinet() {
         System.out.println("Enter name of the cabinet: \n");
         String name = getInput();
@@ -464,7 +411,7 @@ class CmdMenu {
                     "commode"
             };
             do {
-                showMenu("Cabinet design", commands);
+                allPrinting.showMenu("Cabinet design", commands);
                 command = getInput();
                 for (CabinetType type : EnumSet.allOf(CabinetType.class)) {
                     if (type.getUse().equals(command)) {
@@ -492,7 +439,7 @@ class CmdMenu {
                     "chipboard"
             };
             do {
-                showMenu("Enter the kind of material", commands);
+                allPrinting.showMenu("Enter the kind of material", commands);
                 command = getInput();
                 for (String com : commands) {
                     if (com.equals(command)) {
@@ -617,7 +564,7 @@ class CmdMenu {
         Scanner sc = new Scanner(System.in);
         
         while (true) {
-            displayCategory(components);
+            allPrinting.displayCategory(components);
             
             do {
                 System.out.println("Please, select number of your favourite " + componentName + " to cabinet. \n");
@@ -778,62 +725,20 @@ class CmdMenu {
         return index;
     }
     
-    private void buildCabinet() throws NotEnoughException {
-        String[] commands = new String[]{
-                "select design (s)",
-                "build carcass (c)",
-                "build doors (d)",
-                "build drawers (r)",
-                "assemble (a)",
-                "back (b)"
-        };
+    private void buildCabinet() throws NotEnoughException, NoDesignException {
         
-        while (true) {
-            System.out.println("Enter character in brackets to choose operation.");
-            showMenu("Building cabinet Menu", commands);
-            String command = getInput();
-            
-            switch (command) {
-                case "s":
-                    selectDesign();
-                    break;
-                case "c":
-                    //buildCarcass();
-                    break;
-                case "d":
-                    //buildDoors();
-                    break;
-                case "r":
-                    //buildDrawers();
-                    break;
-                case "a":
-                    //assemble();
-                    break;
-                case "b":
-                    return;
-                default:
-                    System.out.println("Unknown command " + command + "!");
-                    break;
-                
-                
-                //setCabinetDetails();
-                //function of cabinet
-                //getCarcass
-                //isFramed
-                //getDrawers
-                //getDoors
-                //getFeet
-            }
-        }
+        DesignPattern chosenDesign = selectDesign();
+        buildCarcass(chosenDesign);
+                    
     }
     
-    private DesignPattern selectDesign() throws NotEnoughException {
+    private DesignPattern selectDesign() throws NoDesignException {
         List<DesignPattern> orderedDesign = inventory.getDesigns();
         DesignPattern chosenPattern = null;
         int choice;
         
         if (orderedDesign.size() == 0) {
-            throw new NotEnoughException("There is no design available. Please, set new cabinet order.");
+            throw new NoDesignException("There is no design available. Please, set new cabinet order.");
         }
         
         while (chosenPattern == null) {
@@ -858,38 +763,62 @@ class CmdMenu {
         int height;
         int depth;
         int width;
-        int thickness;
-        List<Wood> stock = new ArrayList<>();
-        
-        List<Components> components = inventory.getAllComponents();
-        
-        for (Components component : components) {
-            if (component instanceof Wood) {
-                stock.add((Wood) component);
-            }
+        int thickness = 18;
+        int sections = 0;
+        int dsections = chosenDesign.getVerticalSections();
+    
+        while (dsections > 0) {
+            sections = sections + dsections % 10;
+            dsections = dsections / 10;
         }
-        thickness = stock.get(getIndexByName(chosenDesign.getMaterial(), stock)).getThickness();
         
         if (chosenDesign.getMyType() == CabinetType.C) {
             height = Sizes.C.getHeight();
             depth = Sizes.C.getDepth();
+            width = sections * (thickness + Sizes.C.getSectionWidth()) + thickness;
             
-            if (chosenDesign.getVerticalSections() % 10 == 3) {
-                width = 4 * thickness + 3 * Sizes.C.getSectionWidth();
-            } else {
-                width = 3 * thickness + 2 * Sizes.C.getSectionWidth();
-            }
         } else {
             height = Sizes.W.getHeight();
             depth = Sizes.W.getDepth();
+            width = sections * (thickness + Sizes.W.getSectionWidth()) + thickness;
+        }
+    }
+    
+    private Components selectWood(String name) {
+        List<Components> stock = new ArrayList<>();
+        List<Double> stockAmount = new ArrayList<>();
+        
+        List<BoughtComponent> remainders = inventory.getRemainders();
+        List<? extends BoughtComponent> components = inventory.getBoughtComponents();
+        
+        remainders.stream().filter(component -> component.getName().equals(name)).forEach(component -> {
+            stock.add(component.getComponent());
+            stockAmount.add(component.getNumber());
+        });
+        
+        components.stream().filter(component -> component.getName().equals(name)).forEach(component -> {
+            stock.add(component.getComponent());
+            stockAmount.add(component.getNumber());
+        });
+        
+        int number;
+        Scanner sc = new Scanner(System.in);
+        
+        while (true) {
+            allPrinting.displayCategory(stock);
             
-            if (chosenDesign.getVerticalSections() == 111) {
-                width = 4 * thickness + 3 * Sizes.W.getSectionWidth();
-            } else if (chosenDesign.getVerticalSections() == 101 || chosenDesign.getVerticalSections() == 11) {
-                width = 3 * thickness + 2 * Sizes.W.getSectionWidth();
-            } else {
-                width = 2 * thickness + Sizes.W.getSectionWidth();
+            do {
+                System.out.println("Please, select number of the wood you want your part being built. \n");
+                while (!sc.hasNextInt()) {
+                    System.out.println("That's not a number! \n");
+                    sc.next();
+                }
+                number = sc.nextInt();
             }
+            
+            while (number < 0 || number > components.size());
+            
+            return stock.get(number);
         }
     }
     

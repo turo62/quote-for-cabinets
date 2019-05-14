@@ -12,8 +12,8 @@ public class Carcass extends Part {
     private IsFramed framing;
     private List<BoughtComponent> assembly = new ArrayList<>();
     
-    public Carcass(String name, int height, int width, int depth, int verticalSection, IsFramed framing) {
-        super(name, height, width);
+    public Carcass(String name, double cost, int height, int width, int depth, int verticalSection, IsFramed framing) {
+        super(name, cost, height, width);
         this.depth = depth;
         this.verticalSection = verticalSection;
         this.framing = framing;

@@ -17,7 +17,7 @@ public class UserInventory extends Inventory {
     private List<BoughtComponent> boughtComponents = new ArrayList<>();
     private List<BoughtComponent> remainders = new ArrayList<>();
     
-    public UserInventory(int money) {
+    public UserInventory() {
         this.money = money;
     }
     

@@ -1,5 +1,6 @@
 package com.codecool.cmd;
 
+import com.codecool.exceptions.NoDesignException;
 import com.codecool.exceptions.NotEnoughException;
 
 public class Main {
@@ -9,6 +10,8 @@ public class Main {
         try {
             myMenu.start();
         } catch (NotEnoughException e) {
+            e.printStackTrace();
+        } catch (NoDesignException e) {
             e.printStackTrace();
         }
     }
