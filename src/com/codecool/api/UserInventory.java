@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class UserInventory extends Inventory {
     private double money;
@@ -16,6 +17,7 @@ public class UserInventory extends Inventory {
     private List<DesignPattern> orderedCabinets = new ArrayList<>();
     private List<BoughtComponent> boughtComponents = new ArrayList<>();
     private List<BoughtComponent> remainders = new ArrayList<>();
+    private DisplayStore inventoryPrinting = new DisplayStore();
     
     public UserInventory() {
         this.money = money;
@@ -142,5 +144,43 @@ public class UserInventory extends Inventory {
         ooS.flush();
         foS.close();
         ooS.close();
+    }
+    
+    private Components selectWood(String name) {
+        List<Components> stock = new ArrayList<>();
+        List<Double> stockAmount = new ArrayList<>();
+        
+        List<BoughtComponent> remainders = getRemainders();
+        List<? extends BoughtComponent> components = getBoughtComponents();
+        
+        remainders.stream().filter(component -> component.getName().equals(name)).forEach(component -> {
+            stock.add(component.getComponent());
+            stockAmount.add(component.getNumber());
+        });
+        
+        components.stream().filter(component -> component.getName().equals(name)).forEach(component -> {
+            stock.add(component.getComponent());
+            stockAmount.add(component.getNumber());
+        });
+        
+        int number;
+        Scanner sc = new Scanner(System.in);
+        
+        while (true) {
+            inventoryPrinting.displayCategory(stock);
+            
+            do {
+                System.out.println("Please, select number of the wood you want your part being built. \n");
+                while (!sc.hasNextInt()) {
+                    System.out.println("That's not a number! \n");
+                    sc.next();
+                }
+                number = sc.nextInt();
+            }
+            
+            while (number < 0 || number > components.size());
+            
+            return stock.get(number);
+        }
     }
 }

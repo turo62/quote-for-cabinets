@@ -79,7 +79,7 @@ class CmdMenu {
         String[] commands = new String[]{
                 "list all (a)",
                 "list component (c)",
-                "buy (b)",
+                "buy (u)",
                 "sell (s)",
                 "back (b)"
         };
@@ -95,10 +95,10 @@ class CmdMenu {
                 case "c":
                     listCategory(inventory);
                     break;
-                case "s":
+                case "u":
                     shopping();
                     break;
-                case "e":
+                case "s":
                     break;
                 case "b":
                     return;
@@ -268,7 +268,7 @@ class CmdMenu {
         System.out.println("Do you want to buy hardware (y) or lumbers/men made sheets (n)? \n");
         String input = getInput();
         stock = loadStock(input);
-        printStockInfo(stock);
+        allPrinting.printStockInfo(stock);
         buyingComponents(stock);
         allPrinting.printBoughtStock();
     }
@@ -300,14 +300,6 @@ class CmdMenu {
         }
     
         return stock;
-    }
-    
-    private void printStockInfo(List<BoughtComponent> stock) {
-        int count = 1;
-        for (BoughtComponent boughtComponent : stock) {
-            System.out.println(count + ")  " + boughtComponent.getComponent().details());
-            count++;
-        }
     }
     
     private void buyingComponents(List<BoughtComponent> stock) throws NotEnoughException {
@@ -781,44 +773,6 @@ class CmdMenu {
             height = Sizes.W.getHeight();
             depth = Sizes.W.getDepth();
             width = sections * (thickness + Sizes.W.getSectionWidth()) + thickness;
-        }
-    }
-    
-    private Components selectWood(String name) {
-        List<Components> stock = new ArrayList<>();
-        List<Double> stockAmount = new ArrayList<>();
-        
-        List<BoughtComponent> remainders = inventory.getRemainders();
-        List<? extends BoughtComponent> components = inventory.getBoughtComponents();
-        
-        remainders.stream().filter(component -> component.getName().equals(name)).forEach(component -> {
-            stock.add(component.getComponent());
-            stockAmount.add(component.getNumber());
-        });
-        
-        components.stream().filter(component -> component.getName().equals(name)).forEach(component -> {
-            stock.add(component.getComponent());
-            stockAmount.add(component.getNumber());
-        });
-        
-        int number;
-        Scanner sc = new Scanner(System.in);
-        
-        while (true) {
-            allPrinting.displayCategory(stock);
-            
-            do {
-                System.out.println("Please, select number of the wood you want your part being built. \n");
-                while (!sc.hasNextInt()) {
-                    System.out.println("That's not a number! \n");
-                    sc.next();
-                }
-                number = sc.nextInt();
-            }
-            
-            while (number < 0 || number > components.size());
-            
-            return stock.get(number);
         }
     }
     

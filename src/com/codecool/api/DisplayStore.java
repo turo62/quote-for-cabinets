@@ -60,4 +60,12 @@ public class DisplayStore {
             System.out.println(component.getNumber() + "pcs of " + component.getName());
         }
     }
+    
+    public void printStockInfo(List<BoughtComponent> stock) {
+        int count = 1;
+        for (BoughtComponent boughtComponent : stock) {
+            System.out.println(count + ")  " + boughtComponent.getComponent().details());
+            count++;
+        }
+    }
 }
