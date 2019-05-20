@@ -17,7 +17,7 @@ public class UserInventory extends Inventory {
     private List<DesignPattern> orderedCabinets = new ArrayList<>();
     private List<BoughtComponent> boughtComponents = new ArrayList<>();
     private List<BoughtComponent> remainders = new ArrayList<>();
-    private DisplayStore inventoryPrinting = new DisplayStore();
+    public AllPrinting invPrint = new AllPrinting();
     
     public UserInventory() {
         this.money = money;
@@ -146,7 +146,364 @@ public class UserInventory extends Inventory {
         ooS.close();
     }
     
-    private Components selectWood(String name) {
+    public char simpleDecision(String message1, String message2) {
+        char[] commands = new char[]{'y', 'n'};
+        char command = 0;
+        boolean stop = false;
+        
+        try {
+            
+            while (command == 0) {
+                invPrint.simpleDecisionPrint(commands, message1, message2);
+                
+                do {
+                    command = (char) System.in.read();
+                    for (char com : commands) {
+                        if (com == command) {
+                            stop = true;
+                        }
+                    }
+                } while (!stop);
+            }
+        } catch (IOException e) {
+            System.out.println("Wrong input");
+        }
+        return command;
+    }
+    
+    public CabinetType chooseType() {
+        CabinetType myType = null;
+        String command;
+        
+        while (myType == null) {
+            invPrint.simpleDisplay("Enter type of cabinet you want.");
+            String[] commands = new String[]{
+                    "wardrobe",
+                    "commode"
+            };
+            do {
+                invPrint.showMenu("Cabinet design", commands);
+                command = invPrint.getInput();
+                for (CabinetType type : EnumSet.allOf(CabinetType.class)) {
+                    if (type.getUse().equals(command)) {
+                        myType = type;
+                    }
+                }
+            } while (commands.equals(command));
+        }
+        
+        return myType;
+    }
+    
+    public String chooseMaterial() {
+        List<Wood> woodMaterial = new ArrayList<>();
+        String material = "";
+        String command;
+        List<String> recommendations = new ArrayList<>();
+        String chosen = "";
+        
+        while (material.equals("")) {
+            invPrint.simpleDisplay("Enter material you want your cabinet made by.");
+            String[] commands = new String[]{
+                    "lumber",
+                    "plywood",
+                    "chipboard"
+            };
+            do {
+                invPrint.showMenu("Type the name of material you want your cabinet made of", commands);
+                command = invPrint.getInput();
+                for (String com : commands) {
+                    if (com.equals(command)) {
+                        material = com;
+                    }
+                }
+            } while (commands.equals(command));
+        }
+        
+        if (material.equals("lumber")) {
+            woodMaterial.addAll(getBoards());
+        } else if (material.equals("plywood")) {
+            woodMaterial.addAll(getPlies());
+        } else if (material.equals("chipboard")) {
+            woodMaterial.addAll(getChipBoards());
+        }
+        
+        for (Wood wood : woodMaterial) {
+            if (wood.getThickness() > 15 && wood.getThickness() < 30) {
+                recommendations.add(wood.getName());
+            }
+        }
+        
+        while (chosen.equals("")) {
+            Scanner sc = new Scanner(System.in);
+            int number;
+            int count = 1;
+            for (String recommendation : recommendations) {
+                System.out.println(count + ") " + recommendation);
+                count++;
+            }
+            
+            do {
+                System.out.println("Please, select number of you want your cabinet made by. \n");
+                while (!sc.hasNextInt()) {
+                    invPrint.simpleDisplay("That's not a number! \n");
+                    sc.next();
+                }
+                number = sc.nextInt();
+            }
+            
+            while (number < 0 || number > recommendations.size());
+            chosen = recommendations.get(number - 1);
+        }
+        
+        return chosen;
+    }
+    
+    public IsFramed setFrame() {
+        IsFramed frame;
+        System.out.println("Do you want frameless or face framed design?");
+        char choice = simpleDecision("framed", "frameless");
+        if (choice == 'y') {
+            frame = IsFramed.FF;
+        } else {
+            frame = IsFramed.FL;
+        }
+        return frame;
+    }
+    
+    public IsInset setSeating() {
+        IsInset seating;
+        invPrint.simpleDisplay("Do you want inset doors/drawers or overlaying ones?");
+        char choice = simpleDecision("inset", "overlay");
+        if (choice == 'y') {
+            seating = IsInset.INSET;
+        } else {
+            seating = IsInset.OVERLAY;
+        }
+        return seating;
+    }
+    
+    public int setSections(CabinetType myType) {
+        int sections = 0;
+        if (myType == CabinetType.W) {
+            invPrint.simpleDisplay("Select type of clothes you want to store in your wardrobe.");
+            invPrint.simpleDisplay("Storing pullovers, panties.");
+            if (simpleDecision("yes", "not") == 'y') {
+                sections += 100;
+            }
+            invPrint.simpleDisplay("Storing coats.");
+            if (simpleDecision("yes", "not") == 'y') {
+                sections += 10;
+            }
+            invPrint.simpleDisplay("Storing shirts, trousers.");
+            if (simpleDecision("yes", "not") == 'y') {
+                sections++;
+            }
+        } else {
+            invPrint.simpleDisplay("Do you need a large commode?");
+            if (simpleDecision("yes", "not") == 'y') {
+                sections = 3;
+            } else {
+                sections = 2;
+            }
+    
+            invPrint.simpleDisplay("Do you need selves?");
+            if (simpleDecision("yes", "not") == 'y') {
+                sections += 10;
+            }
+        }
+        
+        return sections;
+    }
+    
+    public String setHandle() {
+        String handle;
+        List<? extends Components> components;
+        char choice = simpleDecision("knobs", "pulls");
+        
+        if (choice == 'y') {
+            handle = setComponent(getKnobs(), "knobs");
+        } else {
+            handle = setComponent(getPulls(), "pulls");
+        }
+        
+        return handle;
+    }
+    
+    public String setComponent(List<? extends Components> components, String componentName) {
+        int number;
+        Scanner sc = new Scanner(System.in);
+        
+        while (true) {
+            invPrint.displayCategory(components);
+            
+            do {
+                invPrint.simpleDisplay("Please, select number of your favourite " + componentName + " to cabinet. \n");
+                while (!sc.hasNextInt()) {
+                    invPrint.simpleDisplay("That's not a number! \n");
+                    sc.next();
+                }
+                number = sc.nextInt();
+            }
+            
+            while (number < 0 || number > components.size());
+            
+            return components.get(number).getName();
+        }
+    }
+    
+    public int setShelves(CabinetType myType, int verticalSections) {
+        float myAux;
+        int shelves;
+        
+        if (myType.name().equals("W")) {
+            if (verticalSections == 1 || verticalSections == 11) {
+                shelves = 1;
+            } else if (verticalSections == 10) {
+                shelves = 0;
+            } else if (verticalSections == 100) {
+                shelves = 6;
+            } else {
+                shelves = 7;
+            }
+        } else {
+            if (verticalSections < 10) {
+                shelves = 0;
+            } else {
+                shelves = 3;
+            }
+        }
+        return shelves;
+    }
+    
+    public String getClass(String handle) {
+        List<Knobs> knobList = getKnobs();
+        for (Knobs knob : knobList) {
+            getClass().getSimpleName();
+            if (knob.getName().equals(handle)) {
+                return knob.getClass().getSimpleName();
+            }
+        }
+        
+        Pulls pull = getPulls().get(getPulls().size() - 1);
+        return pull.getClass().getSimpleName();
+    }
+    
+    public int getIndexByName(String name, List<? extends Components> components) {
+        int index = 0;
+        for (Components component : components) {
+            if (component.getName().equals(name)) {
+                index = components.indexOf(component);
+            }
+        }
+        
+        return index;
+    }
+    
+    public String setHinge(CabinetType myType, int shelves, String handle, IsFramed framed, IsInset seating) {
+        if (myType.equals(CabinetType.C) && shelves == 0) {
+            return null;
+        }
+        
+        String hinge = "hinge";
+        Style myHandle;
+        String falseSeating;
+        String falseFrame;
+        int aux;
+        List<? extends Components> components = getHinges();
+        
+        List<Knobs> newKnob;
+        List<KnobsAndPulls> newHandle;
+        
+        if (seating.name().equals("INSET")) {
+            falseSeating = "HO";
+        } else {
+            falseSeating = "IS";
+        }
+        
+        if (framed.name().equals("FL")) {
+            falseFrame = "FF";
+        } else {
+            falseFrame = "FL";
+        }
+        
+        System.out.println(falseSeating + falseFrame);
+        
+        if (getClass(handle).equals("Knobs")) {
+            myHandle = (getKnobs().get(getIndexByName(handle, getKnobs()))).getStyle();
+        } else {
+            myHandle = (getPulls().get(getIndexByName(handle, getPulls()))).getStyle();
+        }
+        
+        while (hinge.equals("hinge")) {
+            do {
+                hinge = setComponent(components, "hinge");
+                while (!((Hinge) components.get(getIndexByName(hinge, components))).getStyle().equals(myHandle)) {
+                    invPrint.simpleDisplay("Does not fit to handle. Please, select another.");
+                    hinge = setComponent(components, "hinge");
+                }
+                
+                aux = 0;
+                if (hinge.contains(falseFrame)) {
+                    aux++;
+                }
+                if (hinge.contains(falseSeating)) {
+                    aux++;
+                }
+                System.out.println(aux);
+            } while (aux != 0);
+        }
+        
+        return hinge;
+    }
+    
+    public boolean setSlide() {
+        boolean slide = false;
+    
+        invPrint.simpleDisplay("Are you interested in having the widest possible drawers?");
+        
+        char choice = simpleDecision("widest", "does not matter");
+        
+        if (choice == 'n') {
+            slide = true;
+        }
+        
+        return slide;
+    }
+    
+    public void designCabinet() {
+        invPrint.simpleDisplay("Enter name of the cabinet: \n");
+        String name = invPrint.getInput();
+        int numberOfDrawers;
+        boolean slide;
+        List<DesignPattern> myList = getDesigns();
+        
+        CabinetType myType = chooseType();
+        String material = chooseMaterial();
+        IsFramed framed = setFrame();
+        IsInset seating = setSeating();
+        int verticalSections = setSections(myType);
+        int shelves = setShelves(myType, verticalSections);
+        String handle = setHandle();
+        String hinge = setHinge(myType, shelves, handle, framed, seating);
+        System.out.println(getClass(handle));
+        
+        if (myType.name().equals('W')) {
+            numberOfDrawers = 0;
+        } else {
+            numberOfDrawers = ((verticalSections % 10 - shelves / 3) * 5);
+        }
+        
+        if (myType.equals(CabinetType.W)) {
+            slide = false;
+        } else {
+            slide = setSlide();
+        }
+        
+        addDesign(new DesignPattern(name, myType, material, framed, verticalSections, shelves, handle, hinge, seating, numberOfDrawers, slide));
+    }
+    
+    public Components selectWood(String name) {
         List<Components> stock = new ArrayList<>();
         List<Double> stockAmount = new ArrayList<>();
         
@@ -167,12 +524,12 @@ public class UserInventory extends Inventory {
         Scanner sc = new Scanner(System.in);
         
         while (true) {
-            inventoryPrinting.displayCategory(stock);
+            invPrint.displayCategory(stock);
             
             do {
-                System.out.println("Please, select number of the wood you want your part being built. \n");
+                invPrint.simpleDisplay("Please, select number of the wood you want your part being built. \n");
                 while (!sc.hasNextInt()) {
-                    System.out.println("That's not a number! \n");
+                    invPrint.simpleDisplay("That's not a number! \n");
                     sc.next();
                 }
                 number = sc.nextInt();
@@ -182,5 +539,59 @@ public class UserInventory extends Inventory {
             
             return stock.get(number);
         }
+    }
+    
+    public DesignPattern selectDesign() throws NoDesignException {
+        List<DesignPattern> orderedDesign = getDesigns();
+        DesignPattern chosenPattern = null;
+        int choice;
+        
+        if (orderedDesign.size() == 0) {
+            throw new NoDesignException("There is no design available. Please, set new cabinet order.");
+        }
+        
+        while (chosenPattern == null) {
+            do {
+                invPrint.simpleDisplay("Select the number of design.");
+                int counter = 1;
+                for (DesignPattern singleDesign : orderedDesign) {
+                    System.out.println(counter + ") " + singleDesign.getName());
+                    counter++;
+                }
+                choice = Integer.parseInt(invPrint.getInput());
+            } while (choice < 1 || choice > orderedDesign.size());
+            
+            chosenPattern = orderedDesign.get(choice - 1);
+            System.out.println(chosenPattern.getName() + " " + chosenPattern.getMyType() + " " + chosenPattern.getMaterial() + " " + chosenPattern.getFramed() +
+                    " " + chosenPattern.getSeating() + " " + chosenPattern.getShelves() + " " + chosenPattern.getVerticalSections() + " " + chosenPattern.getHandle() + " " + chosenPattern.getNumberOfDrawers() + " " + chosenPattern.isSlide());
+        }
+        return chosenPattern;
+    }
+    
+    public void buildCarcass(DesignPattern chosenDesign) {
+        int height;
+        int depth;
+        int width;
+        int thickness = 18;
+        int sections = 0;
+        int dsections = chosenDesign.getVerticalSections();
+        
+        while (dsections > 0) {
+            sections = sections + dsections % 10;
+            dsections = dsections / 10;
+        }
+        
+        if (chosenDesign.getMyType() == CabinetType.C) {
+            height = Sizes.C.getHeight();
+            depth = Sizes.C.getDepth();
+            width = sections * (thickness + Sizes.C.getSectionWidth()) + thickness;
+            
+        } else {
+            height = Sizes.W.getHeight();
+            depth = Sizes.W.getDepth();
+            width = sections * (thickness + Sizes.W.getSectionWidth()) + thickness;
+        }
+        
+        Wood myWood = (Wood) selectWood(chosenDesign.getMaterial());
     }
 }

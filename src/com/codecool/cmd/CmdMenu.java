@@ -2,9 +2,13 @@ package com.codecool.cmd;
 
 import com.codecool.api.*;
 import com.codecool.components.*;
+<<<<<<< Updated upstream
 import com.codecool.enums.*;
 import com.codecool.exceptions.NoDesignException;
 import com.codecool.exceptions.NotEnoughException;
+=======
+import com.codecool.exceptions.*;
+>>>>>>> Stashed changes
 import com.codecool.parts.DesignPattern;
 
 import java.io.File;
@@ -32,10 +36,7 @@ class CmdMenu {
         if (new File(savePath).exists()) {
             load();
         } else {
-            System.out.println("New shop started!");
-            System.out.println("please, enter value yu can spend on shop.");
-            double input = Double.parseDouble(getInput());
-            inventory.setMoney(input);
+            display.simpleDisplay("New shop started!");
         }
     }
     
@@ -194,7 +195,7 @@ class CmdMenu {
     
     private void listAll() {
         List<? extends Components> components = inventory.getAllComponents();
-        allPrinting.displayCategory(components);
+        inventory.invPrint.displayCategory(components);
     }
     
     private List<? extends Components> chooseComponent(Inventory inventory) {
@@ -258,15 +259,32 @@ class CmdMenu {
         return componentList;
     }
     
-    private void listCategory(Inventory inventory) {
-        List<? extends Components> componentList = chooseComponent(inventory);
-        allPrinting.displayCategory(componentList);
+    private void listCategories(Inventory inventory) {
+        System.out.println("\nCommands (back or type a number):\n" +
+                " 0) Lumbers (" + inventory.getBoards().size() + ")" + "\n" +
+                " 1) Chipboard sheets (" + inventory.getChipBoards().size() + ")" + "\n" +
+                " 2) MDF sheets (" + inventory.getMDFs().size() + ")" + "\n" +
+                " 3) Plywood sheets (" + inventory.getPlies().size() + ")" + "\n" +
+                " 4) Glues (" + inventory.getGlues().size() + ")" + "\n" +
+                " 5) Dowels (" + inventory.getDowels().size() + ")" + "\n" +
+                " 6) Pockethole screws (" + inventory.getPocketHoleScrews().size() + ")" + "\n" +
+                " 7) Chipboard screws (" + inventory.getScrews().size() + ")" + "\n" +
+                " 8) Slides (" + inventory.getSlides().size() + ")" + "\n" +
+                " 9) Hinges(" + inventory.getHinges().size() + ")" + "\n" +
+                "10) Pulls (" + inventory.getPulls().size() + ")" + "\n" +
+                "11) Knobs (" + inventory.getKnobs().size() + ")" + "\n");
+    }
+    
+    private void listCategory(Inventory myInventory) {
+        List<? extends Components> componentList = chooseComponent(myInventory);
+        inventory.invPrint.displayCategory(componentList);
+        
     }
     
     private void shopping() throws NotEnoughException {
         List<BoughtComponent> stock;
-        System.out.println("Do you want to buy hardware (y) or lumbers/men made sheets (n)? \n");
-        String input = getInput();
+        display.simpleDisplay("Do you want to buy hardware (y) or lumbers/men made sheets (n)? \n");
+        String input = display.getInput();
         stock = loadStock(input);
         allPrinting.printStockInfo(stock);
         buyingComponents(stock);
@@ -278,7 +296,7 @@ class CmdMenu {
         int number = 10000;
         int number1 = 50;
         List<BoughtComponent> stock = new ArrayList<>();
-    
+        
         if (input.equals("y") && hardwareShop.getStock().size() == 0) {
             for (Components component : components) {
                 if (!(component instanceof Wood)) {
@@ -298,7 +316,7 @@ class CmdMenu {
         } else if (input.equals("n") && woodShop.getStock().size() != 0) {
             stock = hardwareShop.getStock();
         }
-    
+        
         return stock;
     }
     
@@ -308,49 +326,49 @@ class CmdMenu {
         while (true) {
             Scanner sc = new Scanner(System.in);
             int number;
-    
+            
             do {
-                System.out.println("Please, select number of good you want to buy or enter '0' to stop shopping. \n");
+                display.simpleDisplay("Please, select number of good you want to buy or enter '0' to stop shopping. \n");
                 while (!sc.hasNextInt()) {
-                    System.out.println("That's not a number! \n");
+                    display.simpleDisplay("That's not a number! \n");
                     sc.next();
                 }
                 number = sc.nextInt();
             }
-    
+            
             while (number < 0 || number > stock.size());
             System.out.println("Thank you! Got " + number + "\n");
-    
+            
             if (number == 0) {
                 break;
             }
-    
+            
             number -= 1;
-    
-            System.out.println("Enter amount you need. \n");
-            amountOfGood = Double.parseDouble(getInput());
-    
+            
+            display.simpleDisplay("Enter amount you need. \n");
+            amountOfGood = Double.parseDouble(display.getInput());
+            
             if (stock.get(number).getComponent() instanceof Dowel || stock.get(number).getComponent() instanceof Screw) {
                 paidValue = amountOfGood / 100 * stock.get(number).getComponent().getValue();
             } else {
                 paidValue = amountOfGood * stock.get(number).getComponent().getValue();
             }
-    
+            
             double goodStock = stock.get(number).getNumber();
-    
+            
             if (amountOfGood > goodStock) {
                 throw new NotEnoughException("Sorry but there is no such high stock available. Please, enter value below " + stock.get(number).getNumber());
             }
-    
+            
             if (inventory.getMoney() < paidValue) {
                 throw new NotEnoughException("You have no money enough to buy so many goods.");
             }
-    
+            
             BoughtComponent newTreasure = new BoughtComponent(stock.get(number).getName(), amountOfGood, stock.get(number).getComponent());
             inventory.setMoney((-1) * paidValue);
             inventory.addComponent(newTreasure);
             stock.get(number).manageStock(amountOfGood);
-    
+            
             if (!(stock.get(number).getComponent() instanceof Wood)) {
                 hardwareShop.setMoney(paidValue);
             } else {
@@ -777,12 +795,12 @@ class CmdMenu {
     }
     
     private void load() {
-        System.out.print("Load my shop? (y/n) ");
-        String input = getInput();
+        display.simpleDisplay("Load my shop? (y/n) ");
+        String input = display.getInput();
         if (input.equals("y")) {
             loadShop();
         } else {
-            System.out.println("New cabinetmaking shop started!");
+            display.simpleDisplay("New cabinetmaking shop started!");
         }
     }
     
@@ -793,9 +811,9 @@ class CmdMenu {
             inventory = (UserInventory) in.readObject();
             in.close();
             fileIn.close();
-            System.out.println("My shop loaded!");
+            display.simpleDisplay("My shop loaded!");
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Load failed, starting new shop!");
+            display.simpleDisplay("Load failed, starting new shop!");
         }
     }
     
@@ -810,4 +828,3 @@ class CmdMenu {
         }
     }
 }
-
