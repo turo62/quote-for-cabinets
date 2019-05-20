@@ -1,20 +1,17 @@
 package com.codecool.parts;
 
 import com.codecool.components.BoughtComponent;
-import com.codecool.components.Components;
 
 import java.util.List;
 
 public abstract class Part {
     private String name;
-    private double cost;
     private int height;
     private int width;
     private List<BoughtComponent> assembly;
     
-    Part(String name, double cost, int height, int width) {
+    Part(String name, int height, int width) {
         this.name = name;
-        this.cost = cost;
         this.height = height;
         this.width = width;
         this.assembly = assembly;
@@ -28,14 +25,21 @@ public abstract class Part {
         return width;
     }
     
-    public double setCost(double value) {
-        cost += value;
-        return cost;
+    public void setName(String name) {
+        this.name = name;
     }
     
-    public void addComponent(String name, int number, Components component) {
-        BoughtComponent builtPart = new BoughtComponent(name, number, component);
-        assembly.add(builtPart);
+    public void assemble(BoughtComponent partComponent) {
+        boolean isIncluded = false;
+        for (BoughtComponent component : assembly) {
+            if (component.getName().equals(partComponent.getName())) {
+                component.manageStock(-1);
+                isIncluded = true;
+            }
+        }
+        if (!isIncluded) {
+            assembly.add(partComponent);
+        }
     }
 }
 

@@ -1,25 +1,31 @@
 package com.codecool.api;
 
 import com.codecool.components.*;
-import com.codecool.enums.Sizes;
+import com.codecool.enums.*;
+import com.codecool.exceptions.NoDesignException;
+import com.codecool.parts.Carcass;
 import com.codecool.parts.DesignPattern;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Scanner;
 
 public class UserInventory extends Inventory {
     private double money;
+    private PlyWood genericPly;
     private List<Cabinet> cabinets = new ArrayList<>();
+    private Carcass myCarcass;
     private List<DesignPattern> orderedCabinets = new ArrayList<>();
     private List<BoughtComponent> boughtComponents = new ArrayList<>();
     private List<BoughtComponent> remainders = new ArrayList<>();
+    private BoughtComponent myComponent;
     public AllPrinting invPrint = new AllPrinting();
     
-    public UserInventory() {
+    public UserInventory(int money) {
         this.money = money;
     }
     
@@ -331,10 +337,10 @@ public class UserInventory extends Inventory {
     }
     
     public String setComponent(List<? extends Components> components, String componentName) {
-        int number;
+        int number = -1;
         Scanner sc = new Scanner(System.in);
-        
-        while (true) {
+    
+        while (number < 0 || number > components.size()) {
             invPrint.displayCategory(components);
             
             do {
@@ -347,9 +353,10 @@ public class UserInventory extends Inventory {
             }
             
             while (number < 0 || number > components.size());
-            
-            return components.get(number).getName();
+            number = sc.nextInt();
+        
         }
+        return components.get(number).getName();
     }
     
     public int setShelves(CabinetType myType, int verticalSections) {
@@ -575,6 +582,7 @@ public class UserInventory extends Inventory {
         int thickness = 18;
         int sections = 0;
         int dsections = chosenDesign.getVerticalSections();
+        List<BoughtComponent> carcassList = new ArrayList<>();
         
         while (dsections > 0) {
             sections = sections + dsections % 10;
@@ -591,7 +599,42 @@ public class UserInventory extends Inventory {
             depth = Sizes.W.getDepth();
             width = sections * (thickness + Sizes.W.getSectionWidth()) + thickness;
         }
+        prepareSides(2, height, depth, "side", chosenDesign, carcassList);
+        prepareSides(2, width - (thickness * (sections - 1)), depth, "end", chosenDesign, carcassList);
+        prepareSides(sections - 1, height - 2 * thickness, depth - 6, "divider", chosenDesign, carcassList);
+        Carcass newCarcass = new Carcass(chosenDesign.getName(), height, width, depth, chosenDesign.getFramed(), carcassList);
+        prepareBack(height - 12, width - 12);
+    }
+    
+    private List<BoughtComponent> prepareSides(int j, int length, int width, String name, DesignPattern chosenDesign, List<BoughtComponent> carcassList) {
+        invPrint.simpleDisplay("Please, select wood for preparing " + name);
         
-        Wood myWood = (Wood) selectWood(chosenDesign.getMaterial());
+        for (int i = 0; i < j; i++) {
+            Wood myWood = (Wood) selectWood(chosenDesign.getMaterial());
+            myComponent = dimensioning(myWood, length, width, name);
+            for (BoughtComponent component : carcassList) {
+                if (component.getName().equals(myComponent.getName())) {
+                    component.manageStock(-1);
+                } else {
+                    carcassList.add(myComponent);
+                }
+            }
+        }
+        
+        return carcassList;
+    }
+    
+    private void prepareBack(int heigth, int width) {
+        List<BoughtComponent> myStock = getBoughtComponents();
+        List<BoughtComponent> woodForBack = new ArrayList<>();
+        
+        for (BoughtComponent component : myStock) {
+            if (component.getComponent() instanceof PlyWood) {
+                if (((PlyWood) component.getComponent()).getThickness() == 6) {
+                    woodForBack.add(component);
+                }
+            }
+        }
+        
     }
 }
