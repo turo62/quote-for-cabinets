@@ -56,4 +56,15 @@ public class AllPrinting {
             count++;
         }
     }
+    
+    public void printBoughtComponent(List<BoughtComponent> myBoughtStock) {
+        int count = 1;
+        for (BoughtComponent boughtComponent : myBoughtStock) {
+            System.out.println(count + ") " + boughtComponent.getNumber() + " pcs " + boughtComponent.getComponent().details());
+        }
+    }
+    
+    public void printBoughtComponentDetails(BoughtComponent component) {
+        System.out.println(component.getName() + " , " + component.getNumber());
+    }
 }

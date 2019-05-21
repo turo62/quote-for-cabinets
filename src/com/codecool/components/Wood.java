@@ -50,4 +50,13 @@ public abstract class Wood extends Components {
     public int getThickness() {
         return thickness;
     }
+    
+    @Override
+    public String details() {
+        return "Name: " + this.getName() + "\n" +
+                "Producer: " + this.getProducer() + "\n" +
+                "Load capacity: " + this.getLoad() + "\n" +
+                "Price ($): " + this.getValue() + "\n" +
+                "Sizes: " + this.getLength() + "mm (length) " + this.getWidth() + "mm (width) " + this.getThickness() + "mm (thickness)" + "\n";
+    }
 }

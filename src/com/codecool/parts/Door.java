@@ -14,8 +14,8 @@ public class Door extends Part {
     private boolean morticed;
     private List<BoughtComponent> assembly;
     
-    public Door(String name, double cost, int height, int width) {
-        super(name, cost, height, width);
+    public Door(String name, int height, int width) {
+        super(name, height, width);
         this.handle = handle;
         this.hinge = hinge;
         this.seating = seating;

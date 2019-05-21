@@ -21,7 +21,6 @@ public class UserInventory extends Inventory {
     private Carcass myCarcass;
     private List<DesignPattern> orderedCabinets = new ArrayList<>();
     private List<BoughtComponent> boughtComponents = new ArrayList<>();
-    private List<BoughtComponent> remainders = new ArrayList<>();
     private BoughtComponent myComponent;
     public AllPrinting invPrint = new AllPrinting();
     
@@ -49,16 +48,8 @@ public class UserInventory extends Inventory {
         return orderedCabinets;
     }
     
-    public List<BoughtComponent> getRemainders() {
-        return remainders;
-    }
-    
     public void addComponent(BoughtComponent boughtComponent) {
         boughtComponents.add(boughtComponent);
-    }
-    
-    private void addToRemainderList(BoughtComponent remainder) {
-        remainders.add(remainder);
     }
     
     public void addDesign(DesignPattern newPattern) {
@@ -76,65 +67,66 @@ public class UserInventory extends Inventory {
         rawLumber.setThickness(8);
     }
     
-    private BoughtComponent dimensioning(Wood rawWood, int length, int width, String name) {
+    private BoughtComponent dimensioning(BoughtComponent selectedWood, int length, int width, String name) {
+        Wood rawWood = (Wood) selectedWood.getComponent();
         double unitPrice = rawWood.getValue() / (rawWood.getLength() * rawWood.getWidth());
         
         if (rawWood instanceof Lumber) {
             Lumber newPlank = new Lumber(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (unitPrice * length * width), rawWood.getQualified(), length, width, rawWood.getThickness(), ((Lumber) rawWood).getSpecies());
-            Lumber newPlank1 = new Lumber(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (unitPrice * rawWood.setWidth(width) * length), rawWood.getQualified(), length, rawWood.setWidth(width), rawWood.getThickness(), ((Lumber) rawWood).getSpecies());
-            Lumber newPlank2 = new Lumber(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (newPlank.getValue() - newPlank1.getValue()), rawWood.getQualified(), rawWood.setLength(length), width, rawWood.getThickness(), ((Lumber) rawWood).getSpecies());
+            Lumber newPlank1 = new Lumber(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (unitPrice * (rawWood.getWidth() - width) * length), rawWood.getQualified(), length, (rawWood.getWidth() - width), rawWood.getThickness(), ((Lumber) rawWood).getSpecies());
+            Lumber newPlank2 = new Lumber(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (newPlank.getValue() - newPlank1.getValue()), rawWood.getQualified(), (rawWood.getLength() - length), width, rawWood.getThickness(), ((Lumber) rawWood).getSpecies());
             
             if (newPlank1.getLength() > Sizes.W.getSectionWidth() && newPlank1.getWidth() > Sizes.C.getDepth()) {
-                addToRemainderList(new BoughtComponent(newPlank1.getName(), 1, newPlank1));
+                addComponent(new BoughtComponent(newPlank1.getName(), 1, newPlank1));
             } else newPlank.setValue(-1 * newPlank1.getValue());
             
             if (newPlank2.getLength() > Sizes.W.getSectionWidth() && newPlank2.getWidth() > Sizes.C.getDepth()) {
-                addToRemainderList(new BoughtComponent(newPlank2.getName(), 1, newPlank2));
+                addComponent(new BoughtComponent(newPlank2.getName(), 1, newPlank2));
             } else newPlank.setValue(-1 * newPlank2.getValue());
             
             return new BoughtComponent(name, 1, newPlank);
             
         } else if (rawWood instanceof ChipBoard) {
             ChipBoard newPlank = new ChipBoard(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (unitPrice * length * width), rawWood.getQualified(), length, width, rawWood.getThickness());
-            ChipBoard newPlank1 = new ChipBoard(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (unitPrice * rawWood.setWidth(width) * length), rawWood.getQualified(), length, rawWood.setWidth(width), rawWood.getThickness());
-            ChipBoard newPlank2 = new ChipBoard(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (newPlank.getValue() - newPlank1.getValue()), rawWood.getQualified(), rawWood.setLength(length), width, rawWood.getThickness());
-            
+            ChipBoard newPlank1 = new ChipBoard(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (unitPrice * (rawWood.getWidth() - width) * length), rawWood.getQualified(), length, (rawWood.getWidth() - width), rawWood.getThickness());
+            ChipBoard newPlank2 = new ChipBoard(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (newPlank.getValue() - newPlank1.getValue()), rawWood.getQualified(), (rawWood.getLength() - length), width, rawWood.getThickness());
+    
             if (newPlank1.getLength() > Sizes.W.getSectionWidth() && newPlank1.getWidth() > Sizes.C.getDepth()) {
-                addToRemainderList(new BoughtComponent(newPlank1.getName(), 1, newPlank1));
+                addComponent(new BoughtComponent(newPlank1.getName(), 1, newPlank1));
             } else newPlank.setValue(-1 * newPlank1.getValue());
-            
+    
             if (newPlank2.getLength() > Sizes.W.getSectionWidth() && newPlank2.getWidth() > Sizes.C.getDepth()) {
-                addToRemainderList(new BoughtComponent(newPlank2.getName(), 1, newPlank2));
+                addComponent(new BoughtComponent(newPlank2.getName(), 1, newPlank2));
             } else newPlank.setValue(-1 * newPlank2.getValue());
-            
+    
             return new BoughtComponent(name, 1, newPlank);
             
         } else if (rawWood instanceof MDF) {
             MDF newPlank = new MDF(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (unitPrice * length * width), rawWood.getQualified(), length, width, rawWood.getThickness());
-            MDF newPlank1 = new MDF(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (unitPrice * rawWood.setWidth(width) * length), rawWood.getQualified(), length, rawWood.setWidth(width), rawWood.getThickness());
-            MDF newPlank2 = new MDF(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (newPlank.getValue() - newPlank1.getValue()), rawWood.getQualified(), rawWood.setLength(length), width, rawWood.getThickness());
-            
+            MDF newPlank1 = new MDF(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (unitPrice * (rawWood.getWidth() - width) * length), rawWood.getQualified(), length, (rawWood.getWidth() - width), rawWood.getThickness());
+            MDF newPlank2 = new MDF(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (newPlank.getValue() - newPlank1.getValue()), rawWood.getQualified(), (rawWood.getLength() - length), width, rawWood.getThickness());
+    
             if (newPlank1.getLength() > Sizes.W.getSectionWidth() && newPlank1.getWidth() > Sizes.C.getDepth()) {
-                addToRemainderList(new BoughtComponent(newPlank1.getName(), 1, newPlank1));
+                addComponent(new BoughtComponent(newPlank1.getName(), 1, newPlank1));
             } else newPlank.setValue(-1 * newPlank1.getValue());
-            
+    
             if (newPlank2.getLength() > Sizes.W.getSectionWidth() && newPlank2.getWidth() > Sizes.C.getDepth()) {
-                addToRemainderList(new BoughtComponent(newPlank2.getName(), 1, newPlank2));
+                addComponent(new BoughtComponent(newPlank2.getName(), 1, newPlank2));
             } else newPlank.setValue(-1 * newPlank2.getValue());
             
             return new BoughtComponent(name, 1, newPlank);
             
         } else if (rawWood instanceof PlyWood) {
             PlyWood newPlank = new PlyWood(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (unitPrice * length * width), rawWood.getQualified(), length, width, rawWood.getThickness());
-            PlyWood newPlank1 = new PlyWood(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (unitPrice * rawWood.setWidth(width) * length), rawWood.getQualified(), length, rawWood.setWidth(width), rawWood.getThickness());
-            PlyWood newPlank2 = new PlyWood(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (newPlank.getValue() - newPlank1.getValue()), rawWood.getQualified(), rawWood.setLength(length), width, rawWood.getThickness());
-            
+            PlyWood newPlank1 = new PlyWood(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (unitPrice * (rawWood.getWidth() - width) * length), rawWood.getQualified(), length, (rawWood.getWidth() - width), rawWood.getThickness());
+            PlyWood newPlank2 = new PlyWood(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (newPlank.getValue() - newPlank1.getValue()), rawWood.getQualified(), (rawWood.getLength() - length), width, rawWood.getThickness());
+    
             if (newPlank1.getLength() > Sizes.W.getSectionWidth() && newPlank1.getWidth() > Sizes.C.getDepth()) {
-                addToRemainderList(new BoughtComponent(newPlank1.getName(), 1, newPlank1));
+                addComponent(new BoughtComponent(newPlank1.getName(), 1, newPlank1));
             } else newPlank.setValue(-1 * newPlank1.getValue());
-            
+    
             if (newPlank2.getLength() > Sizes.W.getSectionWidth() && newPlank2.getWidth() > Sizes.C.getDepth()) {
-                addToRemainderList(new BoughtComponent(newPlank2.getName(), 1, newPlank2));
+                addComponent(new BoughtComponent(newPlank2.getName(), 1, newPlank2));
             } else newPlank.setValue(-1 * newPlank2.getValue());
             
             return new BoughtComponent(name, 1, newPlank);
@@ -510,28 +502,20 @@ public class UserInventory extends Inventory {
         addDesign(new DesignPattern(name, myType, material, framed, verticalSections, shelves, handle, hinge, seating, numberOfDrawers, slide));
     }
     
-    public Components selectWood(String name) {
-        List<Components> stock = new ArrayList<>();
-        List<Double> stockAmount = new ArrayList<>();
-        
-        List<BoughtComponent> remainders = getRemainders();
+    public BoughtComponent selectWood(String name) {
+        List<BoughtComponent> stock = new ArrayList<>();
+    
         List<? extends BoughtComponent> components = getBoughtComponents();
         
-        remainders.stream().filter(component -> component.getName().equals(name)).forEach(component -> {
-            stock.add(component.getComponent());
-            stockAmount.add(component.getNumber());
-        });
-        
         components.stream().filter(component -> component.getName().equals(name)).forEach(component -> {
-            stock.add(component.getComponent());
-            stockAmount.add(component.getNumber());
+            stock.add(component);
         });
         
         int number;
         Scanner sc = new Scanner(System.in);
         
         while (true) {
-            invPrint.displayCategory(stock);
+            invPrint.printStockInfo(stock);
             
             do {
                 invPrint.simpleDisplay("Please, select number of the wood you want your part being built. \n");
@@ -539,12 +523,30 @@ public class UserInventory extends Inventory {
                     invPrint.simpleDisplay("That's not a number! \n");
                     sc.next();
                 }
-                number = sc.nextInt();
+                number = sc.nextInt() - 1;
             }
-            
-            while (number < 0 || number > components.size());
-            
-            return stock.get(number);
+
+            while (number < 0 || number >= components.size());
+    
+            BoughtComponent myWood = new BoughtComponent(stock.get(number).getName(), 1, stock.get(number).getComponent());
+    
+            int index = 0;
+    
+            for (BoughtComponent component : components) {
+                invPrint.printBoughtComponentDetails(component);
+                if (stock.get(number).equals(component) && component.getNumber() > 1) {
+                    component.manageStock(1);
+                } else if (stock.get(number).equals(component) && component.getNumber() == 1) {
+                    components.indexOf(component);
+                }
+                invPrint.printBoughtComponentDetails(component);
+            }
+    
+            if (!(index == 0)) {
+                components.remove(components.get(index));
+            }
+    
+            return myWood;
         }
     }
     
@@ -588,8 +590,8 @@ public class UserInventory extends Inventory {
             sections = sections + dsections % 10;
             dsections = dsections / 10;
         }
-        
-        if (chosenDesign.getMyType() == CabinetType.C) {
+        System.out.println(chosenDesign.getMyType() + CabinetType.C.toString());
+        if (chosenDesign.getMyType().equals(CabinetType.C)) {
             height = Sizes.C.getHeight();
             depth = Sizes.C.getDepth();
             width = sections * (thickness + Sizes.C.getSectionWidth()) + thickness;
@@ -607,11 +609,13 @@ public class UserInventory extends Inventory {
     }
     
     private List<BoughtComponent> prepareSides(int j, int length, int width, String name, DesignPattern chosenDesign, List<BoughtComponent> carcassList) {
-        invPrint.simpleDisplay("Please, select wood for preparing " + name);
-        
+    
+    
         for (int i = 0; i < j; i++) {
-            Wood myWood = (Wood) selectWood(chosenDesign.getMaterial());
+            invPrint.simpleDisplay("\n Please, select wood for preparing " + name + "\n");
+            BoughtComponent myWood = selectWood(chosenDesign.getMaterial());
             myComponent = dimensioning(myWood, length, width, name);
+            System.out.println(myComponent.getComponent().details());
             for (BoughtComponent component : carcassList) {
                 if (component.getName().equals(myComponent.getName())) {
                     component.manageStock(-1);
@@ -635,6 +639,8 @@ public class UserInventory extends Inventory {
                 }
             }
         }
-        
+        invPrint.printBoughtComponent(woodForBack);
+        invPrint.simpleDisplay("Please, select wood for back.");
+        int choice = Integer.parseInt(invPrint.getInput());
     }
 }

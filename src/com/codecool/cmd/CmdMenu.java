@@ -3,6 +3,7 @@ package com.codecool.cmd;
 import com.codecool.api.*;
 import com.codecool.components.*;
 import com.codecool.exceptions.NoDesignException;
+import com.codecool.exceptions.NoSuchOptionException;
 import com.codecool.exceptions.NotEnoughException;
 import com.codecool.parts.DesignPattern;
 
@@ -34,7 +35,7 @@ class CmdMenu {
         }
     }
     
-    void start() throws NotEnoughException, NoDesignException {
+    void start() throws NotEnoughException, NoDesignException, NoSuchOptionException {
         String[] commands = new String[]{
                 "store (s)",
                 "cabinets (c)",
@@ -70,7 +71,7 @@ class CmdMenu {
         }
     }
     
-    private void storeMenu() throws NotEnoughException {
+    private void storeMenu() throws NotEnoughException, NoSuchOptionException {
         String[] commands = new String[]{
                 "list all (a)",
                 "list component (c)",
@@ -270,43 +271,48 @@ class CmdMenu {
         
     }
     
-    private void shopping() throws NotEnoughException {
-        List<BoughtComponent> stock;
-        display.simpleDisplay("Do you want to buy hardware (y) or lumbers/men made sheets (n)? \n");
-        String input = display.getInput();
-        stock = loadStock(input);
-        display.printStockInfo(stock);
-        buyingComponents(stock);
-        printBoughtStock();
+    private void shopping() throws NotEnoughException, NoSuchOptionException {
+        List<BoughtComponent> stock = new ArrayList<>();
+        display.simpleDisplay("Do you want to buy hardware (1) or lumbers/men made sheets (2)? \n");
+        int myNumber = Integer.parseInt(display.getInput());
+        if (myNumber >= 1 && myNumber <= 2) {
+            stock = loadStock(myNumber);
+            display.printStockInfo(stock);
+            buyingComponents(stock);
+            printBoughtStock();
+        } else if (myNumber < 1 || myNumber > 2) {
+            throw new NoSuchOptionException("Enter valid number. No such option available.");
+        }
+        
     }
     
-    private List<BoughtComponent> loadStock(String input) {
+    private List<BoughtComponent> loadStock(int myNumber) {
         List<Components> components = inventory.getAllComponents();
         int number = 10000;
         int number1 = 50;
-        List<BoughtComponent> stock = new ArrayList<>();
+        List<BoughtComponent> myStock = new ArrayList<>();
         
-        if (input.equals("y") && hardwareShop.getStock().size() == 0) {
+        if (myNumber == 1 && hardwareShop.getStock().size() == 0) {
             for (Components component : components) {
                 if (!(component instanceof Wood)) {
                     hardwareShop.addComponent(component, number);
                 }
             }
-            stock = hardwareShop.getStock();
-        } else if (input.equals("y") && hardwareShop.getStock().size() != 0) {
-            stock = hardwareShop.getStock();
-        } else if (input.equals("n") && woodShop.getStock().size() == 0) {
+            myStock = hardwareShop.getStock();
+        } else if (myNumber == 1 && hardwareShop.getStock().size() != 0) {
+            myStock = hardwareShop.getStock();
+        } else if (myNumber == 2 && woodShop.getStock().size() == 0) {
             for (Components component : components) {
                 if (!(component instanceof Hardware)) {
                     woodShop.addComponent(component, number1);
                 }
             }
-            stock = woodShop.getStock();
-        } else if (input.equals("n") && woodShop.getStock().size() != 0) {
-            stock = hardwareShop.getStock();
+            myStock = woodShop.getStock();
+        } else if (myNumber == 2 && woodShop.getStock().size() != 0) {
+            myStock = hardwareShop.getStock();
         }
         
-        return stock;
+        return myStock;
     }
     
     private void buyingComponents(List<BoughtComponent> stock) throws NotEnoughException {
@@ -372,8 +378,7 @@ class CmdMenu {
         System.out.println("You have $" + restOfMoney + " available for shopping. \n");
         
         for (BoughtComponent component : treasure) {
-            System.out.println(component.getNumber() + "pcs of " + component.toString()
-            );
+            System.out.println(component.getNumber() + "pcs of " + component.getComponent().toString());
         }
     }
     

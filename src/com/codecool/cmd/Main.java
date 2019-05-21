@@ -1,6 +1,7 @@
 package com.codecool.cmd;
 
 import com.codecool.exceptions.NoDesignException;
+import com.codecool.exceptions.NoSuchOptionException;
 import com.codecool.exceptions.NotEnoughException;
 
 public class Main {
@@ -12,6 +13,8 @@ public class Main {
         } catch (NotEnoughException e) {
             e.printStackTrace();
         } catch (NoDesignException e) {
+            e.printStackTrace();
+        } catch (NoSuchOptionException e) {
             e.printStackTrace();
         }
     }
