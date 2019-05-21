@@ -4,7 +4,9 @@ import com.codecool.enums.CabinetType;
 import com.codecool.enums.IsFramed;
 import com.codecool.enums.IsInset;
 
-public class DesignPattern {
+import java.io.Serializable;
+
+public class DesignPattern implements Serializable {
     private String name;
     private CabinetType myType;
     private String material;

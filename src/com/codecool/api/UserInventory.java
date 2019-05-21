@@ -73,14 +73,14 @@ public class UserInventory extends Inventory {
         
         if (rawWood instanceof Lumber) {
             Lumber newPlank = new Lumber(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (unitPrice * length * width), rawWood.getQualified(), length, width, rawWood.getThickness(), ((Lumber) rawWood).getSpecies());
-            Lumber newPlank1 = new Lumber(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (unitPrice * (rawWood.getWidth() - width) * length), rawWood.getQualified(), length, (rawWood.getWidth() - width), rawWood.getThickness(), ((Lumber) rawWood).getSpecies());
-            Lumber newPlank2 = new Lumber(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (newPlank.getValue() - newPlank1.getValue()), rawWood.getQualified(), (rawWood.getLength() - length), width, rawWood.getThickness(), ((Lumber) rawWood).getSpecies());
-            
-            if (newPlank1.getLength() > Sizes.W.getSectionWidth() && newPlank1.getWidth() > Sizes.C.getDepth()) {
+            Lumber newPlank1 = new Lumber(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (unitPrice * (rawWood.getWidth() - width) * rawWood.getLength()), rawWood.getQualified(), rawWood.getLength(), (rawWood.getWidth() - width), rawWood.getThickness(), ((Lumber) rawWood).getSpecies());
+            Lumber newPlank2 = new Lumber(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (rawWood.getValue() - newPlank.getValue() - newPlank1.getValue()), rawWood.getQualified(), (rawWood.getLength() - length), width, rawWood.getThickness(), ((Lumber) rawWood).getSpecies());
+    
+            if (newPlank1.getLength() > Sizes.C.getSectionWidth() && newPlank1.getWidth() > Sizes.C.getDepth() || newPlank1.getLength() > Sizes.W.getSectionWidth() && newPlank1.getWidth() > Sizes.W.getDepth()) {
                 addComponent(new BoughtComponent(newPlank1.getName(), 1, newPlank1));
             } else newPlank.setValue(-1 * newPlank1.getValue());
-            
-            if (newPlank2.getLength() > Sizes.W.getSectionWidth() && newPlank2.getWidth() > Sizes.C.getDepth()) {
+    
+            if (newPlank2.getLength() > Sizes.C.getSectionWidth() && newPlank2.getWidth() > Sizes.C.getDepth() || newPlank2.getLength() > Sizes.W.getSectionWidth() && newPlank2.getWidth() > Sizes.W.getDepth()) {
                 addComponent(new BoughtComponent(newPlank2.getName(), 1, newPlank2));
             } else newPlank.setValue(-1 * newPlank2.getValue());
             
@@ -88,14 +88,14 @@ public class UserInventory extends Inventory {
             
         } else if (rawWood instanceof ChipBoard) {
             ChipBoard newPlank = new ChipBoard(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (unitPrice * length * width), rawWood.getQualified(), length, width, rawWood.getThickness());
-            ChipBoard newPlank1 = new ChipBoard(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (unitPrice * (rawWood.getWidth() - width) * length), rawWood.getQualified(), length, (rawWood.getWidth() - width), rawWood.getThickness());
-            ChipBoard newPlank2 = new ChipBoard(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (newPlank.getValue() - newPlank1.getValue()), rawWood.getQualified(), (rawWood.getLength() - length), width, rawWood.getThickness());
+            ChipBoard newPlank1 = new ChipBoard(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (unitPrice * (rawWood.getWidth() - width) * rawWood.getLength()), rawWood.getQualified(), rawWood.getLength(), (rawWood.getWidth() - width), rawWood.getThickness());
+            ChipBoard newPlank2 = new ChipBoard(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (rawWood.getValue() - newPlank.getValue() - newPlank1.getValue()), rawWood.getQualified(), (rawWood.getLength() - length), width, rawWood.getThickness());
     
-            if (newPlank1.getLength() > Sizes.W.getSectionWidth() && newPlank1.getWidth() > Sizes.C.getDepth()) {
+            if (newPlank1.getLength() > Sizes.C.getSectionWidth() && newPlank1.getWidth() > Sizes.C.getDepth() || newPlank1.getLength() > Sizes.W.getSectionWidth() && newPlank1.getWidth() > Sizes.W.getDepth()) {
                 addComponent(new BoughtComponent(newPlank1.getName(), 1, newPlank1));
             } else newPlank.setValue(-1 * newPlank1.getValue());
     
-            if (newPlank2.getLength() > Sizes.W.getSectionWidth() && newPlank2.getWidth() > Sizes.C.getDepth()) {
+            if (newPlank2.getLength() > Sizes.C.getSectionWidth() && newPlank2.getWidth() > Sizes.C.getDepth() || newPlank2.getLength() > Sizes.W.getSectionWidth() && newPlank2.getWidth() > Sizes.W.getDepth()) {
                 addComponent(new BoughtComponent(newPlank2.getName(), 1, newPlank2));
             } else newPlank.setValue(-1 * newPlank2.getValue());
     
@@ -103,14 +103,14 @@ public class UserInventory extends Inventory {
             
         } else if (rawWood instanceof MDF) {
             MDF newPlank = new MDF(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (unitPrice * length * width), rawWood.getQualified(), length, width, rawWood.getThickness());
-            MDF newPlank1 = new MDF(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (unitPrice * (rawWood.getWidth() - width) * length), rawWood.getQualified(), length, (rawWood.getWidth() - width), rawWood.getThickness());
-            MDF newPlank2 = new MDF(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (newPlank.getValue() - newPlank1.getValue()), rawWood.getQualified(), (rawWood.getLength() - length), width, rawWood.getThickness());
+            MDF newPlank1 = new MDF(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (unitPrice * (rawWood.getWidth() - width) * rawWood.getLength()), rawWood.getQualified(), rawWood.getLength(), (rawWood.getWidth() - width), rawWood.getThickness());
+            MDF newPlank2 = new MDF(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (rawWood.getValue() - newPlank.getValue() - newPlank1.getValue()), rawWood.getQualified(), (rawWood.getLength() - length), width, rawWood.getThickness());
     
-            if (newPlank1.getLength() > Sizes.W.getSectionWidth() && newPlank1.getWidth() > Sizes.C.getDepth()) {
+            if (newPlank1.getLength() > Sizes.C.getSectionWidth() && newPlank1.getWidth() > Sizes.C.getDepth() || newPlank1.getLength() > Sizes.W.getSectionWidth() && newPlank1.getWidth() > Sizes.W.getDepth()) {
                 addComponent(new BoughtComponent(newPlank1.getName(), 1, newPlank1));
             } else newPlank.setValue(-1 * newPlank1.getValue());
     
-            if (newPlank2.getLength() > Sizes.W.getSectionWidth() && newPlank2.getWidth() > Sizes.C.getDepth()) {
+            if (newPlank2.getLength() > Sizes.C.getSectionWidth() && newPlank2.getWidth() > Sizes.C.getDepth() || newPlank2.getLength() > Sizes.W.getSectionWidth() && newPlank2.getWidth() > Sizes.W.getDepth()) {
                 addComponent(new BoughtComponent(newPlank2.getName(), 1, newPlank2));
             } else newPlank.setValue(-1 * newPlank2.getValue());
             
@@ -118,17 +118,16 @@ public class UserInventory extends Inventory {
             
         } else if (rawWood instanceof PlyWood) {
             PlyWood newPlank = new PlyWood(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (unitPrice * length * width), rawWood.getQualified(), length, width, rawWood.getThickness());
-            PlyWood newPlank1 = new PlyWood(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (unitPrice * (rawWood.getWidth() - width) * length), rawWood.getQualified(), length, (rawWood.getWidth() - width), rawWood.getThickness());
-            PlyWood newPlank2 = new PlyWood(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (newPlank.getValue() - newPlank1.getValue()), rawWood.getQualified(), (rawWood.getLength() - length), width, rawWood.getThickness());
+            PlyWood newPlank1 = new PlyWood(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (unitPrice * (rawWood.getWidth() - width) * rawWood.getLength()), rawWood.getQualified(), rawWood.getLength(), (rawWood.getWidth() - width), rawWood.getThickness());
+            PlyWood newPlank2 = new PlyWood(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (rawWood.getValue() - newPlank.getValue() - newPlank1.getValue()), rawWood.getQualified(), (rawWood.getLength() - length), width, rawWood.getThickness());
     
-            if (newPlank1.getLength() > Sizes.W.getSectionWidth() && newPlank1.getWidth() > Sizes.C.getDepth()) {
+            if (newPlank1.getLength() > Sizes.C.getSectionWidth() && newPlank1.getWidth() > Sizes.C.getDepth() || newPlank1.getLength() > Sizes.W.getSectionWidth() && newPlank1.getWidth() > Sizes.W.getDepth()) {
                 addComponent(new BoughtComponent(newPlank1.getName(), 1, newPlank1));
             } else newPlank.setValue(-1 * newPlank1.getValue());
     
-            if (newPlank2.getLength() > Sizes.W.getSectionWidth() && newPlank2.getWidth() > Sizes.C.getDepth()) {
+            if (newPlank2.getLength() > Sizes.C.getSectionWidth() && newPlank2.getWidth() > Sizes.C.getDepth() || newPlank2.getLength() > Sizes.W.getSectionWidth() && newPlank2.getWidth() > Sizes.W.getDepth()) {
                 addComponent(new BoughtComponent(newPlank2.getName(), 1, newPlank2));
             } else newPlank.setValue(-1 * newPlank2.getValue());
-            
             return new BoughtComponent(name, 1, newPlank);
             
         }
@@ -537,12 +536,12 @@ public class UserInventory extends Inventory {
                 if (stock.get(number).equals(component) && component.getNumber() > 1) {
                     component.manageStock(1);
                 } else if (stock.get(number).equals(component) && component.getNumber() == 1) {
-                    components.indexOf(component);
+                    index = components.indexOf(component);
                 }
                 invPrint.printBoughtComponentDetails(component);
             }
     
-            if (!(index == 0)) {
+            if (index != 0) {
                 components.remove(components.get(index));
             }
     

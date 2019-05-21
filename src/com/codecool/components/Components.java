@@ -2,7 +2,9 @@ package com.codecool.components;
 
 import com.codecool.enums.AreaToUse;
 
-public abstract class Components implements java.io.Serializable {
+import java.io.Serializable;
+
+public abstract class Components implements Serializable {
     private String name;
     private String producer;
     private double value;

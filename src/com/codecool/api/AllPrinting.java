@@ -49,7 +49,7 @@ public class AllPrinting {
         }
     }
     
-    public void printStockInfo(List<BoughtComponent> stock) {
+    public void printStockInfo(List<? extends BoughtComponent> stock) {
         int count = 1;
         for (BoughtComponent boughtComponent : stock) {
             System.out.println(count + ")  " + boughtComponent.getComponent().details());

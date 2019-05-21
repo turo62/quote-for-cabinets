@@ -62,7 +62,7 @@ class CmdMenu {
                     helpMenu();
                     break;
                 case "e":
-                    //saveBusinessStatus();
+                    saveBusinessStatus();
                     System.exit(0);
                 default:
                     System.out.println("Unknown command " + command + "!");
@@ -271,23 +271,36 @@ class CmdMenu {
         
     }
     
-    private void shopping() throws NotEnoughException, NoSuchOptionException {
-        List<BoughtComponent> stock = new ArrayList<>();
-        display.simpleDisplay("Do you want to buy hardware (1) or lumbers/men made sheets (2)? \n");
-        int myNumber = Integer.parseInt(display.getInput());
-        if (myNumber >= 1 && myNumber <= 2) {
-            stock = loadStock(myNumber);
-            display.printStockInfo(stock);
-            buyingComponents(stock);
+    private void shopping() throws NotEnoughException {
+        List<? extends BoughtComponent> goods;
+        int myNumber = 0;
+        
+        while (true) {
+            Scanner sc = new Scanner(System.in);
+            
+            do {
+                display.simpleDisplay("Do you want to buy hardware (1) or lumbers/men made sheets (2)? \n");
+                display.simpleDisplay("Please, select number of good you want to buy. \n");
+                while (!sc.hasNextInt()) {
+                    display.simpleDisplay("That's not a number! \n");
+                    sc.next();
+                }
+                myNumber = sc.nextInt();
+            }
+            
+            while (myNumber < 1 || myNumber > 2);
+            
+            goods = loadStock(myNumber);
+            display.printStockInfo(goods);
+            buyingComponents(goods);
             printBoughtStock();
-        } else if (myNumber < 1 || myNumber > 2) {
-            throw new NoSuchOptionException("Enter valid number. No such option available.");
         }
+        
         
     }
     
-    private List<BoughtComponent> loadStock(int myNumber) {
-        List<Components> components = inventory.getAllComponents();
+    private List<? extends BoughtComponent> loadStock(int myNumber) {
+        List<? extends Components> components = inventory.getAllComponents();
         int number = 10000;
         int number1 = 50;
         List<BoughtComponent> myStock = new ArrayList<>();
@@ -315,7 +328,7 @@ class CmdMenu {
         return myStock;
     }
     
-    private void buyingComponents(List<BoughtComponent> stock) throws NotEnoughException {
+    private void buyingComponents(List<? extends BoughtComponent> stock) throws NotEnoughException {
         double amountOfGood;
         double paidValue;
         while (true) {
