@@ -1,8 +1,8 @@
 package com.codecool.enums;
 
 public enum Sizes {
-    C(2200, 600, 400, 3, 2),
-    W(1200, 415, 600, 3, 2);
+    W(2200, 600, 400, 3, 2),
+    C(1200, 415, 600, 3, 2);
     
     private final int height;
     private final int depth;

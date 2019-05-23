@@ -1,8 +1,6 @@
 package com.codecool.cmd;
 
-import com.codecool.exceptions.NoDesignException;
-import com.codecool.exceptions.NoSuchOptionException;
-import com.codecool.exceptions.NotEnoughException;
+import com.codecool.exceptions.*;
 
 public class Main {
     
@@ -15,6 +13,10 @@ public class Main {
         } catch (NoDesignException e) {
             e.printStackTrace();
         } catch (NoSuchOptionException e) {
+            e.printStackTrace();
+        } catch (NoWoodToChooseException e) {
+            e.printStackTrace();
+        } catch (ComponentIsAddedException e) {
             e.printStackTrace();
         }
     }

@@ -2,15 +2,11 @@ package com.codecool.cmd;
 
 import com.codecool.api.*;
 import com.codecool.components.*;
-import com.codecool.exceptions.NoDesignException;
-import com.codecool.exceptions.NoSuchOptionException;
-import com.codecool.exceptions.NotEnoughException;
+import com.codecool.exceptions.*;
 import com.codecool.parts.DesignPattern;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -35,7 +31,7 @@ class CmdMenu {
         }
     }
     
-    void start() throws NotEnoughException, NoDesignException, NoSuchOptionException {
+    void start() throws NotEnoughException, NoDesignException, NoSuchOptionException, NoWoodToChooseException, ComponentIsAddedException {
         String[] commands = new String[]{
                 "store (s)",
                 "cabinets (c)",
@@ -105,7 +101,7 @@ class CmdMenu {
         }
     }
     
-    private void cabinetMenu() throws NotEnoughException, NoDesignException {
+    private void cabinetMenu() throws NotEnoughException, NoDesignException, NoWoodToChooseException, ComponentIsAddedException {
         String[] commands = new String[]{
                 "display all (a)",
                 "list components (c)",
@@ -125,7 +121,9 @@ class CmdMenu {
                 case "c":
                     break;
                 case "d":
-                    inventory.designCabinet();
+                    display.simpleDisplay("Enter name of the cabinet: \n");
+                    String name = display.getInput();
+                    inventory.designCabinet(name);
                     break;
                 case "u":
                     buildCabinet();
@@ -272,31 +270,19 @@ class CmdMenu {
     }
     
     private void shopping() throws NotEnoughException {
-        List<? extends BoughtComponent> goods;
-        int myNumber = 0;
-        
-        while (true) {
-            Scanner sc = new Scanner(System.in);
-            
-            do {
-                display.simpleDisplay("Do you want to buy hardware (1) or lumbers/men made sheets (2)? \n");
-                display.simpleDisplay("Please, select number of good you want to buy. \n");
-                while (!sc.hasNextInt()) {
-                    display.simpleDisplay("That's not a number! \n");
-                    sc.next();
-                }
-                myNumber = sc.nextInt();
-            }
-            
-            while (myNumber < 1 || myNumber > 2);
-            
-            goods = loadStock(myNumber);
-            display.printStockInfo(goods);
-            buyingComponents(goods);
-            printBoughtStock();
+        List<? extends BoughtComponent> stock;
+        int choice = 0;
+        display.simpleDisplay("Enter a character to choose type of goods \n");
+        char input = inventory.simpleDecision("hardware", "lumber/men made sheets");
+        if (input == 'y') {
+            choice = 1;
+        } else if (input == 'n') {
+            choice = 2;
         }
-        
-        
+        stock = loadStock(choice);
+        display.printStockInfo(stock);
+        buyingComponents(stock);
+        printBoughtStock();
     }
     
     private List<? extends BoughtComponent> loadStock(int myNumber) {
@@ -395,7 +381,7 @@ class CmdMenu {
         }
     }
     
-    private void buildCabinet() throws NotEnoughException, NoDesignException {
+    private void buildCabinet() throws NotEnoughException, NoDesignException, NoWoodToChooseException, ComponentIsAddedException {
     
         DesignPattern chosenDesign = inventory.selectDesign();
         inventory.buildCarcass(chosenDesign);
@@ -413,21 +399,14 @@ class CmdMenu {
     }
     
     private void loadShop() {
-        try {
-            FileInputStream fileIn = new FileInputStream(savePath);
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            inventory = (UserInventory) in.readObject();
-            in.close();
-            fileIn.close();
-            display.simpleDisplay("My shop loaded!");
-        } catch (IOException | ClassNotFoundException e) {
-            display.simpleDisplay("Load failed, starting new shop!");
-        }
+        inventory.loadInventory();
+        woodShop.loadWoodStore();
+        hardwareShop.loadHardwareStore();
     }
     
     private void saveBusinessStatus() {
         try {
-            inventory.saveShopStatus();
+            inventory.saveInventory();
             woodShop.saveStoreStatus();
             hardwareShop.saveStoreStatus();
             System.out.println();

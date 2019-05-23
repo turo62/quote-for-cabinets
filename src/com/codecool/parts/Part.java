@@ -2,9 +2,10 @@ package com.codecool.parts;
 
 import com.codecool.components.BoughtComponent;
 
+import java.io.Serializable;
 import java.util.List;
 
-public abstract class Part {
+public abstract class Part implements Serializable {
     private String name;
     private int height;
     private int width;

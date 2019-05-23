@@ -2,13 +2,13 @@ package com.codecool.api;
 
 import com.codecool.components.*;
 import com.codecool.enums.*;
+import com.codecool.exceptions.ComponentIsAddedException;
 import com.codecool.exceptions.NoDesignException;
+import com.codecool.exceptions.NoWoodToChooseException;
 import com.codecool.parts.Carcass;
 import com.codecool.parts.DesignPattern;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -22,7 +22,7 @@ public class UserInventory extends Inventory {
     private List<DesignPattern> orderedCabinets = new ArrayList<>();
     private List<BoughtComponent> boughtComponents = new ArrayList<>();
     private BoughtComponent myComponent;
-    public AllPrinting invPrint = new AllPrinting();
+    public transient AllPrinting invPrint = new AllPrinting();
     
     public UserInventory(int money) {
         this.money = money;
@@ -76,11 +76,11 @@ public class UserInventory extends Inventory {
             Lumber newPlank1 = new Lumber(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (unitPrice * (rawWood.getWidth() - width) * rawWood.getLength()), rawWood.getQualified(), rawWood.getLength(), (rawWood.getWidth() - width), rawWood.getThickness(), ((Lumber) rawWood).getSpecies());
             Lumber newPlank2 = new Lumber(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (rawWood.getValue() - newPlank.getValue() - newPlank1.getValue()), rawWood.getQualified(), (rawWood.getLength() - length), width, rawWood.getThickness(), ((Lumber) rawWood).getSpecies());
     
-            if (newPlank1.getLength() > Sizes.C.getSectionWidth() && newPlank1.getWidth() > Sizes.C.getDepth() || newPlank1.getLength() > Sizes.W.getSectionWidth() && newPlank1.getWidth() > Sizes.W.getDepth()) {
+            if (newPlank1.getLength() >= Sizes.C.getSectionWidth() && newPlank1.getWidth() >= Sizes.C.getDepth() || newPlank1.getLength() >= Sizes.W.getSectionWidth() && newPlank1.getWidth() >= Sizes.W.getDepth()) {
                 addComponent(new BoughtComponent(newPlank1.getName(), 1, newPlank1));
             } else newPlank.setValue(-1 * newPlank1.getValue());
     
-            if (newPlank2.getLength() > Sizes.C.getSectionWidth() && newPlank2.getWidth() > Sizes.C.getDepth() || newPlank2.getLength() > Sizes.W.getSectionWidth() && newPlank2.getWidth() > Sizes.W.getDepth()) {
+            if (newPlank2.getLength() >= Sizes.C.getSectionWidth() && newPlank2.getWidth() >= Sizes.C.getDepth() || newPlank2.getLength() >= Sizes.W.getSectionWidth() && newPlank2.getWidth() >= Sizes.W.getDepth()) {
                 addComponent(new BoughtComponent(newPlank2.getName(), 1, newPlank2));
             } else newPlank.setValue(-1 * newPlank2.getValue());
             
@@ -91,11 +91,11 @@ public class UserInventory extends Inventory {
             ChipBoard newPlank1 = new ChipBoard(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (unitPrice * (rawWood.getWidth() - width) * rawWood.getLength()), rawWood.getQualified(), rawWood.getLength(), (rawWood.getWidth() - width), rawWood.getThickness());
             ChipBoard newPlank2 = new ChipBoard(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (rawWood.getValue() - newPlank.getValue() - newPlank1.getValue()), rawWood.getQualified(), (rawWood.getLength() - length), width, rawWood.getThickness());
     
-            if (newPlank1.getLength() > Sizes.C.getSectionWidth() && newPlank1.getWidth() > Sizes.C.getDepth() || newPlank1.getLength() > Sizes.W.getSectionWidth() && newPlank1.getWidth() > Sizes.W.getDepth()) {
+            if (newPlank1.getLength() >= Sizes.C.getSectionWidth() && newPlank1.getWidth() >= Sizes.C.getDepth() || newPlank1.getLength() >= Sizes.W.getSectionWidth() && newPlank1.getWidth() >= Sizes.W.getDepth()) {
                 addComponent(new BoughtComponent(newPlank1.getName(), 1, newPlank1));
             } else newPlank.setValue(-1 * newPlank1.getValue());
     
-            if (newPlank2.getLength() > Sizes.C.getSectionWidth() && newPlank2.getWidth() > Sizes.C.getDepth() || newPlank2.getLength() > Sizes.W.getSectionWidth() && newPlank2.getWidth() > Sizes.W.getDepth()) {
+            if (newPlank2.getLength() >= Sizes.C.getSectionWidth() && newPlank2.getWidth() >= Sizes.C.getDepth() || newPlank2.getLength() >= Sizes.W.getSectionWidth() && newPlank2.getWidth() >= Sizes.W.getDepth()) {
                 addComponent(new BoughtComponent(newPlank2.getName(), 1, newPlank2));
             } else newPlank.setValue(-1 * newPlank2.getValue());
     
@@ -106,11 +106,11 @@ public class UserInventory extends Inventory {
             MDF newPlank1 = new MDF(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (unitPrice * (rawWood.getWidth() - width) * rawWood.getLength()), rawWood.getQualified(), rawWood.getLength(), (rawWood.getWidth() - width), rawWood.getThickness());
             MDF newPlank2 = new MDF(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (rawWood.getValue() - newPlank.getValue() - newPlank1.getValue()), rawWood.getQualified(), (rawWood.getLength() - length), width, rawWood.getThickness());
     
-            if (newPlank1.getLength() > Sizes.C.getSectionWidth() && newPlank1.getWidth() > Sizes.C.getDepth() || newPlank1.getLength() > Sizes.W.getSectionWidth() && newPlank1.getWidth() > Sizes.W.getDepth()) {
+            if (newPlank1.getLength() >= Sizes.C.getSectionWidth() && newPlank1.getWidth() >= Sizes.C.getDepth() || newPlank1.getLength() >= Sizes.W.getSectionWidth() && newPlank1.getWidth() >= Sizes.W.getDepth()) {
                 addComponent(new BoughtComponent(newPlank1.getName(), 1, newPlank1));
             } else newPlank.setValue(-1 * newPlank1.getValue());
     
-            if (newPlank2.getLength() > Sizes.C.getSectionWidth() && newPlank2.getWidth() > Sizes.C.getDepth() || newPlank2.getLength() > Sizes.W.getSectionWidth() && newPlank2.getWidth() > Sizes.W.getDepth()) {
+            if (newPlank2.getLength() >= Sizes.C.getSectionWidth() && newPlank2.getWidth() >= Sizes.C.getDepth() || newPlank2.getLength() >= Sizes.W.getSectionWidth() && newPlank2.getWidth() >= Sizes.W.getDepth()) {
                 addComponent(new BoughtComponent(newPlank2.getName(), 1, newPlank2));
             } else newPlank.setValue(-1 * newPlank2.getValue());
             
@@ -120,39 +120,32 @@ public class UserInventory extends Inventory {
             PlyWood newPlank = new PlyWood(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (unitPrice * length * width), rawWood.getQualified(), length, width, rawWood.getThickness());
             PlyWood newPlank1 = new PlyWood(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (unitPrice * (rawWood.getWidth() - width) * rawWood.getLength()), rawWood.getQualified(), rawWood.getLength(), (rawWood.getWidth() - width), rawWood.getThickness());
             PlyWood newPlank2 = new PlyWood(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (rawWood.getValue() - newPlank.getValue() - newPlank1.getValue()), rawWood.getQualified(), (rawWood.getLength() - length), width, rawWood.getThickness());
+            System.out.println(newPlank1.details() + " , " + newPlank2.details());
     
-            if (newPlank1.getLength() > Sizes.C.getSectionWidth() && newPlank1.getWidth() > Sizes.C.getDepth() || newPlank1.getLength() > Sizes.W.getSectionWidth() && newPlank1.getWidth() > Sizes.W.getDepth()) {
+            if (newPlank1.getLength() >= Sizes.C.getSectionWidth() && newPlank1.getWidth() >= Sizes.C.getDepth() || newPlank1.getLength() >= Sizes.W.getSectionWidth() && newPlank1.getWidth() >= Sizes.W.getDepth()) {
                 addComponent(new BoughtComponent(newPlank1.getName(), 1, newPlank1));
             } else newPlank.setValue(-1 * newPlank1.getValue());
     
-            if (newPlank2.getLength() > Sizes.C.getSectionWidth() && newPlank2.getWidth() > Sizes.C.getDepth() || newPlank2.getLength() > Sizes.W.getSectionWidth() && newPlank2.getWidth() > Sizes.W.getDepth()) {
+            if (newPlank2.getLength() >= Sizes.C.getSectionWidth() && newPlank2.getWidth() >= Sizes.C.getDepth() || newPlank2.getLength() >= Sizes.W.getSectionWidth() && newPlank2.getWidth() >= Sizes.W.getDepth()) {
                 addComponent(new BoughtComponent(newPlank2.getName(), 1, newPlank2));
             } else newPlank.setValue(-1 * newPlank2.getValue());
+    
             return new BoughtComponent(name, 1, newPlank);
             
         }
         return null;
     }
     
-    public void saveShopStatus() throws IOException {
-        FileOutputStream foS = new FileOutputStream("cabinet-shop.ser");
-        ObjectOutputStream ooS = new ObjectOutputStream(foS);
-        ooS.writeObject(this);
-        ooS.flush();
-        foS.close();
-        ooS.close();
-    }
-    
     public char simpleDecision(String message1, String message2) {
         char[] commands = new char[]{'y', 'n'};
         char command = 0;
         boolean stop = false;
-        
+    
         try {
-            
+        
             while (command == 0) {
                 invPrint.simpleDecisionPrint(commands, message1, message2);
-                
+            
                 do {
                     command = (char) System.in.read();
                     for (char com : commands) {
@@ -469,9 +462,7 @@ public class UserInventory extends Inventory {
         return slide;
     }
     
-    public void designCabinet() {
-        invPrint.simpleDisplay("Enter name of the cabinet: \n");
-        String name = invPrint.getInput();
+    public void designCabinet(String name) {
         int numberOfDrawers;
         boolean slide;
         List<DesignPattern> myList = getDesigns();
@@ -509,7 +500,9 @@ public class UserInventory extends Inventory {
         components.stream().filter(component -> component.getName().equals(name)).forEach(component -> {
             stock.add(component);
         });
-        
+    
+    
+        int size = components.size();
         int number;
         Scanner sc = new Scanner(System.in);
         
@@ -525,7 +518,7 @@ public class UserInventory extends Inventory {
                 number = sc.nextInt() - 1;
             }
 
-            while (number < 0 || number >= components.size());
+            while (number < 0 || number >= size);
     
             BoughtComponent myWood = new BoughtComponent(stock.get(number).getName(), 1, stock.get(number).getComponent());
     
@@ -576,10 +569,11 @@ public class UserInventory extends Inventory {
         return chosenPattern;
     }
     
-    public void buildCarcass(DesignPattern chosenDesign) {
+    public void buildCarcass(DesignPattern chosenDesign) throws NoWoodToChooseException, ComponentIsAddedException {
         int height;
         int depth;
         int width;
+        int sectionWidth;
         int thickness = 18;
         int sections = 0;
         int dsections = chosenDesign.getVerticalSections();
@@ -593,18 +587,22 @@ public class UserInventory extends Inventory {
         if (chosenDesign.getMyType().equals(CabinetType.C)) {
             height = Sizes.C.getHeight();
             depth = Sizes.C.getDepth();
-            width = sections * (thickness + Sizes.C.getSectionWidth()) + thickness;
+            sectionWidth = Sizes.C.getSectionWidth();
+            width = sections * (thickness + sectionWidth) + thickness;
             
         } else {
             height = Sizes.W.getHeight();
             depth = Sizes.W.getDepth();
-            width = sections * (thickness + Sizes.W.getSectionWidth()) + thickness;
+            sectionWidth = Sizes.W.getSectionWidth();
+            width = sections * (thickness + sectionWidth) + thickness;
         }
         prepareSides(2, height, depth, "side", chosenDesign, carcassList);
         prepareSides(2, width - (thickness * (sections - 1)), depth, "end", chosenDesign, carcassList);
         prepareSides(sections - 1, height - 2 * thickness, depth - 6, "divider", chosenDesign, carcassList);
+        prepareSides(chosenDesign.getShelves(), sectionWidth, depth - 20, "shelf", chosenDesign, carcassList);
+        prepareBack(height - 12, width - 12, carcassList);
         Carcass newCarcass = new Carcass(chosenDesign.getName(), height, width, depth, chosenDesign.getFramed(), carcassList);
-        prepareBack(height - 12, width - 12);
+        
     }
     
     private List<BoughtComponent> prepareSides(int j, int length, int width, String name, DesignPattern chosenDesign, List<BoughtComponent> carcassList) {
@@ -627,19 +625,66 @@ public class UserInventory extends Inventory {
         return carcassList;
     }
     
-    private void prepareBack(int heigth, int width) {
-        List<BoughtComponent> myStock = getBoughtComponents();
-        List<BoughtComponent> woodForBack = new ArrayList<>();
+    // Does not handle 3 sections back preparation!!!!
+    private void prepareBack(int heigth, int width, List<BoughtComponent> carcassList) throws NoWoodToChooseException, ComponentIsAddedException {
+        BoughtComponent myWood = selectWoodForInners(6);
         
-        for (BoughtComponent component : myStock) {
-            if (component.getComponent() instanceof PlyWood) {
-                if (((PlyWood) component.getComponent()).getThickness() == 6) {
-                    woodForBack.add(component);
-                }
+        if (((PlyWood) myWood.getComponent()).getLength() < heigth || ((PlyWood) myWood.getComponent()).getWidth() < width) {
+            throw new NoWoodToChooseException("No stock of such wood. Buy some.");
+        }
+        
+        myComponent = dimensioning(myWood, heigth, width, "back");
+        
+        for (BoughtComponent component : carcassList) {
+            if (component.getName().equals(myComponent.getName())) {
+                throw new ComponentIsAddedException("This component is already installed!");
+            } else {
+                carcassList.add(myComponent);
+                myWood.manageStock(1);
             }
         }
-        invPrint.printBoughtComponent(woodForBack);
-        invPrint.simpleDisplay("Please, select wood for back.");
-        int choice = Integer.parseInt(invPrint.getInput());
+    }
+    
+    private BoughtComponent selectWoodForInners(int thickness) throws NoWoodToChooseException {
+        BoughtComponent myWood = null;
+        List<BoughtComponent> components = getBoughtComponents();
+        List<BoughtComponent> plies = new ArrayList<>();
+        
+        for (BoughtComponent component : components) {
+            if (component.getComponent() instanceof PlyWood && ((PlyWood) component.getComponent()).getThickness() == thickness) {
+                return component;
+            }
+        }
+        
+        if (myWood == null) {
+            throw new NoWoodToChooseException("No stock of such wood. Buy some.");
+        }
+        
+        return myWood;
+    }
+    
+    public void saveInventory() throws IOException {
+        FileOutputStream foS = new FileOutputStream("cabinet-shop.ser");
+        ObjectOutputStream ooS = new ObjectOutputStream(foS);
+        ooS.writeObject(cabinets);
+        ooS.writeObject(orderedCabinets);
+        ooS.writeObject(boughtComponents);
+        ooS.flush();
+        foS.close();
+        ooS.close();
+    }
+    
+    public void loadInventory() {
+        try {
+            FileInputStream fileIn = new FileInputStream("cabinet-shop.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            List<Cabinet> cabinets = (List<Cabinet>) in.readObject();
+            List<DesignPattern> orderedCabinets = (List<DesignPattern>) in.readObject();
+            List<BoughtComponent> boughtComponents = (List<BoughtComponent>) in.readObject();
+            in.close();
+            fileIn.close();
+        } catch (IOException | ClassNotFoundException e) {
+            invPrint.simpleDisplay("Load failed, starting new cabinet shop!");
+        }
     }
 }

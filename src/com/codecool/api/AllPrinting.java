@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class AllPrinting {
-    private Scanner userInput = new Scanner(System.in);
+    private transient Scanner userInput = new Scanner(System.in);
     
     public String getInput() {
         String input = userInput.nextLine().toLowerCase();

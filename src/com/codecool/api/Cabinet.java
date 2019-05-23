@@ -2,10 +2,11 @@ package com.codecool.api;
 
 import com.codecool.parts.Part;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cabinet {
+public class Cabinet implements Serializable {
     private String name;
     private int price;
     private int cost;

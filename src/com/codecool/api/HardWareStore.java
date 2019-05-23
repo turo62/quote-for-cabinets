@@ -3,10 +3,7 @@ package com.codecool.api;
 import com.codecool.components.BoughtComponent;
 import com.codecool.components.Components;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,9 +50,23 @@ public class HardWareStore extends Store implements Serializable {
     public void saveStoreStatus() throws IOException {
         FileOutputStream foS = new FileOutputStream("hardware-store.ser");
         ObjectOutputStream ooS = new ObjectOutputStream(foS);
+        ooS.writeDouble(money);
         ooS.writeObject(stock);
         ooS.flush();
         foS.close();
         ooS.close();
+    }
+    
+    public void loadHardwareStore() {
+        try {
+            FileInputStream fileIn = new FileInputStream("hardware-store.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            int money = (int) in.readObject();
+            List<BoughtComponent> stock = (List<BoughtComponent>) in.readObject();
+            in.close();
+            fileIn.close();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Load failed, starting new hardware store!");
+        }
     }
 }
