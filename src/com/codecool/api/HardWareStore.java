@@ -36,6 +36,9 @@ public class HardWareStore extends Store implements Serializable {
         this.number += number;
     }
     
+    private void setStock(List<BoughtComponent> stock) {
+        this.stock = stock;
+    }
     
     @Override
     public List<BoughtComponent> getStock() {
@@ -61,8 +64,10 @@ public class HardWareStore extends Store implements Serializable {
         try {
             FileInputStream fileIn = new FileInputStream("hardware-store.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            int money = (int) in.readObject();
+            double money = (double) in.readDouble();
             List<BoughtComponent> stock = (List<BoughtComponent>) in.readObject();
+            setMoney(money);
+            setStock(stock);
             in.close();
             fileIn.close();
         } catch (IOException | ClassNotFoundException e) {

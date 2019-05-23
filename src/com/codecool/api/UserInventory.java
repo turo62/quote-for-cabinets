@@ -36,12 +36,24 @@ public class UserInventory extends Inventory {
         this.money += value;
     }
     
+    private void setCabinets(List<Cabinet> cabinets) {
+        this.cabinets = cabinets;
+    }
+    
     public List<Cabinet> getCabinets() {
         return cabinets;
     }
     
+    private void setBoughtComponents(List<BoughtComponent> boughtComponents) {
+        this.boughtComponents = boughtComponents;
+    }
+    
     public List<BoughtComponent> getBoughtComponents() {
         return boughtComponents;
+    }
+    
+    private void setOrderedCabinets(List<DesignPattern> orderedCabinets) {
+        this.orderedCabinets = orderedCabinets;
     }
     
     public List<DesignPattern> getDesigns() {
@@ -681,6 +693,9 @@ public class UserInventory extends Inventory {
             List<Cabinet> cabinets = (List<Cabinet>) in.readObject();
             List<DesignPattern> orderedCabinets = (List<DesignPattern>) in.readObject();
             List<BoughtComponent> boughtComponents = (List<BoughtComponent>) in.readObject();
+            setCabinets(cabinets);
+            setOrderedCabinets(orderedCabinets);
+            setBoughtComponents(boughtComponents);
             in.close();
             fileIn.close();
         } catch (IOException | ClassNotFoundException e) {

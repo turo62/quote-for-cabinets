@@ -279,6 +279,7 @@ class CmdMenu {
         } else if (input == 'n') {
             choice = 2;
         }
+    
         stock = loadStock(choice);
         display.printStockInfo(stock);
         buyingComponents(stock);
