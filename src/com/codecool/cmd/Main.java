@@ -14,7 +14,7 @@ public class Main {
             e.printStackTrace();
         } catch (NoSuchOptionException e) {
             e.printStackTrace();
-        } catch (NoWoodToChooseException e) {
+        } catch (NoComponentException e) {
             e.printStackTrace();
         } catch (ComponentIsAddedException e) {
             e.printStackTrace();

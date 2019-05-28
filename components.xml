@@ -24,22 +24,23 @@
                    thickness="18"/>
     </ChipBoards>
     <MDFs>
-        <MDF name="mdfPine" producer="Nati" load="L" value="28.5" qualified="4" length="2800" width="2070"
+        <MDF name="mdfPine6" producer="Nati" load="L" value="28.5" qualified="4" length="2800" width="2070"
              thickness="6"/>
-        <MDF name="mdfOak" producer="Nati" load="L" value="28.5" qualified="4" length="2800" width="2070"
+        <MDF name="mdfOak6" producer="Nati" load="L" value="28.5" qualified="4" length="2800" width="2070"
              thickness="6"/>
-        <MDF name="mdfCherry" producer="Nati" load="L" value="28.5" qualified="4" length="2800" width="2070"
+        <MDF name="mdfCherry6" producer="Nati" load="L" value="28.5" qualified="4" length="2800" width="2070"
              thickness="6"/>
-        <MDF name="mdfMDF" producer="Nati" load="L" value="53" qualified="4" length="2800" width="2070" thickness="18"/>
+        <MDF name="mdfMDF18" producer="Nati" load="L" value="53" qualified="4" length="2800" width="2070"
+             thickness="18"/>
     </MDFs>
     <PlyWoods>
-        <PlyWood name="birchBB" producer="Nati" load="M" value="75.8" qualified="4" length="2500" width="1250"
+        <PlyWood name="birchBB18" producer="Nati" load="M" value="75.8" qualified="4" length="2500" width="1250"
                  thickness="18"/>
-        <PlyWood name="birchCC" producer="Nati" load="M" value="39" qualified="4" length="2500" width="1250"
+        <PlyWood name="birchCC18" producer="Nati" load="M" value="39" qualified="4" length="2500" width="1250"
                  thickness="18"/>
-        <PlyWood name="birchBB" producer="Nati" load="M" value="55.3" qualified="4" length="2500" width="1250"
+        <PlyWood name="birchBB12" producer="Nati" load="M" value="55.3" qualified="4" length="2500" width="1250"
                  thickness="12"/>
-        <PlyWood name="birchBB" producer="Nati" load="M" value="39.5" qualified="4" length="2500" width="1250"
+        <PlyWood name="birchBB6" producer="Nati" load="M" value="39.5" qualified="4" length="2500" width="1250"
                  thickness="6"/>
     </PlyWoods>
     <Glues>

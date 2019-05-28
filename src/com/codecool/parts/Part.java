@@ -11,7 +11,7 @@ public abstract class Part implements Serializable {
     private int width;
     private List<BoughtComponent> assembly;
     
-    Part(String name, int height, int width) {
+    Part(String name, int height, int width, List<BoughtComponent> assembly) {
         this.name = name;
         this.height = height;
         this.width = width;
@@ -28,6 +28,10 @@ public abstract class Part implements Serializable {
     
     public void setName(String name) {
         this.name = name;
+    }
+    
+    public List<BoughtComponent> getAssembly() {
+        return assembly;
     }
     
     public void assemble(BoughtComponent partComponent) {

@@ -11,10 +11,9 @@ public class Carcass extends Part {
     private List<BoughtComponent> assembly;
     
     public Carcass(String name, int height, int width, int depth, IsFramed framing, List<BoughtComponent> assembly) {
-        super(name, height, width);
+        super(name, height, width, assembly);
         this.depth = depth;
         this.framing = framing;
-        this.assembly = assembly;
     }
     
     public void setFraming(IsFramed framing) {
@@ -27,9 +26,5 @@ public class Carcass extends Part {
     
     public IsFramed getFraming() {
         return framing;
-    }
-    
-    public List<BoughtComponent> getAssembly() {
-        return assembly;
     }
 }

@@ -14,8 +14,8 @@ public class Drawer extends Part {
     private boolean slide;
     private List<BoughtComponent> assembly = new ArrayList<>();
     
-    public Drawer(String name, int height, int length, int depth, KnobsAndPulls handle) {
-        super(name, height, length);
+    public Drawer(String name, int height, int length, int depth, List<BoughtComponent> assembly) {
+        super(name, height, length, assembly);
         this.depth = depth;
         this.handle = handle;
         this.seating = seating;

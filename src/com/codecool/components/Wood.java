@@ -26,6 +26,11 @@ public abstract class Wood extends Components {
         return width;
     }
     
+    public int newWidth(int value) {
+        this.width = value;
+        return width;
+    }
+    
     public int setLength(int value) {
         this.length -= value;
         return length;

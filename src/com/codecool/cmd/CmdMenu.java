@@ -15,12 +15,8 @@ class CmdMenu {
     
     private String savePath = "cabinet-shop.ser";
     private HardWareStore hardwareShop = new HardWareStore(1000000);
-    private Scanner userInput = new Scanner(System.in);
     private WoodStore woodShop = new WoodStore(1000000);
     private UserInventory inventory = new UserInventory(250000);
-    private String currentType;
-    private BoughtComponent boughtComponent;
-    private DesignPattern designDetails;
     private AllPrinting display = new AllPrinting();
     
     CmdMenu() {
@@ -31,7 +27,7 @@ class CmdMenu {
         }
     }
     
-    void start() throws NotEnoughException, NoDesignException, NoSuchOptionException, NoWoodToChooseException, ComponentIsAddedException {
+    void start() throws NotEnoughException, NoDesignException, NoSuchOptionException, NoComponentException, ComponentIsAddedException {
         String[] commands = new String[]{
                 "store (s)",
                 "cabinets (c)",
@@ -101,7 +97,7 @@ class CmdMenu {
         }
     }
     
-    private void cabinetMenu() throws NotEnoughException, NoDesignException, NoWoodToChooseException, ComponentIsAddedException {
+    private void cabinetMenu() throws NotEnoughException, NoDesignException, NoComponentException, ComponentIsAddedException {
         String[] commands = new String[]{
                 "display all (a)",
                 "list components (c)",
@@ -121,9 +117,7 @@ class CmdMenu {
                 case "c":
                     break;
                 case "d":
-                    display.simpleDisplay("Enter name of the cabinet: \n");
-                    String name = display.getInput();
-                    inventory.designCabinet(name);
+                    designCabinet();
                     break;
                 case "u":
                     buildCabinet();
@@ -194,51 +188,39 @@ class CmdMenu {
                 return null;
             case "0":
                 componentList = inventory.getBoards();
-                currentType = "lumber";
                 break;
             case "1":
                 componentList = inventory.getChipBoards();
-                currentType = "chipBoard";
                 break;
             case "2":
                 componentList = inventory.getMDFs();
-                currentType = "MDF";
                 break;
             case "3":
                 componentList = inventory.getPlies();
-                currentType = "plywood";
                 break;
             case "4":
                 componentList = inventory.getGlues();
-                currentType = "glue";
                 break;
             case "5":
                 componentList = inventory.getDowels();
-                currentType = "dowel";
                 break;
             case "6":
                 componentList = inventory.getPocketHoleScrews();
-                currentType = "pocketHoleScrew";
                 break;
             case "7":
                 componentList = inventory.getScrews();
-                currentType = "screw";
                 break;
             case "8":
                 componentList = inventory.getSlides();
-                currentType = "slides";
                 break;
             case "9":
                 componentList = inventory.getHinges();
-                currentType = "hinge";
                 break;
             case "10":
                 componentList = inventory.getPulls();
-                currentType = "pulls";
                 break;
             case "11":
                 componentList = inventory.getKnobs();
-                currentType = "knobs";
                 break;
             default:
                 System.out.println("Wrong input!");
@@ -309,7 +291,7 @@ class CmdMenu {
             }
             myStock = woodShop.getStock();
         } else if (myNumber == 2 && woodShop.getStock().size() != 0) {
-            myStock = hardwareShop.getStock();
+            myStock = woodShop.getStock();
         }
         
         return myStock;
@@ -382,10 +364,17 @@ class CmdMenu {
         }
     }
     
-    private void buildCabinet() throws NotEnoughException, NoDesignException, NoWoodToChooseException, ComponentIsAddedException {
+    private void designCabinet() {
+        display.simpleDisplay("Enter name of the cabinet: \n");
+        inventory.designCabinet(display.getInput());
+    }
+    
+    private void buildCabinet() throws NotEnoughException, NoDesignException, NoComponentException, ComponentIsAddedException {
     
         DesignPattern chosenDesign = inventory.selectDesign();
         inventory.buildCarcass(chosenDesign);
+        inventory.buildDoors(chosenDesign);
+        
         
     }
     
@@ -410,7 +399,6 @@ class CmdMenu {
             inventory.saveInventory();
             woodShop.saveStoreStatus();
             hardwareShop.saveStoreStatus();
-            System.out.println();
         } catch (IOException e) {
             e.printStackTrace();
         }

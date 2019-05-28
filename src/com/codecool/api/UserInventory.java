@@ -3,10 +3,13 @@ package com.codecool.api;
 import com.codecool.components.*;
 import com.codecool.enums.*;
 import com.codecool.exceptions.ComponentIsAddedException;
+import com.codecool.exceptions.NoComponentException;
 import com.codecool.exceptions.NoDesignException;
-import com.codecool.exceptions.NoWoodToChooseException;
+import com.codecool.exceptions.NotEnoughException;
 import com.codecool.parts.Carcass;
 import com.codecool.parts.DesignPattern;
+import com.codecool.parts.Door;
+import com.codecool.parts.Part;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -16,11 +19,10 @@ import java.util.Scanner;
 
 public class UserInventory extends Inventory {
     private double money;
-    private PlyWood genericPly;
     private List<Cabinet> cabinets = new ArrayList<>();
-    private Carcass myCarcass;
     private List<DesignPattern> orderedCabinets = new ArrayList<>();
     private List<BoughtComponent> boughtComponents = new ArrayList<>();
+    private List<Part> myParts = new ArrayList<>();
     private BoughtComponent myComponent;
     public transient AllPrinting invPrint = new AllPrinting();
     
@@ -36,12 +38,24 @@ public class UserInventory extends Inventory {
         this.money += value;
     }
     
+    private void loadedMoney(double money) {
+        this.money = money;
+    }
+    
     private void setCabinets(List<Cabinet> cabinets) {
         this.cabinets = cabinets;
     }
     
     public List<Cabinet> getCabinets() {
         return cabinets;
+    }
+    
+    public List<Part> getMyParts() {
+        return myParts;
+    }
+    
+    public void setMyParts(List<Part> myParts) {
+        this.myParts = myParts;
     }
     
     private void setBoughtComponents(List<BoughtComponent> boughtComponents) {
@@ -62,6 +76,29 @@ public class UserInventory extends Inventory {
     
     public void addComponent(BoughtComponent boughtComponent) {
         boughtComponents.add(boughtComponent);
+    }
+    
+    private BoughtComponent addComponentByName(String name, int number) throws NotEnoughException, NoComponentException {
+        List<BoughtComponent> availableComponents = getBoughtComponents();
+        BoughtComponent givenComponent = null;
+        int count = 0;
+        
+        for (int i = 0; i < availableComponents.size(); i++) {
+            if (availableComponents.get(i).getName().equals(name)) {
+                givenComponent = availableComponents.get(i);
+                count = i;
+            }
+        }
+        
+        if (givenComponent == null) {
+            throw new NoComponentException("There is no such component in stock. Stock up some.");
+        } else if (givenComponent.getNumber() < number) {
+            throw new NotEnoughException("Not enough on stock. Buy some.");
+        } else {
+            availableComponents.get(count).manageStock(number);
+        }
+        
+        return givenComponent;
     }
     
     public void addDesign(DesignPattern newPattern) {
@@ -132,7 +169,6 @@ public class UserInventory extends Inventory {
             PlyWood newPlank = new PlyWood(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (unitPrice * length * width), rawWood.getQualified(), length, width, rawWood.getThickness());
             PlyWood newPlank1 = new PlyWood(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (unitPrice * (rawWood.getWidth() - width) * rawWood.getLength()), rawWood.getQualified(), rawWood.getLength(), (rawWood.getWidth() - width), rawWood.getThickness());
             PlyWood newPlank2 = new PlyWood(rawWood.getName(), rawWood.getProducer(), rawWood.getLoad(), (rawWood.getValue() - newPlank.getValue() - newPlank1.getValue()), rawWood.getQualified(), (rawWood.getLength() - length), width, rawWood.getThickness());
-            System.out.println(newPlank1.details() + " , " + newPlank2.details());
     
             if (newPlank1.getLength() >= Sizes.C.getSectionWidth() && newPlank1.getWidth() >= Sizes.C.getDepth() || newPlank1.getLength() >= Sizes.W.getSectionWidth() && newPlank1.getWidth() >= Sizes.W.getDepth()) {
                 addComponent(new BoughtComponent(newPlank1.getName(), 1, newPlank1));
@@ -168,7 +204,7 @@ public class UserInventory extends Inventory {
                 } while (!stop);
             }
         } catch (IOException e) {
-            System.out.println("Wrong input");
+            invPrint.simpleDisplay("Wrong input");
         }
         return command;
     }
@@ -246,7 +282,7 @@ public class UserInventory extends Inventory {
             }
             
             do {
-                System.out.println("Please, select number of you want your cabinet made by. \n");
+                invPrint.simpleDisplay("Please, select number of you want your cabinet made by. \n");
                 while (!sc.hasNextInt()) {
                     invPrint.simpleDisplay("That's not a number! \n");
                     sc.next();
@@ -263,7 +299,7 @@ public class UserInventory extends Inventory {
     
     public IsFramed setFrame() {
         IsFramed frame;
-        System.out.println("Do you want frameless or face framed design?");
+        invPrint.simpleDisplay("Do you want frameless or face framed design?");
         char choice = simpleDecision("framed", "frameless");
         if (choice == 'y') {
             frame = IsFramed.FF;
@@ -430,8 +466,6 @@ public class UserInventory extends Inventory {
             falseFrame = "FL";
         }
         
-        System.out.println(falseSeating + falseFrame);
-        
         if (getClass(handle).equals("Knobs")) {
             myHandle = (getKnobs().get(getIndexByName(handle, getKnobs()))).getStyle();
         } else {
@@ -487,7 +521,6 @@ public class UserInventory extends Inventory {
         int shelves = setShelves(myType, verticalSections);
         String handle = setHandle();
         String hinge = setHinge(myType, shelves, handle, framed, seating);
-        System.out.println(getClass(handle));
         
         if (myType.name().equals('W')) {
             numberOfDrawers = 0;
@@ -537,13 +570,13 @@ public class UserInventory extends Inventory {
             int index = 0;
     
             for (BoughtComponent component : components) {
-                invPrint.printBoughtComponentDetails(component);
+                //invPrint.printBoughtComponentDetails(component);
                 if (stock.get(number).equals(component) && component.getNumber() > 1) {
                     component.manageStock(1);
                 } else if (stock.get(number).equals(component) && component.getNumber() == 1) {
                     index = components.indexOf(component);
                 }
-                invPrint.printBoughtComponentDetails(component);
+                //invPrint.printBoughtComponentDetails(component);
             }
     
             if (index != 0) {
@@ -575,27 +608,20 @@ public class UserInventory extends Inventory {
             } while (choice < 1 || choice > orderedDesign.size());
             
             chosenPattern = orderedDesign.get(choice - 1);
-            System.out.println(chosenPattern.getName() + " " + chosenPattern.getMyType() + " " + chosenPattern.getMaterial() + " " + chosenPattern.getFramed() +
-                    " " + chosenPattern.getSeating() + " " + chosenPattern.getShelves() + " " + chosenPattern.getVerticalSections() + " " + chosenPattern.getHandle() + " " + chosenPattern.getNumberOfDrawers() + " " + chosenPattern.isSlide());
         }
         return chosenPattern;
     }
     
-    public void buildCarcass(DesignPattern chosenDesign) throws NoWoodToChooseException, ComponentIsAddedException {
+    public void buildCarcass(DesignPattern chosenDesign) throws NoComponentException, ComponentIsAddedException {
         int height;
         int depth;
         int width;
         int sectionWidth;
         int thickness = 18;
-        int sections = 0;
-        int dsections = chosenDesign.getVerticalSections();
-        List<BoughtComponent> carcassList = new ArrayList<>();
+        List<BoughtComponent> partComponents = new ArrayList<>();
         
-        while (dsections > 0) {
-            sections = sections + dsections % 10;
-            dsections = dsections / 10;
-        }
-        System.out.println(chosenDesign.getMyType() + CabinetType.C.toString());
+        int sections = sectionsForBuilding(chosenDesign);
+        
         if (chosenDesign.getMyType().equals(CabinetType.C)) {
             height = Sizes.C.getHeight();
             depth = Sizes.C.getDepth();
@@ -608,79 +634,192 @@ public class UserInventory extends Inventory {
             sectionWidth = Sizes.W.getSectionWidth();
             width = sections * (thickness + sectionWidth) + thickness;
         }
-        prepareSides(2, height, depth, "side", chosenDesign, carcassList);
-        prepareSides(2, width - (thickness * (sections - 1)), depth, "end", chosenDesign, carcassList);
-        prepareSides(sections - 1, height - 2 * thickness, depth - 6, "divider", chosenDesign, carcassList);
-        prepareSides(chosenDesign.getShelves(), sectionWidth, depth - 20, "shelf", chosenDesign, carcassList);
-        prepareBack(height - 12, width - 12, carcassList);
-        Carcass newCarcass = new Carcass(chosenDesign.getName(), height, width, depth, chosenDesign.getFramed(), carcassList);
         
+        prepareSides(2, height, depth, "side", chosenDesign, partComponents);
+        prepareSides(2, width - (thickness * (sections - 1)), depth, "end", chosenDesign, partComponents);
+        prepareSides(sections - 1, height - 2 * thickness, depth - 6, "divider", chosenDesign, partComponents);
+        prepareSides(chosenDesign.getShelves(), sectionWidth, depth - 20, "shelf", chosenDesign, partComponents);
+        prepareBack(height - 12, width - 12, partComponents, chosenDesign);
+        
+        Carcass newCarcass = new Carcass(chosenDesign.getName(), height, width, depth, chosenDesign.getFramed(), partComponents);
+        
+        myParts.add(newCarcass);
     }
     
-    private List<BoughtComponent> prepareSides(int j, int length, int width, String name, DesignPattern chosenDesign, List<BoughtComponent> carcassList) {
+    //Only commode door is ready.
+    public void buildDoors(DesignPattern chosenDesign) throws NotEnoughException, NoComponentException {
+        List<BoughtComponent> partComponents = new ArrayList<>();
+        int number = 0;
+        String name = "";
+        int height = 0;
+        int width = 0;
+        int handleNumber = 0;
+        boolean morticed = false;
+        
+        if (chosenDesign.getMyType().equals(CabinetType.C) && chosenDesign.getShelves() > 0) {
+            setCommodeDoor(chosenDesign, partComponents);
+            number = 2;
+            handleNumber++;
+        }
+        BoughtComponent handle = addComponentByName(chosenDesign.getHandle(), handleNumber);
+        BoughtComponent hinge = addComponentByName(chosenDesign.getHinge(), number);
+        partComponents.add(new BoughtComponent(handle.getName(), handleNumber, handle.getComponent()));
+        partComponents.add(new BoughtComponent(hinge.getName(), number, hinge.getComponent()));
+        Door newDoor = new Door(partComponents.get(0).getName(), height, width, morticed, partComponents);
+        
+        if (((Hinge) hinge.getComponent()).getMount().equals(IsRecess.MM.getMount())) {
+            morticed = newDoor.setMorticed();
+        }
+        
+        myParts.add(newDoor);
+    }
     
+    private int sectionsForBuilding(DesignPattern chosenDesign) {
+        int sections = 0;
+        int dsections = chosenDesign.getVerticalSections();
+        
+        if (dsections == 111 || dsections % 10 == 3) {
+            sections = 3;
+        } else if (dsections == 1 || dsections == 10 || dsections == 100) {
+            sections = 1;
+        } else {
+            sections = 2;
+        }
+        
+        return sections;
+    }
+    
+    private List<BoughtComponent> prepareSides(int j, int length, int width, String name, DesignPattern chosenDesign, List<BoughtComponent> partComponents) {
     
         for (int i = 0; i < j; i++) {
             invPrint.simpleDisplay("\n Please, select wood for preparing " + name + "\n");
             BoughtComponent myWood = selectWood(chosenDesign.getMaterial());
             myComponent = dimensioning(myWood, length, width, name);
-            System.out.println(myComponent.getComponent().details());
-            for (BoughtComponent component : carcassList) {
-                if (component.getName().equals(myComponent.getName())) {
-                    component.manageStock(-1);
+            int number = 0;
+            if (partComponents.size() == 0) {
+                partComponents.add(myComponent);
+            } else if (partComponents.size() == 1) {
+                if (partComponents.get(0).getName().equals(myComponent.getName())) {
+                    partComponents.get(0).manageStock(-1);
                 } else {
-                    carcassList.add(myComponent);
+                    partComponents.add(myComponent);
+                }
+            } else if (partComponents.size() > 1) {
+                if (partComponents.get(partComponents.size() - 1).getName().equals(myComponent.getName())) {
+                    partComponents.get(partComponents.size() - 1).manageStock(-1);
+                } else {
+                    partComponents.add(myComponent);
                 }
             }
+    
         }
         
-        return carcassList;
+        return partComponents;
     }
     
-    // Does not handle 3 sections back preparation!!!!
-    private void prepareBack(int heigth, int width, List<BoughtComponent> carcassList) throws NoWoodToChooseException, ComponentIsAddedException {
-        BoughtComponent myWood = selectWoodForInners(6);
+    //Stock management does not work!!! To be completed.
+    private void prepareBack(int height, int width, List<BoughtComponent> partComponents, DesignPattern chosenDesign) throws NoComponentException, ComponentIsAddedException {
+        int sections = sectionsForBuilding(chosenDesign);
+        int numberOfBackParts = 1;
+        int number = 0;
+        BoughtComponent myWood = null;
         
-        if (((PlyWood) myWood.getComponent()).getLength() < heigth || ((PlyWood) myWood.getComponent()).getWidth() < width) {
-            throw new NoWoodToChooseException("No stock of such wood. Buy some.");
+        if (sections == 3) {
+            numberOfBackParts = 3;
+            width = width / 3;
         }
         
-        myComponent = dimensioning(myWood, heigth, width, "back");
+        for (int i = 1; i <= numberOfBackParts; i++) {
+            myWood = selectWoodForInners(6, height, width);
+            
+            if (((PlyWood) myWood.getComponent()).getLength() < height || ((PlyWood) myWood.getComponent()).getWidth() < width) {
+                throw new NoComponentException("Wrong selection. Choose another.");
+            }
+            
+            myComponent = dimensioning(myWood, height, width, "back");
+        }
         
-        for (BoughtComponent component : carcassList) {
+        if (numberOfBackParts == 3) {
+            ((PlyWood) myComponent.getComponent()).newWidth(width * 3);
+        }
+        
+        
+        for (BoughtComponent component : partComponents) {
             if (component.getName().equals(myComponent.getName())) {
                 throw new ComponentIsAddedException("This component is already installed!");
             } else {
-                carcassList.add(myComponent);
-                myWood.manageStock(1);
+                number++;
             }
+        }
+        
+        if (number != 0) {
+            partComponents.add(myComponent);
+            myWood.manageStock(1);
         }
     }
     
-    private BoughtComponent selectWoodForInners(int thickness) throws NoWoodToChooseException {
+    private BoughtComponent selectWoodForInners(int thickness, int height, int width) throws NoComponentException {
         BoughtComponent myWood = null;
         List<BoughtComponent> components = getBoughtComponents();
         List<BoughtComponent> plies = new ArrayList<>();
         
-        for (BoughtComponent component : components) {
-            if (component.getComponent() instanceof PlyWood && ((PlyWood) component.getComponent()).getThickness() == thickness) {
-                return component;
+        for (int i = components.size(); i-- > 0; ) {
+            if (components.get(i).getComponent() instanceof PlyWood && ((PlyWood) components.get(i).getComponent()).getThickness() == thickness && ((PlyWood) components.get(i).getComponent()).getLength() >= height && ((PlyWood) components.get(i).getComponent()).getWidth() >= width) {
+                return components.get(i);
             }
         }
         
         if (myWood == null) {
-            throw new NoWoodToChooseException("No stock of such wood. Buy some.");
+            throw new NoComponentException("No stock of such wood. Buy some.");
         }
         
         return myWood;
     }
     
+    private List<BoughtComponent> setCommodeDoor(DesignPattern chosenDesign, List<BoughtComponent> partComponents) {
+        String name = "";
+        int height = 0;
+        int width = 0;
+        
+        if (chosenDesign.getSeating() == IsInset.INSET && chosenDesign.getFramed().equals(IsFramed.FL)) {
+            name = "doorCIFL";
+            height = Sizes.C.getHeight() - 36;
+            width = Sizes.C.getSectionWidth();
+        } else if (chosenDesign.getSeating() == IsInset.INSET && chosenDesign.getFramed().equals(IsFramed.FF)) {
+            name = "doorCIFF";
+            height = Sizes.C.getHeight() - 80;
+            width = Sizes.C.getSectionWidth() - 22;
+        } else if (chosenDesign.getSeating() == IsInset.OVERLAY && chosenDesign.getFramed().equals(IsFramed.FL)) {
+            name = "doorCOFL";
+            height = Sizes.C.getHeight() - 24;
+            width = Sizes.C.getSectionWidth() + 12;
+        } else if (chosenDesign.getSeating() == IsInset.OVERLAY && chosenDesign.getFramed().equals(IsFramed.FF)) {
+            name = "doorCOFF";
+            height = Sizes.C.getHeight() - 68;
+            width = Sizes.C.getSectionWidth() - 10;
+        }
+        
+        return prepareSides(1, height, width, name, chosenDesign, partComponents);
+    }
+    
+    private double calculateCost(Part myPart, double cost) {
+        List<BoughtComponent> assembly = myPart.getAssembly();
+        
+        for (BoughtComponent component : assembly) {
+            cost += component.getNumber() * component.getComponent().getValue();
+        }
+        
+        return cost;
+    }
+    
     public void saveInventory() throws IOException {
         FileOutputStream foS = new FileOutputStream("cabinet-shop.ser");
         ObjectOutputStream ooS = new ObjectOutputStream(foS);
+        ooS.writeDouble(money);
         ooS.writeObject(cabinets);
         ooS.writeObject(orderedCabinets);
         ooS.writeObject(boughtComponents);
+        ooS.writeObject(myParts);
         ooS.flush();
         foS.close();
         ooS.close();
@@ -690,12 +829,16 @@ public class UserInventory extends Inventory {
         try {
             FileInputStream fileIn = new FileInputStream("cabinet-shop.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
+            double money = (double) in.readDouble();
             List<Cabinet> cabinets = (List<Cabinet>) in.readObject();
             List<DesignPattern> orderedCabinets = (List<DesignPattern>) in.readObject();
             List<BoughtComponent> boughtComponents = (List<BoughtComponent>) in.readObject();
+            List<Part> myParts = (List<Part>) in.readObject();
+            loadedMoney(money);
             setCabinets(cabinets);
             setOrderedCabinets(orderedCabinets);
             setBoughtComponents(boughtComponents);
+            setMyParts(myParts);
             in.close();
             fileIn.close();
         } catch (IOException | ClassNotFoundException e) {
