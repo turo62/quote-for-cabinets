@@ -567,19 +567,17 @@ public class UserInventory extends Inventory {
     
             BoughtComponent myWood = new BoughtComponent(stock.get(number).getName(), 1, stock.get(number).getComponent());
     
-            int index = 0;
+            int index = 150;
     
             for (BoughtComponent component : components) {
-                //invPrint.printBoughtComponentDetails(component);
                 if (stock.get(number).equals(component) && component.getNumber() > 1) {
                     component.manageStock(1);
                 } else if (stock.get(number).equals(component) && component.getNumber() == 1) {
                     index = components.indexOf(component);
                 }
-                //invPrint.printBoughtComponentDetails(component);
             }
     
-            if (index != 0) {
+            if (index != 150) {
                 components.remove(components.get(index));
             }
     
@@ -646,32 +644,44 @@ public class UserInventory extends Inventory {
         myParts.add(newCarcass);
     }
     
-    //Only commode door is ready.
     public void buildDoors(DesignPattern chosenDesign) throws NotEnoughException, NoComponentException {
         List<BoughtComponent> partComponents = new ArrayList<>();
         int number = 0;
+        int sections = 0;
         String name = "";
         int height = 0;
         int width = 0;
-        int handleNumber = 0;
+        int handleNumber = 1;
         boolean morticed = false;
-        
+        BoughtComponent hinge = null;
+        Door newDoor = null;
+    
         if (chosenDesign.getMyType().equals(CabinetType.C) && chosenDesign.getShelves() > 0) {
-            setCommodeDoor(chosenDesign, partComponents);
             number = 2;
-            handleNumber++;
+            sections = 1;
+        } else if (chosenDesign.getMyType().equals(CabinetType.W)) {
+            sections = sectionsForBuilding(chosenDesign);
+            if (Sizes.W.getHeight() > 1200 && Sizes.W.getHeight() % 600 >= 400) {
+                number = Sizes.W.getHeight() % 600 + 1;
+            } else {
+                number = Sizes.W.getHeight() % 600;
+            }
         }
-        BoughtComponent handle = addComponentByName(chosenDesign.getHandle(), handleNumber);
-        BoughtComponent hinge = addComponentByName(chosenDesign.getHinge(), number);
-        partComponents.add(new BoughtComponent(handle.getName(), handleNumber, handle.getComponent()));
-        partComponents.add(new BoughtComponent(hinge.getName(), number, hinge.getComponent()));
-        Door newDoor = new Door(partComponents.get(0).getName(), height, width, morticed, partComponents);
+    
+        for (int i = 0; i < sections; i++) {
+            setDoorPanel(chosenDesign, partComponents);
+            BoughtComponent handle = addComponentByName(chosenDesign.getHandle(), handleNumber);
+            hinge = addComponentByName(chosenDesign.getHinge(), number);
+            partComponents.add(new BoughtComponent(handle.getName(), handleNumber, handle.getComponent()));
+            partComponents.add(new BoughtComponent(hinge.getName(), number, hinge.getComponent()));
+            newDoor = new Door(partComponents.get(0).getName(), height, width, morticed, partComponents);
         
-        if (((Hinge) hinge.getComponent()).getMount().equals(IsRecess.MM.getMount())) {
-            morticed = newDoor.setMorticed();
+            if (((Hinge) hinge.getComponent()).getMount().equals(IsRecess.MM.getMount())) {
+                morticed = newDoor.setMorticed();
+            }
+        
+            myParts.add(newDoor);
         }
-        
-        myParts.add(newDoor);
     }
     
     private int sectionsForBuilding(DesignPattern chosenDesign) {
@@ -716,12 +726,11 @@ public class UserInventory extends Inventory {
         
         return partComponents;
     }
-    
-    //Stock management does not work!!! To be completed.
+
     private void prepareBack(int height, int width, List<BoughtComponent> partComponents, DesignPattern chosenDesign) throws NoComponentException, ComponentIsAddedException {
         int sections = sectionsForBuilding(chosenDesign);
         int numberOfBackParts = 1;
-        int number = 0;
+        int number = 150;
         BoughtComponent myWood = null;
         
         if (sections == 3) {
@@ -751,8 +760,8 @@ public class UserInventory extends Inventory {
                 number++;
             }
         }
-        
-        if (number != 0) {
+    
+        if (number != 150) {
             partComponents.add(myComponent);
             myWood.manageStock(1);
         }
@@ -762,12 +771,20 @@ public class UserInventory extends Inventory {
         BoughtComponent myWood = null;
         List<BoughtComponent> components = getBoughtComponents();
         List<BoughtComponent> plies = new ArrayList<>();
+        int index = 150;
         
         for (int i = components.size(); i-- > 0; ) {
             if (components.get(i).getComponent() instanceof PlyWood && ((PlyWood) components.get(i).getComponent()).getThickness() == thickness && ((PlyWood) components.get(i).getComponent()).getLength() >= height && ((PlyWood) components.get(i).getComponent()).getWidth() >= width) {
-                return components.get(i);
+                myWood = new BoughtComponent(components.get(i).getName(), 1, components.get(i).getComponent());
+                if (components.get(i).getNumber() == 1) {
+                    index = components.indexOf(components.get(i));
+                } else {
+                    components.get(i).manageStock(1);
+                }
             }
         }
+    
+        components.remove(components.get(index));
         
         if (myWood == null) {
             throw new NoComponentException("No stock of such wood. Buy some.");
@@ -776,27 +793,54 @@ public class UserInventory extends Inventory {
         return myWood;
     }
     
-    private List<BoughtComponent> setCommodeDoor(DesignPattern chosenDesign, List<BoughtComponent> partComponents) {
+    private List<BoughtComponent> setDoorPanel(DesignPattern chosenDesign, List<BoughtComponent> partComponents) {
         String name = "";
         int height = 0;
         int width = 0;
         
         if (chosenDesign.getSeating() == IsInset.INSET && chosenDesign.getFramed().equals(IsFramed.FL)) {
-            name = "doorCIFL";
-            height = Sizes.C.getHeight() - 36;
-            width = Sizes.C.getSectionWidth();
+            if (chosenDesign.getMyType().equals(CabinetType.C)) {
+                name = "doorCIFL";
+                height = Sizes.C.getHeight() - 36;
+                width = Sizes.C.getSectionWidth();
+            } else if (chosenDesign.getMyType().equals(CabinetType.W)) {
+                name = "doorWIFL";
+                height = Sizes.W.getHeight() - 36;
+                width = Sizes.W.getSectionWidth();
+            }
         } else if (chosenDesign.getSeating() == IsInset.INSET && chosenDesign.getFramed().equals(IsFramed.FF)) {
-            name = "doorCIFF";
-            height = Sizes.C.getHeight() - 80;
-            width = Sizes.C.getSectionWidth() - 22;
+            if (chosenDesign.getMyType().equals(CabinetType.C)) {
+                name = "doorCIFF";
+                height = Sizes.C.getHeight() - 80;
+                width = Sizes.C.getSectionWidth() - 22;
+            } else if (chosenDesign.getMyType().equals(CabinetType.W)) {
+                name = "doorWIFF";
+                height = Sizes.W.getHeight() - 80;
+                width = Sizes.W.getSectionWidth() - 22;
+            }
+            
         } else if (chosenDesign.getSeating() == IsInset.OVERLAY && chosenDesign.getFramed().equals(IsFramed.FL)) {
-            name = "doorCOFL";
-            height = Sizes.C.getHeight() - 24;
-            width = Sizes.C.getSectionWidth() + 12;
+            if (chosenDesign.getMyType().equals(CabinetType.C)) {
+                name = "doorCOFL";
+                height = Sizes.C.getHeight() - 24;
+                width = Sizes.C.getSectionWidth() + 12;
+            } else if (chosenDesign.getMyType().equals(CabinetType.W)) {
+                name = "doorWOFL";
+                height = Sizes.W.getHeight() - 24;
+                width = Sizes.W.getSectionWidth() + 12;
+            }
+            
         } else if (chosenDesign.getSeating() == IsInset.OVERLAY && chosenDesign.getFramed().equals(IsFramed.FF)) {
-            name = "doorCOFF";
-            height = Sizes.C.getHeight() - 68;
-            width = Sizes.C.getSectionWidth() - 10;
+            if (chosenDesign.getMyType().equals(CabinetType.C)) {
+                name = "doorCOFF";
+                height = Sizes.C.getHeight() - 68;
+                width = Sizes.C.getSectionWidth() - 10;
+            } else if (chosenDesign.getMyType().equals(CabinetType.W)) {
+                name = "doorWOFF";
+                height = Sizes.W.getHeight() - 68;
+                width = Sizes.W.getSectionWidth() - 10;
+            }
+            
         }
         
         return prepareSides(1, height, width, name, chosenDesign, partComponents);
